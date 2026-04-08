@@ -1,19 +1,17 @@
 // ============================================
-// GLOBAL STYLES - Base, Reset, Typography
+// GLOBALS - Base Styles (Bootstrap-compatible)
 // ============================================
 
-@import './variables';
-@import 'bootstrap/scss/functions';
-@import 'bootstrap/scss/variables';
-@import 'bootstrap/scss/mixins';
-@import 'bootstrap/scss/root';
-@import 'bootstrap/scss/reboot';
+@import './variables.scss';
 
 // === BASE STYLES ===
 
-html, body {
+html {
+  font-size: 14px;
+}
+
+body {
   font-family: $font-primary;
-  font-size: $font-size-base;
   color: $dark-text;
   background-color: $white-bg;
   line-height: $line-height-normal;
@@ -80,25 +78,12 @@ img {
   display: block;
 }
 
-// === BUTTONS ===
-
-button, input[type="submit"], input[type="button"] {
-  cursor: pointer;
-  border: none;
-  font-family: $font-primary;
-  transition: all $transition-speed-base $ease-out;
-
-  &:active {
-    outline: none;
-  }
-}
-
 // === FORMS ===
 
 input, textarea, select {
   font-family: $font-primary;
   font-size: $font-size-base;
-  border: $border-width solid $border-color;
+  border: 1px solid $border-color;
   border-radius: $border-radius;
   padding: $spacing-md;
   transition: border-color $transition-speed-base $ease-out;
@@ -118,20 +103,6 @@ input, textarea, select {
   margin-right: auto;
   padding-left: $container-padding;
   padding-right: $container-padding;
-
-  @media (max-width: $md) {
-    max-width: 100%;
-  }
-}
-
-// === SECTIONS ===
-
-section {
-  padding: $spacing-xxl 0;
-
-  @media (max-width: $md) {
-    padding: $spacing-xl 0;
-  }
 }
 
 // === UTILITY CLASSES ===
@@ -171,13 +142,6 @@ section {
 .d-none { display: none; }
 .d-block { display: block; }
 .d-flex { display: flex; }
-.d-inline { display: inline; }
-.d-inline-block { display: inline-block; }
-
-// === VISIBILITY ===
-
-.hidden { display: none !important; }
-.visible { display: block !important; }
 
 // === SCROLLBAR ===
 
@@ -204,11 +168,4 @@ section {
 ::selection {
   background-color: $primary-color;
   color: $white-text;
-}
-
-// === FOCUS VISIBLE ===
-
-:focus-visible {
-  outline: 2px solid $primary-color;
-  outline-offset: 2px;
 }
