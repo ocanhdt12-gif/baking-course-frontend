@@ -1,0 +1,214 @@
+// ============================================
+// GLOBAL STYLES - Base, Reset, Typography
+// ============================================
+
+@import './variables';
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/root';
+@import 'bootstrap/scss/reboot';
+
+// === BASE STYLES ===
+
+html, body {
+  font-family: $font-primary;
+  font-size: $font-size-base;
+  color: $dark-text;
+  background-color: $white-bg;
+  line-height: $line-height-normal;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+// === TYPOGRAPHY ===
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-secondary;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  margin-bottom: $spacing-md;
+  color: $dark-text;
+}
+
+h1 { font-size: $font-size-h1; }
+h2 { font-size: $font-size-h2; }
+h3 { font-size: $font-size-h3; }
+h4 { font-size: $font-size-h4; }
+h5 { font-size: $font-size-h5; }
+h6 { font-size: $font-size-h6; }
+
+p {
+  margin-bottom: $spacing-md;
+  font-size: $font-size-base;
+  line-height: $line-height-normal;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+  transition: color $transition-speed-base $ease-out;
+
+  &:hover {
+    color: $secondary-color;
+    text-decoration: underline;
+  }
+}
+
+// === LISTS ===
+
+ul, ol {
+  margin-bottom: $spacing-md;
+  padding-left: $spacing-lg;
+
+  li {
+    margin-bottom: $spacing-sm;
+  }
+}
+
+// === IMAGES ===
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+// === BUTTONS ===
+
+button, input[type="submit"], input[type="button"] {
+  cursor: pointer;
+  border: none;
+  font-family: $font-primary;
+  transition: all $transition-speed-base $ease-out;
+
+  &:active {
+    outline: none;
+  }
+}
+
+// === FORMS ===
+
+input, textarea, select {
+  font-family: $font-primary;
+  font-size: $font-size-base;
+  border: $border-width solid $border-color;
+  border-radius: $border-radius;
+  padding: $spacing-md;
+  transition: border-color $transition-speed-base $ease-out;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+  }
+}
+
+// === CONTAINERS ===
+
+.container {
+  max-width: $container-width;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $container-padding;
+  padding-right: $container-padding;
+
+  @media (max-width: $md) {
+    max-width: 100%;
+  }
+}
+
+// === SECTIONS ===
+
+section {
+  padding: $spacing-xxl 0;
+
+  @media (max-width: $md) {
+    padding: $spacing-xl 0;
+  }
+}
+
+// === UTILITY CLASSES ===
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-left { text-align: left; }
+
+.text-muted { color: $light-text; }
+.text-primary { color: $primary-color; }
+.text-success { color: $success; }
+.text-danger { color: $danger; }
+.text-warning { color: $warning; }
+
+.mt-0 { margin-top: 0 !important; }
+.mt-1 { margin-top: $spacing-sm !important; }
+.mt-2 { margin-top: $spacing-md !important; }
+.mt-3 { margin-top: $spacing-lg !important; }
+.mt-4 { margin-top: $spacing-xl !important; }
+
+.mb-0 { margin-bottom: 0 !important; }
+.mb-1 { margin-bottom: $spacing-sm !important; }
+.mb-2 { margin-bottom: $spacing-md !important; }
+.mb-3 { margin-bottom: $spacing-lg !important; }
+.mb-4 { margin-bottom: $spacing-xl !important; }
+
+.pt-1 { padding-top: $spacing-sm !important; }
+.pt-2 { padding-top: $spacing-md !important; }
+.pt-3 { padding-top: $spacing-lg !important; }
+
+.pb-1 { padding-bottom: $spacing-sm !important; }
+.pb-2 { padding-bottom: $spacing-md !important; }
+.pb-3 { padding-bottom: $spacing-lg !important; }
+
+// === DISPLAY ===
+
+.d-none { display: none; }
+.d-block { display: block; }
+.d-flex { display: flex; }
+.d-inline { display: inline; }
+.d-inline-block { display: inline-block; }
+
+// === VISIBILITY ===
+
+.hidden { display: none !important; }
+.visible { display: block !important; }
+
+// === SCROLLBAR ===
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $light-grey-bg;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $primary-color;
+  border-radius: $border-radius;
+
+  &:hover {
+    background: $secondary-color;
+  }
+}
+
+// === SELECTION ===
+
+::selection {
+  background-color: $primary-color;
+  color: $white-text;
+}
+
+// === FOCUS VISIBLE ===
+
+:focus-visible {
+  outline: 2px solid $primary-color;
+  outline-offset: 2px;
+}

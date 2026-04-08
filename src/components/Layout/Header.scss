@@ -1,0 +1,63 @@
+@import '../../styles/variables';
+
+.page_header {
+  background-color: $dark-grey-bg;
+  color: $white-text;
+  padding: $spacing-md 0;
+  position: relative;
+  z-index: $z-fixed;
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    text-decoration: none;
+
+    img {
+      max-height: 50px;
+    }
+
+    .logo-text {
+      font-size: 24px;
+      font-weight: bold;
+
+      .logo-dot {
+        color: $primary-color;
+      }
+    }
+  }
+
+  .header-icons {
+    display: flex;
+    gap: $spacing-lg;
+    align-items: center;
+
+    a, button {
+      color: $white-text;
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      transition: color $transition-speed-base;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+
+    .cart-count {
+      position: absolute;
+      background: $primary-color;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      top: 10px;
+      right: 10px;
+    }
+  }
+}

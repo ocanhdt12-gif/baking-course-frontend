@@ -1,0 +1,118 @@
+// ============================================
+// VARIABLES - Color, Spacing, Typography
+// ============================================
+
+// === COLORS ===
+
+// Primary Colors
+$primary-color: #ff6b35;        // Main template color (orange)
+$secondary-color: #f7931e;      // Secondary (lighter orange)
+$accent-color: #ffa726;         // Accent variations
+
+// Background Colors
+$white-bg: #ffffff;
+$light-grey-bg: #f5f5f5;        // Light muted section
+$grey-bg: #eeeeee;
+$dark-grey-bg: #3a3f45;         // Dark section
+$very-dark-bg: #20252b;         // Dark muted section
+
+// Text Colors
+$dark-text: #20252b;
+$grey-text: #666666;
+$light-text: #999999;
+$white-text: #ffffff;
+
+// Semantic Colors
+$success: #28a745;
+$warning: #ffc107;
+$danger: #dc3545;
+$info: #17a2b8;
+
+// === SPACING ===
+$spacing-unit: 8px;
+
+$spacing-xs: $spacing-unit * 0.5;    // 4px
+$spacing-sm: $spacing-unit * 1;      // 8px
+$spacing-md: $spacing-unit * 2;      // 16px
+$spacing-lg: $spacing-unit * 3;      // 24px
+$spacing-xl: $spacing-unit * 4;      // 32px
+$spacing-xxl: $spacing-unit * 5;     // 40px
+$spacing-huge: $spacing-unit * 6;    // 48px
+
+// === BORDER & RADIUS ===
+$border-radius: 4px;
+$border-radius-lg: 8px;
+$border-radius-xl: 12px;
+$border-width: 1px;
+$border-color: #e0e0e0;
+
+// === TYPOGRAPHY ===
+
+// Font Families
+$font-primary: 'Open Sans', sans-serif;
+$font-secondary: 'Merriweather', serif;
+$font-mono: 'Courier New', monospace;
+
+// Font Sizes
+$font-size-base: 14px;
+$font-size-sm: 12px;
+$font-size-lg: 16px;
+$font-size-xl: 18px;
+$font-size-xxl: 24px;
+$font-size-h1: 48px;
+$font-size-h2: 36px;
+$font-size-h3: 28px;
+$font-size-h4: 22px;
+$font-size-h5: 18px;
+$font-size-h6: 16px;
+
+// Font Weights
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// Line Heights
+$line-height-tight: 1.2;
+$line-height-normal: 1.5;
+$line-height-relaxed: 1.75;
+$line-height-loose: 2;
+
+// === TRANSITIONS & ANIMATIONS ===
+$transition-speed-fast: 0.15s;
+$transition-speed-base: 0.3s;
+$transition-speed-slow: 0.5s;
+
+$ease-linear: linear;
+$ease-in: ease-in;
+$ease-out: ease-out;
+$ease-in-out: ease-in-out;
+$ease-custom: cubic-bezier(0.4, 0, 0.2, 1);
+
+// === SHADOWS ===
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+$shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
+$shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.25);
+
+// === BREAKPOINTS ===
+$xs: 0;
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+$xxl: 1400px;
+
+// === CONTAINER ===
+$container-width: 1200px;
+$container-padding: 15px;
+
+// === Z-INDEX ===
+$z-dropdown: 1000;
+$z-sticky: 1020;
+$z-fixed: 1030;
+$z-modal-backdrop: 1040;
+$z-modal: 1050;
+$z-popover: 1060;
+$z-tooltip: 1070;

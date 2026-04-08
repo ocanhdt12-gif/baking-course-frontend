@@ -1,0 +1,61 @@
+@import '../../styles/variables';
+
+.top-nav {
+  .sf-menu {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: $spacing-xl;
+    margin: 0;
+
+    li {
+      position: relative;
+
+      a {
+        color: $white-text;
+        text-decoration: none;
+        transition: color $transition-speed-base;
+        display: block;
+        padding: $spacing-sm 0;
+
+        &:hover {
+          color: $primary-color;
+        }
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: $dark-grey-bg;
+        min-width: 200px;
+        opacity: 0;
+        visibility: hidden;
+        transition: all $transition-speed-base;
+        margin-top: $spacing-sm;
+        border-radius: $border-radius;
+        overflow: hidden;
+
+        li {
+          margin: 0;
+
+          a {
+            padding: $spacing-md $spacing-lg;
+            display: block;
+
+            &:hover {
+              background: rgba($primary-color, 0.1);
+            }
+          }
+        }
+      }
+
+      &:hover > ul {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+}

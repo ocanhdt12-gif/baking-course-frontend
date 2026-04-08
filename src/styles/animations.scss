@@ -1,0 +1,140 @@
+// ============================================
+// ANIMATIONS - From original animations.css
+// ============================================
+
+@import './variables';
+
+// Fade animations
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-40px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translate3d(40px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -40px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+// Slide animations
+@keyframes slideInUp {
+  from {
+    transform: translate3d(0, 100%, 0);
+    visibility: visible;
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translate3d(-100%, 0, 0);
+    visibility: visible;
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translate3d(100%, 0, 0);
+    visibility: visible;
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+// Bounce animations
+@keyframes bounce {
+  from, to {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -20px, 0);
+  }
+}
+
+@keyframes pulse {
+  from { opacity: 1; }
+  50% { opacity: 0.5; }
+  to { opacity: 1; }
+}
+
+// Utility animation classes
+.animate {
+  animation-fill-mode: both;
+  animation-duration: 0.75s;
+
+  &.fadeIn { animation-name: fadeIn; }
+  &.fadeInUp { animation-name: fadeInUp; }
+  &.fadeInLeft { animation-name: fadeInLeft; }
+  &.fadeInRight { animation-name: fadeInRight; }
+  &.fadeInDown { animation-name: fadeInDown; }
+  &.slideInUp { animation-name: slideInUp; }
+  &.slideInLeft { animation-name: slideInLeft; }
+  &.slideInRight { animation-name: slideInRight; }
+  &.bounce { animation-name: bounce; }
+  &.pulse { animation-name: pulse; }
+
+  // Delay variants
+  &.delay-1 { animation-delay: 0.1s; }
+  &.delay-2 { animation-delay: 0.2s; }
+  &.delay-3 { animation-delay: 0.3s; }
+  &.delay-4 { animation-delay: 0.4s; }
+  &.delay-5 { animation-delay: 0.5s; }
+}
+
+// Floating animation
+@keyframes floating {
+  from, to {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(0, 10px);
+  }
+}
+
+.floating {
+  animation: floating 2s ease-in-out infinite;
+}
