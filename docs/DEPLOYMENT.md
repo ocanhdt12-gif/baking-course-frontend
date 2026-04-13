@@ -1,68 +1,156 @@
-# Deployment Guide
+# Deployment Guide (VPS / Bare Metal)
 
-This guide covers deploying the Muka Baking CMS application to production environments. Due to its decoupled architecture, the frontend and backend must be deployed as separate services.
+This guide covers how to deploy the Muka Baking CMS exactly as it is architected right now. 
 
-## Architecture Topology
-1. **Frontend**: Static Site Hosting (Vercel, Netlify, or AWS S3)
-2. **Backend**: Node.js Runtime Server (Render, Railway, or AWS EC2)
-3. **Database**: Managed PostgreSQL (Supabase, Neon, or AWS RDS)
-4. **Storage**: Cloud Object Storage (AWS S3 or Cloudinary for uploads)
+Because the backend relies on **local disk storage (`/uploads/`)** for Multer image uploads, you **cannot** use ephemeral serverless providers like Vercel or Render for the backend. The easiest and most reliable way to deploy this specific architecture is on a **Single VPS (Virtual Private Server)** like DigitalOcean, Linode, or an AWS EC2 instance running Ubuntu.
 
----
-
-## 1. Database Deployment (Supabase / Neon)
-
-Before deploying the backend, you must have a live PostgreSQL database.
-
-1. Create a project on [Supabase](https://supabase.com/) or [Neon](https://neon.tech/).
-2. Obtain the Connection String/URI (e.g., `postgresql://...`).
-3. Take note of this URL; it will be your `DATABASE_URL` environment variable.
+## Architecture on Server
+- **Database**: PostgreSQL installed directly on the VPS.
+- **Backend**: Node.js managed by `pm2` (Process Manager) running on port `5000`.
+- **Frontend**: Built into static files (`dist`) and served by NGINX.
+- **Reverse Proxy**: NGINX listening on port `80`/`443`, routing `/api` and `/uploads` to the Backend, and everything else to the Frontend `dist` folder.
 
 ---
 
-## 2. Backend Deployment (Render / Railway)
+## 1. Server Setup Requirements
 
-We recommend Render Web Services for Node.js.
+SSH into your fresh Ubuntu server and install the core dependencies:
+```bash
+# Update packages
+sudo apt update && sudo apt upgrade -y
 
-### Prerequisites
-Update the file upload logic. Currently, files are saved locally to `backend/uploads`. For production, you **MUST** integrate cloud storage (like Cloudinary or AWS S3) in `uploadRoutes.js`. Local ephemeral disks will delete images on every deploy.
+# Install Node.js (v18+)
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt-get install -y nodejs
 
-### Environment Variables
-Set the following on your hosting dashboard:
-- `PORT=5000`
-- `DATABASE_URL="your-production-postgres-url"`
-- `JWT_SECRET="a-very-long-secure-random-string"`
+# Install NGINX
+sudo apt install -y nginx
 
-### Build & Run Commands
-- **Build Command:** `npm install && npx prisma db push`
-- **Start Command:** `npm start` (Make sure `package.json` has `"start": "node src/index.js"`)
+# Install PostgreSQL
+sudo apt install -y postgresql postgresql-contrib
 
----
-
-## 3. Frontend Deployment (Vercel)
-
-Vercel provides the fastest workflow for Vite/React applications.
-
-### Setup
-1. Log in to Vercel and Import your Git Repository.
-2. Ensure the Framework Preset is set to **Vite**.
-
-### Environment Variables
-You must point the frontend to your live backend.
-- `VITE_API_BASE_URL="https://your-backend-url.onrender.com/api"`
-
-### Build Commands
-- **Build Command:** `npm run build`
-- **Output Directory:** `dist`
-
-### Handling SPA Routing
-Vercel automatically handles client-side routing for Vite when configured via `vercel.json`, or if you use the Vercel dashboard preset. Make sure 404s fallback to `index.html`.
+# Install PM2 globally
+sudo npm install -g pm2
+```
 
 ---
 
-## 4. Post-Deployment Checklist
-- [ ] Log in using default admin credentials.
-- [ ] Attempt to upload an image (Verify Cloud Storage integration).
-- [ ] Submit the Contact Form from the public view and check the Admin CMS Inbox.
-- [ ] Submit a test enrollment for a course.
-- [ ] Change the default Admin password immediately!
+## 2. Database Preparation
+
+Create the database and user in PostgreSQL on your server:
+```bash
+sudo -u postgres psql
+```
+Inside the `psql` console:
+```sql
+CREATE DATABASE muka_baking_db;
+CREATE USER muka_admin WITH ENCRYPTED PASSWORD 'your_secure_password';
+GRANT ALL PRIVILEGES ON DATABASE muka_baking_db TO muka_admin;
+ALTER DATABASE muka_baking_db OWNER TO muka_admin;
+\q
+```
+
+---
+
+## 3. Clone and Setup Project
+
+Clone your repository to `/var/www/muka_baking`:
+```bash
+cd /var/www
+git clone <your-repo-url> muka_baking
+cd muka_baking
+```
+
+### 3.1 Backend Setup
+```bash
+cd /var/www/muka_baking/backend
+npm install
+
+# Create environment file
+cat > .env << EOF
+DATABASE_URL="postgresql://muka_admin:your_secure_password@localhost:5432/muka_baking_db?schema=public"
+PORT=5000
+JWT_SECRET="Production-Super-Secret-Key-Change-Me"
+EOF
+
+# Sync Schema and Seed Data
+npx prisma db push
+node src/seed.js
+
+# Start backend via PM2
+pm2 start src/index.js --name "muka-backend"
+pm2 save
+pm2 startup
+```
+
+### 3.2 Frontend Build
+```bash
+cd /var/www/muka_baking/frontend
+npm install
+
+# Create environment file pointing to the public domain's API
+echo "VITE_API_BASE_URL=/api" > .env.production
+
+# Build the SPA (Outputs to /dist)
+npm run build
+```
+*(By pointing `VITE_API_BASE_URL` to `/api`, we rely on NGINX to proxy the request below).*
+
+---
+
+## 4. NGINX Configuration (The Glue)
+
+We will use NGINX to serve the React app and act as a reverse proxy for the Express backend.
+
+Edit the NGINX configuration:
+```bash
+sudo nano /etc/nginx/sites-available/muka_baking
+```
+
+Add the following block (replace `yourdomain.com` with your Server IP or Domain):
+```nginx
+server {
+    listen 80;
+    server_name yourdomain.com;
+
+    # 1. Serve frontend React application
+    root /var/www/muka_baking/frontend/dist;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # 2. Proxy API requests to Node.js backend
+    location /api/ {
+        proxy_pass http://localhost:5000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    # 3. Serve uploaded images directly or proxy to node.js
+    location /uploads/ {
+        proxy_pass http://localhost:5000/uploads/;
+    }
+}
+```
+
+Enable the configuration and restart NGINX:
+```bash
+sudo ln -s /etc/nginx/sites-available/muka_baking /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
+```
+
+---
+
+## 5. Persistent File Uploads Note
+
+Once running:
+Any images you upload via the Admin CMS will be safely saved to `/var/www/muka_baking/backend/uploads/`. Because this is a permanent VPS server, your files will **NOT** be deleted when the Node.js server restarts (which is the problem with serverless tools like Vercel).
+
+**Backup Strategy:**
+Make sure you periodically back up the PostgreSQL database and the `/backend/uploads/` directory to prevent data loss.
