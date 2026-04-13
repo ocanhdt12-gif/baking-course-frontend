@@ -1,0 +1,21 @@
+const express = require('express');
+const router = express.Router();
+const authController = require('../controllers/authController');
+const authMiddleware = require('../middleware/authMiddleware');
+
+// @route   POST api/auth/login
+// @desc    Xác thực (Authenticate) admin user & Lấy token
+// @access  Public
+router.post('/login', authController.login);
+
+// @route   POST api/auth/register
+// @desc    Đăng ký user mới
+// @access  Public
+router.post('/register', authController.register);
+
+// @route   GET api/auth/me
+// @desc    Lấy thông tin User hiện tại và khóa học
+// @access  Private
+router.get('/me', authMiddleware, authController.getMe);
+
+module.exports = router;

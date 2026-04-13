@@ -1,0 +1,61 @@
+import { Link, useLocation } from 'react-router-dom';
+import { siteConfig } from '../../config/siteConfig';
+import { ROUTES } from '../../constants/routes';
+
+const Header = () => {
+  const location = useLocation();
+  const isHome = location.pathname === '/';
+
+  return (
+    <div className={isHome ? 'header_absolute' : ''} key={isHome ? 'home-header' : 'inner-header'}>
+      <header className={`page_header justify-nav-center ${isHome ? 's-bordertop nav-narrow ds header-main' : 'ls'}`}>
+        <div className="container-fluid">
+          <div className="row align-items-center">
+            <div className="col-xl-2 col-lg-3 col-11">
+              <Link to={ROUTES.HOME} className="logo">
+                <img src="/images/logo.png" alt="Logo" />
+                <span className="logo-text color-darkgrey">
+                  {siteConfig.logoText}<strong className="color-main logo-dot">{siteConfig.logoDot}</strong>
+                </span>
+              </Link>
+            </div>
+            <div className="col-xl-8 col-lg-5 col-1 text-sm-center">
+              <nav className="top-nav">
+                <ul className="nav sf-menu">
+                  <li className={isHome ? "active" : ""}>
+                    <Link to={ROUTES.HOME}>Homepage</Link>
+                  </li>
+                  <li className={location.pathname === "/about" ? "active" : ""}>
+                    <Link to={ROUTES.ABOUT}>About Us</Link>
+                  </li>
+                  <li className={location.pathname.startsWith("/program") ? "active" : ""}>
+                    <Link to={ROUTES.PROGRAM}>Programs</Link>
+                  </li>
+                  <li className={location.pathname === "/chiefs" ? "active" : ""}>
+                    <Link to={ROUTES.CHIEFS}>Instructors</Link>
+                  </li>
+                  <li className={location.pathname === "/receipt" || location.pathname.startsWith("/post") ? "active" : ""}>
+                    <Link to={ROUTES.RECEIPT}>Recipes</Link>
+                  </li>
+                  <li className={location.pathname === "/contact" ? "active" : ""}>
+                    <Link to={ROUTES.CONTACT}>Contacts</Link>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div className="col-xl-2 col-lg-3 text-left text-xl-right d-none d-lg-block">
+              <span>
+                <Link to={ROUTES.AUTH} className="btn btn-maincolor2">{siteConfig.header.ctaButtonText}</Link>
+              </span>
+            </div>
+          </div>
+        </div>
+        <span className="toggle_menu">
+          <span></span>
+        </span>
+      </header>
+    </div>
+  );
+};
+
+export default Header;

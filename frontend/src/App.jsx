@@ -1,0 +1,98 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import PublicLayout from './layouts/PublicLayout';
+import Home from './pages/Home';
+import About from './pages/About';
+import Program from './pages/Program';
+import Receipt from './pages/Receipt';
+import Contact from './pages/Contact';
+import Chiefs from './pages/Chiefs';
+
+import Auth from './pages/Auth';
+import UserDashboard from './pages/UserDashboard';
+import AdminDashboard from './pages/AdminDashboard';
+import AdminPostEditor from './pages/AdminPostEditor';
+import AdminProgramEditor from './pages/AdminProgramEditor';
+import ProtectedRoute from './components/Auth/ProtectedRoute';
+import ChiefDetail from './pages/ChiefDetail';
+import ProgramDetail from './pages/ProgramDetail';
+import PostDetail from './pages/PostDetail';
+import NotFound from './pages/NotFound';
+import { ROUTES } from './constants/routes';
+import ScrollToTop from './components/Shared/ScrollToTop';
+
+function App() {
+  return (
+    <>
+    <Router>
+      <ScrollToTop />
+      <Routes>
+        {/* ALL ROUTES UNDER PUBLIC LAYOUT FOR UNIFIED THEME CSS */}
+        <Route element={<PublicLayout />}>
+          <Route path={ROUTES.HOME} element={<Home />} />
+          <Route path={ROUTES.ABOUT} element={<About />} />
+          <Route path={ROUTES.PROGRAM} element={<Program />} />
+          <Route path={ROUTES.RECEIPT} element={<Receipt />} />
+          <Route path={ROUTES.CONTACT} element={<Contact />} />
+          <Route path={ROUTES.AUTH} element={<Auth />} />
+          <Route path={ROUTES.CHIEFS} element={<Chiefs />} />
+          
+          {/* Detail Pages */}
+          <Route path={ROUTES.CHIEF_DETAIL_PATTERN} element={<ChiefDetail />} />
+          <Route path={ROUTES.PROGRAM_DETAIL_PATTERN} element={<ProgramDetail />} />
+          <Route path={ROUTES.POST_DETAIL_PATTERN} element={<PostDetail />} />
+
+          {/* Protected Routes */}
+          <Route path={ROUTES.MY_ACCOUNT} element={
+            <ProtectedRoute>
+              <UserDashboard />
+            </ProtectedRoute>
+          } />
+
+          {/* 404 Catch-All within PublicLayout */}
+          <Route path="*" element={<NotFound />} />
+        </Route>
+
+        {/* ADMIN LAYOUT (No Header/Footer from Muka) */}
+        <Route path={ROUTES.ADMIN} element={
+          <ProtectedRoute requireAdmin={true}>
+            <AdminDashboard />
+          </ProtectedRoute>
+        } />
+        <Route path={ROUTES.ADMIN_POST_NEW} element={
+          <ProtectedRoute requireAdmin={true}>
+            <AdminPostEditor />
+          </ProtectedRoute>
+        } />
+        <Route path={ROUTES.ADMIN_POST_EDIT_PATTERN} element={
+          <ProtectedRoute requireAdmin={true}>
+            <AdminPostEditor />
+          </ProtectedRoute>
+        } />
+        <Route path={ROUTES.ADMIN_PROGRAM_NEW} element={
+          <ProtectedRoute requireAdmin={true}>
+            <AdminProgramEditor />
+          </ProtectedRoute>
+        } />
+        <Route path={ROUTES.ADMIN_PROGRAM_EDIT_PATTERN} element={
+          <ProtectedRoute requireAdmin={true}>
+            <AdminProgramEditor />
+          </ProtectedRoute>
+        } />
+      </Routes>
+    </Router>
+    <ToastContainer 
+      position="top-right"
+      autoClose={3000}
+      hideProgressBar={false}
+      newestOnTop
+      closeOnClick
+      pauseOnHover
+      theme="colored"
+    />
+    </>
+  );
+}
+
+export default App;

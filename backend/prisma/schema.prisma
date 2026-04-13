@@ -1,0 +1,148 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  EDITOR
+  USER
+}
+
+enum PostType {
+  BLOG
+  RECIPE
+}
+
+enum EnrollmentStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  fullName  String
+  role        Role         @default(USER)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  posts       Post[]
+  enrollments Enrollment[]
+}
+
+model Program {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  title       String
+  description String?
+  price       String?
+  reviews     Int      @default(0)
+  students    Int      @default(0)
+  thumbnail     String?
+  authorName    String?
+  authorImage   String?
+  learningGoals Json?
+  classIncludes Json?
+  curriculum    Json?
+  isFeatured    Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  chiefId       String?
+  chief         Chief?   @relation(fields: [chiefId], references: [id])
+  classSessions ClassSession[]
+}
+
+model ClassSession {
+  id                 String   @id @default(uuid())
+  programId          String
+  program            Program  @relation(fields: [programId], references: [id])
+  startDate          DateTime?
+  endDate            DateTime?
+  enrollmentDeadline DateTime?
+  dayOfWeek          String?
+  timeRange          String?
+  instructorOverride String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  enrollments        Enrollment[]
+}
+
+model Post {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  title       String
+  content     String
+  desc        String?
+  category    String?
+  type        PostType @default(BLOG)
+  thumbnail   String?
+  authorId    String?
+  authorName  String?
+  dateIso     DateTime @default(now())
+  dateString  String?
+  author      User?    @relation(fields: [authorId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Chief {
+  id         String   @id @default(uuid())
+  name       String
+  role       String
+  image      String?
+  bio        String?
+  biography  String?
+  highlights String?
+  skills     String?
+  socialFb   String?
+  socialTw   String?
+  socialIn   String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  
+  programs   Program[]
+}
+
+model Testimonial {
+  id        String   @id @default(uuid())
+  excerpt   String
+  text      String
+  name      String
+  role      String
+  signature String?
+  createdAt DateTime @default(now())
+}
+
+model Enrollment {
+  id             String           @id @default(uuid())
+  classSessionId String
+  userId         String?
+  fullName       String
+  email          String
+  phone          String?
+  status         EnrollmentStatus @default(PENDING)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  
+  classSession   ClassSession     @relation(fields: [classSessionId], references: [id])
+  user      User?            @relation(fields: [userId], references: [id])
+}
+
+model Contact {
+  id        String   @id @default(uuid())
+  fullName  String
+  email     String
+  subject   String?
+  message   String
+  createdAt DateTime @default(now())
+}
+
+

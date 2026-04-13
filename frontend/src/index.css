@@ -1,0 +1,4 @@
+/* 
+  Removed Vite's default CSS overrides (h1, h2, #root styles) 
+  to prevent conflicts with the Muka template's main.css 
+*/

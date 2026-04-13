@@ -1,0 +1,2332 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+	<title>Muka - Bakery and Cooking Classes HTML template</title>
+	<meta charset="utf-8">
+	<!--[if IE]>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<![endif]-->
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/animations.css">
+	<link rel="stylesheet" href="css/font-awesome.css">
+	<link rel="stylesheet" href="css/main.css" class="color-switcher-link">
+	<script src="js/vendor/modernizr-2.6.2.min.js"></script>
+
+	<!--[if lt IE 9]>
+		<script src="js/vendor/html5shiv.min.js"></script>
+		<script src="js/vendor/respond.min.js"></script>
+		<script src="js/vendor/jquery-1.12.4.min.js"></script>1px solid #20252b
+	<![endif]-->
+
+</head>
+
+<body>
+	<!--[if lt IE 9]>
+		<div class="bg-danger text-center">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/" class="color-main">upgrade your browser</a> to improve your experience.</div>
+	<![endif]-->
+
+	<div class="preloader">
+		<h1>Cooking in progress...</h1>
+		<div id="cooking">
+			<div class="bubble"></div>
+			<div class="bubble"></div>
+			<div class="bubble"></div>
+			<div class="bubble"></div>
+			<div class="bubble"></div>
+			<div id="area">
+				<div id="sides">
+					<div id="pan"></div>
+					<div id="handle"></div>
+				</div>
+				<div id="pancake">
+					<div id="pastry"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- search modal -->
+	<div class="modal" tabindex="-1" role="dialog" aria-labelledby="search_modal" id="search_modal">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<div class="widget widget_search">
+			<form method="get" class="searchform search-form" action="/">
+				<div class="form-group">
+					<input type="text" value="" name="search" class="form-control" placeholder="Search keyword" id="modal-search-input">
+				</div>
+				<button type="submit" class="btn">Search</button>
+			</form>
+		</div>
+	</div>
+
+	<!-- Unyson messages modal -->
+	<div class="modal fade" tabindex="-1" role="dialog" id="messages_modal">
+		<div class="fw-messages-wrap ls p-normal">
+			<!-- Uncomment this UL with LI to show messages in modal popup to your user: -->
+			<!--
+		<ul class="list-unstyled">
+			<li>Message To User</li>
+		</ul>
+		-->
+
+		</div>
+	</div>
+	<!-- eof .modal -->
+
+	<!-- wrappers for visual page editor and boxed version of template -->
+	<div id="canvas">
+		<div id="box_wrapper">
+
+			<!-- template sections -->
+
+
+			<div class="header_absolute">
+				<!-- header with three Bootstrap columns - left for logo, center for navigation and right for includes-->
+				<header class="page_header s-bordertop nav-narrow ds justify-nav-center header-main">
+					<div class="container-fluid">
+						<div class="row align-items-center">
+							<div class="col-xl-2 col-lg-3 col-11">
+								<a href="./" class="logo">
+									<img src="images/logo.png" alt="">
+									<span class="logo-text color-darkgrey">Muka
+										<strong class="color-main logo-dot">.</strong>
+									</span>
+								</a>
+							</div>
+							<div class="col-xl-8 col-lg-5 col-1 text-sm-center">
+								<!-- main nav start -->
+								<nav class="top-nav">
+									<ul class="nav sf-menu">
+										<li>
+											<a href="#box_wrapper">Homepage</a>
+											<ul>
+												<li>
+													<a href="index.html">MultiPage</a>
+												</li>
+												<li>
+													<a href="index_static.html">Static Intro</a>
+												</li>
+												<li>
+													<a href="index_singlepage.html">Single Page</a>
+												</li>
+											</ul>
+										</li>
+
+										<li>
+											<a href="#classes">Classes</a>
+										</li>
+
+										<li>
+											<a href="#about">About</a>
+										</li>
+
+										<li>
+											<a href="#testimonials">Testimonials</a>
+										</li>
+
+										<li>
+											<a href="#timetables">Timetables</a>
+										</li>
+										<li>
+											<a href="#faq">Faq</a>
+										</li>
+										<li>
+											<a href="#chiefs">Chiefs</a>
+										</li>
+										<li>
+											<a href="#contacts">Contacts</a>
+										</li>
+										<li>
+											<a href="#blog">Blog</a>
+										</li>
+									</ul>
+								</nav>
+								<!-- eof main nav -->
+							</div>
+							<div class="col-xl-2 col-lg-3 text-left text-xl-right d-none d-lg-block">
+								<span>
+									<a href="#" class="btn btn-maincolor2">Visit workshop</a>
+								</span>
+							</div>
+						</div>
+					</div>
+					<!-- header toggler -->
+					<span class="toggle_menu">
+						<span></span>
+					</span>
+				</header>
+			</div>
+
+			<section class="page_slider">
+				<div class=" flexslider " data-nav="true" data-dots="false">
+					<ul class="slides">
+						<li class="ds text-center">
+							<span class="flexslider-overlay"></span>
+							<img src="images/slide01.jpg" alt="">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="intro_layers_wrapper">
+											<div class="intro_layers">
+												<div class="intro_layer" data-animation="fadeInUp">
+													<h6 class="text-uppercase intro_after_featured_word color-main">
+														Cooking is Easy, We Will Prove it to You!
+													</h6>
+												</div>
+												<div class="intro_layer" data-animation="fadeInUp">
+													<div class="d-inline-block">
+														<h2 class="intro_featured_word">
+															Next Cooking Class Starts In:
+														</h2>
+													</div>
+												</div>
+												<div class="intro_layer flex-countdown" data-animation="fadeInUp">
+													<div id="flex-countdown"></div>
+													<!--
+												use "data-date" attribute with your date value to set date that you need to count to
+												<div id="comingsoon-countdown" data-date="March 29, 2018 10:00:00"></div>
+											-->
+												</div>
+												<div class="intro_layer flex-btn" data-animation="fadeInUp">
+													<div class="d-inline-block">
+														<a href="#" class="btn btn-maincolor">enroll now</a>
+														<a href="#" class="btn btn-light">our feedback</a>
+													</div>
+												</div>
+											</div>
+											<!-- eof .intro_layers -->
+										</div>
+										<!-- eof .intro_layers_wrapper -->
+									</div>
+									<!-- eof .col-* -->
+								</div>
+								<!-- eof .row -->
+							</div>
+							<!-- eof .container-fluid -->
+						</li>
+						<li class="ds text-center slide02 ">
+							<span class="flexslider-overlay"></span>
+							<img src="images/slide02.jpg" alt="">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="intro_layers_wrapper">
+											<div class="intro_layers">
+												<div class="intro_layer countdown" data-animation="fadeInUp">
+													<h6 class="text-uppercase intro_after_featured_word color-main">
+														Cooking is Easy, We Will Prove it to You!
+													</h6>
+												</div>
+												<div class="intro_layer" data-animation="fadeInUp">
+													<div class="d-inline-block">
+														<h2 class="intro_featured_word">
+															Next Cooking Class Starts In:
+														</h2>
+													</div>
+												</div>
+												<div class="intro_layer flex-countdown" data-animation="fadeInUp">
+													<div id="flex-countdown2"></div>
+													<!--
+												use "data-date" attribute with your date value to set date that you need to count to
+												<div id="comingsoon-countdown" data-date="March 29, 2018 10:00:00"></div>
+											-->
+												</div>
+												<div class="intro_layer flex-btn" data-animation="fadeInUp">
+													<div class="d-inline-block">
+														<a href="#" class="btn btn-maincolor">enroll now</a>
+														<a href="#" class="btn btn-light">our feedback</a>
+													</div>
+												</div>
+											</div>
+											<!-- eof .intro_layers -->
+										</div>
+										<!-- eof .intro_layers_wrapper -->
+									</div>
+									<!-- eof .col-* -->
+								</div>
+								<!-- eof .row -->
+							</div>
+							<!-- eof .container-fluid -->
+						</li>
+						<li class="ds text-center slide03">
+							<span class="flexslider-overlay"></span>
+							<img src="images/slide03.jpg" alt="">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="intro_layers_wrapper">
+											<div class="intro_layers">
+												<div class="intro_layer countdown" data-animation="fadeInUp">
+													<h6 class="text-uppercase intro_after_featured_word color-main">
+														Cooking is Easy, We Will Prove it to You!
+													</h6>
+												</div>
+												<div class="intro_layer" data-animation="fadeInUp">
+													<div class="d-inline-block">
+														<h2 class="intro_featured_word">
+															Next Cooking Class Starts In:
+														</h2>
+													</div>
+												</div>
+												<div class="intro_layer flex-countdown" data-animation="fadeInUp">
+													<div id="flex-countdown3"></div>
+													<!--
+												use "data-date" attribute with your date value to set date that you need to count to
+												<div id="comingsoon-countdown" data-date="March 29, 2018 10:00:00"></div>
+											-->
+												</div>
+												<div class="intro_layer flex-btn" data-animation="fadeInUp">
+													<div class="d-inline-block">
+														<a href="#" class="btn btn-maincolor">enroll now</a>
+														<a href="#" class="btn btn-light">our feedback</a>
+													</div>
+												</div>
+											</div>
+											<!-- eof .intro_layers -->
+										</div>
+										<!-- eof .intro_layers_wrapper -->
+									</div>
+									<!-- eof .col-* -->
+								</div>
+								<!-- eof .row -->
+							</div>
+							<!-- eof .container-fluid -->
+						</li>
+					</ul>
+				</div>
+				<!-- eof flexslider -->
+				<div class="gt3_svg_line">
+					<svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="308px" height="41px" viewBox="0 0 308.000000 41.000000" preserveAspectRatio="xMidYMid meet">
+						<g transform="translate(0.000000,41.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+				<path d="M1280 395 c-174 -30 -287 -70 -558 -199 -271 -129 -410 -171 -617 -185 -61 -5 585 -8 1435 -8 850 0 1498 3 1440 7 -212 15 -344 54 -625 187 -285 135 -382 169 -560 198 -111 18 -409 18 -515 0z"/>
+			</g>
+					</svg>
+				</div>
+			</section>
+
+			<section class="ls s-py-40 s-py-lg-130 program program-carousel animate" data-animation="fadeInUp" id="classes">
+				<div class="container">
+					<div class="divider-25"></div>
+					<div class="row">
+						<div class="col-sm-12 text-center">
+							<div class="section-heading">
+								<h6 class="small-text color-main2">Round the Globe</h6>
+								<h3>Our Cooking Classes</h3>
+								<img class="image-wrap" src="images/icon-main.png" alt="">
+							</div>
+							<div class="d-none d-lg-block divider-60"></div>
+							<div class="owl-carousel carousel-nav" data-responsive-lg="3" data-responsive-md="2" data-responsive-sm="2" data-responsive-xs="1" data-nav="true" data-loop="true">
+								<div class="vertical-item text-center bordered">
+									<div class="item-media">
+										<img src="images/service/01.jpg" alt="">
+										<div class="media-links">
+											<a class="abs-link" href="program-single.html"></a>
+										</div>
+										<div class="content-absolute bg-maincolor2-transparent text-left ds">
+											<h6>Alexander Lamb</h6>
+											<div class="autor half-circle">
+												<img src="images/team/07.jpg" alt="">
+											</div>
+										</div>
+									</div>
+									<div class="item-content">
+										<h5>
+											<a href="program-single.html">Baking & Pastry</a>
+										</h5>
+
+										<p>
+											Capicola kielbasa pork belly cow alcatra pancetta rump sausage meatloaf burgdoggen.
+										</p>
+
+									</div>
+									<div class="program-icon text-center">
+										<div>
+											<i class="fa fa-users color-main"></i>
+											18
+										</div>
+										<div>
+											<i class="fa fa-comments color-main"></i>
+											423
+										</div>
+										<div>
+											<i class="fa fa-money color-main"></i>
+											550$
+										</div>
+									</div>
+								</div>
+
+								<div class="vertical-item text-center bordered">
+									<div class="item-media">
+										<img src="images/service/02.jpg" alt="">
+										<div class="media-links">
+											<a class="abs-link" href="program-single.html"></a>
+										</div>
+										<div class="content-absolute bg-maincolor2-transparent text-left ds">
+											<h6>Herbert Webster</h6>
+											<div class="autor">
+												<img src="images/team/08.jpg" alt="">
+											</div>
+										</div>
+									</div>
+									<div class="item-content">
+										<h5>
+											<a href="program-single.html">Fish, Meat & Poultry</a>
+										</h5>
+
+										<p>
+											Venison prosciutto beef pork loin doner chuck sirloin filet mignon. Bresaola landjaeger chicken.
+										</p>
+
+									</div>
+									<div class="program-icon text-center">
+										<div>
+											<i class="fa fa-users color-main"></i>
+											23
+										</div>
+										<div>
+											<i class="fa fa-comments color-main"></i>
+											658
+										</div>
+										<div>
+											<i class="fa fa-money color-main"></i>
+											480$
+										</div>
+									</div>
+								</div>
+
+								<div class="vertical-item text-center bordered">
+									<div class="item-media">
+										<img src="images/service/03.jpg" alt="">
+										<div class="media-links">
+											<a class="abs-link" href="program-single.html"></a>
+										</div>
+										<div class="content-absolute bg-maincolor2-transparent text-left ds">
+											<h6>Hana Montgom</h6>
+											<div class="autor">
+												<img src="images/team/09.jpg" alt="">
+											</div>
+										</div>
+									</div>
+									<div class="item-content">
+										<h5>
+											<a href="program-single.html">Exotic Cuisines</a>
+										</h5>
+
+										<p>
+											Pig venison pork, leberkas biltong short loin beef ribs meatball bacon pastrami picanha drumstick.
+										</p>
+
+									</div>
+									<div class="program-icon text-center">
+										<div>
+											<i class="fa fa-users color-main"></i>
+											12
+										</div>
+										<div>
+											<i class="fa fa-comments color-main"></i>
+											359
+										</div>
+										<div>
+											<i class="fa fa-money color-main"></i>
+											660$
+										</div>
+									</div>
+								</div>
+
+								<div class="vertical-item text-center bordered">
+									<div class="item-media">
+										<img src="images/service/04.jpg" alt="">
+										<div class="media-links">
+											<a class="abs-link" href="program-single.html"></a>
+										</div>
+										<div class="content-absolute bg-maincolor2-transparent text-left ds">
+											<h6>Owen Bradley</h6>
+											<div class="autor">
+												<img src="images/team/10.jpg" alt="">
+											</div>
+										</div>
+									</div>
+									<div class="item-content">
+										<h5>
+											<a href="program-single.html">French Desserts</a>
+										</h5>
+
+										<p>
+											Picanha andouille capicola doner, jerky swine alcatra cow landjaeger rump pastrami frankfurter.
+										</p>
+
+									</div>
+									<div class="program-icon text-center">
+										<div>
+											<i class="fa fa-users color-main"></i>
+											24
+										</div>
+										<div>
+											<i class="fa fa-comments color-main"></i>
+											259
+										</div>
+										<div>
+											<i class="fa fa-money color-main"></i>
+											359$
+										</div>
+									</div>
+								</div>
+
+								<div class="vertical-item text-center bordered">
+									<div class="item-media">
+										<img src="images/service/05.jpg" alt="">
+										<div class="media-links">
+											<a class="abs-link" href="program-single.html"></a>
+										</div>
+										<div class="content-absolute bg-maincolor2-transparent text-left ds">
+											<h6>Susie Perez</h6>
+											<div class="autor">
+												<img src="images/team/11.jpg" alt="">
+											</div>
+										</div>
+									</div>
+									<div class="item-content">
+										<h5>
+											<a href="program-single.html">International Cuisine</a>
+										</h5>
+
+										<p>
+											Picanha pork belly rump, short ribs tail shankle tongue ham hock strip steak andouille. Tail short ribs.
+										</p>
+
+									</div>
+									<div class="program-icon text-center">
+										<div>
+											<i class="fa fa-users color-main"></i>
+											30
+										</div>
+										<div>
+											<i class="fa fa-comments color-main"></i>
+											751
+										</div>
+										<div>
+											<i class="fa fa-money color-main"></i>
+											350$
+										</div>
+									</div>
+								</div>
+
+								<div class="vertical-item text-center bordered">
+									<div class="item-media">
+										<img src="images/service/06.jpg" alt="">
+										<div class="media-links">
+											<a class="abs-link" href="program-single.html"></a>
+										</div>
+										<div class="content-absolute bg-maincolor2-transparent text-left ds">
+											<h6>Floyd Weaver</h6>
+											<div class="autor">
+												<img src="images/team/12.jpg" alt="">
+											</div>
+										</div>
+									</div>
+									<div class="item-content">
+										<h5>
+											<a href="program-single.html">Seafood & Wine</a>
+										</h5>
+
+										<p>
+											Venison t-bone ham ham hock swine fatback, pastrami shankle kevin jerky chuck buffalo jowl beef.
+										</p>
+									</div>
+									<div class="program-icon text-center">
+										<div>
+											<i class="fa fa-users color-main"></i>
+											16
+										</div>
+										<div>
+											<i class="fa fa-comments color-main"></i>
+											469
+										</div>
+										<div>
+											<i class="fa fa-money color-main"></i>
+											799$
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="divider-30"></div>
+				</div>
+			</section>
+
+			<section class="ls ms s-pt-lg-100 s-pb-lg-75 c-my-0 video-part right-part-bg text-center text-md-left" id="about">
+				<div class="cover-image s-cover-left"></div>
+				<div class="row align-items-center">
+					<div class="col-12 col-lg-6 order-lg-1">
+						<a href="images/video-image.jpg" class="photoswipe-link" data-iframe="https://www.youtube.com/embed/mcixldqDIEQ">
+							<img src="images/video-image.jpg" alt="">
+							<div class="video-text">
+								<h5>
+									<span>Watch</span>
+									<span class=" iframe-link"></span>
+									<span>Video</span>
+								</h5>
+							</div>
+						</a>
+					</div>
+					<div class="col-12 col-lg-6 order-lg-2  animate" data-animation="slideInRight">
+						<div class="d-none d-lg-block divider-55"></div>
+						<div class="item-content">
+							<div class="icon-image">
+								<img src="images/icon-3.png" alt="">
+							</div>
+							<h6 class="fs-14 color-main text-uppercase">our achievements</h6>
+							<h3>Hello, Welcome to Muka!</h3>
+							<div class="d-none d-lg-block divider-50"></div>
+							<div class="media">
+								<div class="icon-styled color-main2">
+									<i class="fa fa-trophy"></i>
+								</div>
+								<div class="media-body">
+									<h5>
+										We Are Winners of 50 Competitions
+									</h5>
+									<p>
+										Salami corned beef short loin sausage meatloaf fatback andouille kielbasa frankfurter sirloin alcatra beef ribs.
+									</p>
+								</div>
+							</div>
+							<div class="media">
+								<div class="icon-styled color-main2">
+									<i class="fa fa-group"></i>
+								</div>
+								<div class="media-body">
+									<h5>
+										27 Professional Chefs-Trainers
+									</h5>
+									<p>
+										Ham hock jerky tail kevin, buffalo shoulder doner venison leberkas pig beef burgdoggen flank ribeye picanha burgdoggen.
+									</p>
+								</div>
+							</div>
+							<div class="media">
+								<div class="icon-styled color-main2">
+									<i class="fa fa-hourglass-half"></i>
+								</div>
+								<div class="media-body">
+									<h5>
+										Guaranteed Fast Employment
+									</h5>
+									<p>
+										Ball tip landjaeger pork chop, kielbasa shank filet mignon cow burgdoggen cupim buffalo porchetta. Ribeye beef ribs flank.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="d-none d-lg-block divider-40"></div>
+			</section>
+
+			<section class="ls ms s-pt-lg-130 s-pb-lg-130 c-gutter-100 c-my-0 left-part-bg testimonials-section text-center text-md-left" id="testimonials">
+				<div class="owl-carousel owl-nav-bottom" data-responsive-lg="1" data-responsive-md="1" data-responsive-sm="1" data-responsive-xs="1" data-nav="true" data-loop="true" data-margin="0">
+					<div class="owl-section-item">
+						<div class="cover-image s-cover-right">
+							<img src="images/team/testimonials_01.jpg" alt="">
+						</div>
+						<div class="container">
+
+							<div class="row">
+								<div class="col-lg-6 order-lg-2">
+								</div>
+								<div class="col-lg-6 order-lg-1 animate" data-animation="slideInLeft">
+									<div class="d-none d-lg-block divider-120"></div>
+									<div class="item-content">
+										<header>
+											<div class="icon-image">
+												<img src="images/icon-4.png" alt="">
+											</div>
+											<h6 class="small-text color-main2">
+												Testimonials
+											</h6>
+											<h3>
+												Reviews of Our Students
+											</h3>
+										</header>
+										<p class="excerpt">
+											Capicola turkey jowl, sirloin tri-tip pastrami pig short ribs tenderloin jerky burgdoggen.
+										</p>
+										<p>
+											Bacon tenderloin cupim spare ribs, leberkas sirloin andouille chicken brisket venison frankfurter pork meatball. Cow shoulder tongue buffalo. Doner turkey tenderloin ground round landjaeger corned beef drumstick kevin buffalo. Frankfurter porchetta ham
+											hock short ribs. Porchetta corned beef shoulder tongue pork belly bacon.Doner brisket turducken pancetta beef.
+										</p>
+										<span class="media-item float-right">
+											<img src="images/signature.png" alt="">
+										</span>
+										<h4 class="text-left">Lester Hodges</h4>
+										<h6 class="small-text text-left color-main">former student / Chef</h6>
+									</div>
+									<div class="d-none d-lg-block divider-120"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="owl-section-item">
+						<div class="cover-image s-cover-right">
+							<img src="images/team/testimonials_02.jpg" alt="">
+						</div>
+						<div class="container">
+
+							<div class="row">
+								<div class="col-lg-6 order-lg-2">
+								</div>
+								<div class="col-lg-6 order-lg-1">
+									<div class="d-none d-lg-block divider-120"></div>
+									<div class="item-content">
+										<header>
+											<div class="icon-image">
+												<img src="images/icon-4.png" alt="">
+											</div>
+											<h6 class="small-text color-main2">
+												Testimonials
+											</h6>
+											<h3>
+												Reviews of Our Studentss
+											</h3>
+										</header>
+										<p class="excerpt">
+											Ellentesque hendrerit turpis eros, non rhoncus libero imperdiet ut. In rutrum lorem vel.
+										</p>
+										<p>
+											Maecenas odio odio, volutpat a tristique non, aliquam ac sem. Nam ultrices imperdiet lorem et volutpat. Suspendisse enim risus, blandit in velit sit amet, ultrices aliquet arcu. Aenean vestibulum risus eget urna eleifend ultrices. Integer lacinia vitae
+											arcu eget laoreet. Fusce vel commodo velit, in tempor justo. Duis sit amet lectus dapibus, facilisis est a, placerat tortor.
+										</p>
+										<span class="media-item float-right">
+											<img src="images/signature.png" alt="">
+										</span>
+										<h4 class="text-left">Alexander Lamb</h4>
+										<h6 class="small-text text-left color-main">former student / Chef</h6>
+									</div>
+									<div class="d-none d-lg-block divider-120"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="owl-section-item">
+						<div class="cover-image s-cover-right">
+							<img src="images/team/testimonials_03.jpg" alt="">
+						</div>
+						<div class="container">
+
+							<div class="row">
+								<div class="col-lg-6 order-lg-2">
+								</div>
+								<div class="col-lg-6 order-lg-1">
+									<div class="d-none d-lg-block divider-120"></div>
+									<div class="item-content">
+										<header>
+											<div class="icon-image">
+												<img src="images/icon-4.png" alt="">
+											</div>
+											<h6 class="small-text color-main2">
+												Testimonials
+											</h6>
+											<h3>
+												Reviews of Our Studentss
+											</h3>
+										</header>
+										<p class="excerpt">
+											Duis eu magna porttitor, sollicitudin nulla quis, lacinia elit. Etiam nec hendrerit turpis.
+										</p>
+										<p>
+											Vestibulum porttitor ante at sapien semper tincidunt. Suspendisse sagittis placerat diam nec tristique. Ut hendrerit urna et dui bibendum, vel feugiat diam luctus. Aliquam scelerisque, sem vel condimentum ornare, libero sapien venenatis lorem, vitae bibendum
+											nisi nulla at nunc. Proin viverra venenatis mauris in ullamcorper. Nullam ut diam turpis. Aliquam sit amet mi ut diam.
+										</p>
+										<span class="media-item float-right">
+											<img src="images/signature.png" alt="">
+										</span>
+										<h4 class="text-left">Floyd Weaver</h4>
+										<h6 class="small-text text-left color-main">former student / Chef</h6>
+									</div>
+									<div class="d-none d-lg-block divider-120"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="gt3_svg_line bottom-line">
+					<svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="308px" height="41px" viewBox="0 0 308.000000 41.000000" preserveAspectRatio="xMidYMid meet">
+						<g transform="translate(0.000000,41.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+				<path d="M1280 395 c-174 -30 -287 -70 -558 -199 -271 -129 -410 -171 -617 -185 -61 -5 585 -8 1435 -8 850 0 1498 3 1440 7 -212 15 -344 54 -625 187 -285 135 -382 169 -560 198 -111 18 -409 18 -515 0z"/>
+			</g>
+					</svg>
+				</div>
+			</section>
+
+
+			<section class="s-pt-40 s-pb-30 s-py-lg-130 timetable ls text-center text-md-left" id="timetables">
+				<div class="container">
+					<div class="divider-25"></div>
+					<div class="row">
+						<div class="col-12 text-center">
+							<div class="section-heading">
+								<h6 class="small-text color-main">updated schedule</h6>
+								<h3>Timetable of Classes</h3>
+								<img class="image-wrap" src="images/icon-main2.png" alt="">
+							</div>
+							<div class="d-none d-lg-block divider-60"></div>
+						</div>
+						<div class="col-12">
+							<ul class="nav nav-tabs form-tabs visible-md">
+								<li class="tab-selector nav-item active">
+									<a class="nav-link first" href="#tab1" data-toggle="tab">Sunday</a>
+								</li>
+								<li class="tab-selector nav-item">
+									<a class="nav-link" href="#tab2" data-toggle="tab">Monday</a>
+								</li>
+								<li class="tab-selector nav-item">
+									<a class="nav-link" href="#tab3" data-toggle="tab">Tuesday</a>
+								</li>
+								<li class="tab-selector nav-item">
+									<a class="nav-link" href="#tab4" data-toggle="tab">Wednesday</a>
+								</li>
+								<li class="tab-selector nav-item">
+									<a class="nav-link" href="#tab5" data-toggle="tab">Thursday</a>
+								</li>
+								<li class="tab-selector nav-item">
+									<a class="nav-link" href="#tab6" data-toggle="tab">Friday</a>
+								</li>
+								<li class="tab-selector nav-item">
+									<a class="nav-link last" href="#tab7" data-toggle="tab">Saturday</a>
+								</li>
+							</ul>
+							<select class="form-control hidden-md hidden-lg hidden-xl" id="tab_selector">
+								<option value="0">Sunday</option>
+								<option value="1">Monday</option>
+								<option value="2">Tuesday</option>
+								<option value="3">Wednesday</option>
+								<option value="4">Thursday</option>
+								<option value="5">Friday</option>
+								<option value="6">Saturday</option>
+							</select>
+							<div class="tab-content">
+								<div class="tab-pane active" id="tab1">
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/02.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">International Cuisine from Alexander Lamb</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>19 jan - 25 feb, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>09:00 am - 11:30 am</span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Alexander Lamb</span>
+											</div>
+										</div>
+									</div>
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/01.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">Fish, Meat & Poultry</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>31 jan - 05 mar, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>11:30 am - 01:15 pm</span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Bert Webster</span>
+											</div>
+										</div>
+									</div>
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/07.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">Exotic Cuisine for Connoisseurs of Exotics</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>31 jan - 20 feb, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>01:15 pm - 04:30 pm</span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Hana Montgom</span>
+											</div>
+										</div>
+									</div>
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/11.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">Secrets of French Desserts</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>01 feb - 30 mar, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>04:30 Pm - 07:00 pm </span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Elen Bucnan</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="tab2">
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/03.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">Secrets of French Desserts</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>19 jan - 25 feb, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>09:00 am - 11:30 am</span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Alexander Lamb</span>
+											</div>
+										</div>
+									</div>
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/04.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">International Cuisine from Alexander Lamb</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>31 jan - 05 mar, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>11:30 am - 01:15 pm</span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Bert Webster</span>
+											</div>
+										</div>
+									</div>
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/05.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">Fish, Meat & Poultry</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>31 jan - 20 feb, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>01:15 pm - 04:30 pm</span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Hana Montgom</span>
+											</div>
+										</div>
+									</div>
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/07.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">Exotic Cuisine for Connoisseurs of Exotics</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>01 feb - 30 mar, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>04:30 Pm - 07:00 pm </span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Elen Bucnan</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="tab3">
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/08.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">International Cuisine from Alexander Lamb</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>19 jan - 25 feb, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>09:00 am - 11:30 am</span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Alexander Lamb</span>
+											</div>
+										</div>
+									</div>
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/09.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">Fish, Meat & Poultry</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>31 jan - 05 mar, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>11:30 am - 01:15 pm</span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Bert Webster</span>
+											</div>
+										</div>
+									</div>
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/10.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">Exotic Cuisine for Connoisseurs of Exotics</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>31 jan - 20 feb, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>01:15 pm - 04:30 pm</span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Hana Montgom</span>
+											</div>
+										</div>
+									</div>
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/11.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">Secrets of French Desserts</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>01 feb - 30 mar, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>04:30 Pm - 07:00 pm </span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Elen Bucnan</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="tab4">
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/12.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">Secrets of French Desserts</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>19 jan - 25 feb, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>09:00 am - 11:30 am</span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Alexander Lamb</span>
+											</div>
+										</div>
+									</div>
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/01.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">International Cuisine from Alexander Lamb</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>31 jan - 05 mar, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>11:30 am - 01:15 pm</span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Bert Webster</span>
+											</div>
+										</div>
+									</div>
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/02.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">Fish, Meat & Poultry</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>31 jan - 20 feb, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>01:15 pm - 04:30 pm</span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Hana Montgom</span>
+											</div>
+										</div>
+									</div>
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/03.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">Exotic Cuisine for Connoisseurs of Exotics</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>01 feb - 30 mar, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>04:30 Pm - 07:00 pm </span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Elen Bucnan</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="tab5">
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/04.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">International Cuisine from Alexander Lamb</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>19 jan - 25 feb, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>09:00 am - 11:30 am</span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Alexander Lamb</span>
+											</div>
+										</div>
+									</div>
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/05.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">Fish, Meat & Poultry</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>31 jan - 05 mar, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>11:30 am - 01:15 pm</span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Bert Webster</span>
+											</div>
+										</div>
+									</div>
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/06.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">Exotic Cuisine for Connoisseurs of Exotics</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>31 jan - 20 feb, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>01:15 pm - 04:30 pm</span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Hana Montgom</span>
+											</div>
+										</div>
+									</div>
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/07.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">Secrets of French Desserts</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>01 feb - 30 mar, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>04:30 Pm - 07:00 pm </span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Elen Bucnan</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="tab6">
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/08.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">Secrets of French Desserts</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>19 jan - 25 feb, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>09:00 am - 11:30 am</span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Alexander Lamb</span>
+											</div>
+										</div>
+									</div>
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/09.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">International Cuisine from Alexander Lamb</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>31 jan - 05 mar, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>11:30 am - 01:15 pm</span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Bert Webster</span>
+											</div>
+										</div>
+									</div>
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/10.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">Fish, Meat & Poultry</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>31 jan - 20 feb, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>01:15 pm - 04:30 pm</span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Hana Montgom</span>
+											</div>
+										</div>
+									</div>
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/11.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">Exotic Cuisine for Connoisseurs of Exotics</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>01 feb - 30 mar, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>04:30 Pm - 07:00 pm </span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Elen Bucnan</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="tab7">
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/12.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">International Cuisine from Alexander Lamb</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>19 jan - 25 feb, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>09:00 am - 11:30 am</span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Alexander Lamb</span>
+											</div>
+										</div>
+									</div>
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/01.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">Fish, Meat & Poultry</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>31 jan - 05 mar, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>11:30 am - 01:15 pm</span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Bert Webster</span>
+											</div>
+										</div>
+									</div>
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/02.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">Exotic Cuisine for Connoisseurs of Exotics</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>31 jan - 20 feb, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>01:15 pm - 04:30 pm</span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Hana Montgom</span>
+											</div>
+										</div>
+									</div>
+									<div class="media bordered">
+										<a href="#" class="ds">
+											<img src="images/gallery/03.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<h5>
+												<a href="events-left.html">Secrets of French Desserts</a>
+											</h5>
+											<div class="btn-timetable">
+												<a href="" class="btn btn-outline-maincolor">About Class</a>
+											</div>
+											<div class="item-meta">
+												<i class="fa fa-calendar color-main2"></i>
+												<span>01 feb - 30 mar, 2018</span>
+												<i class="fa fa-clock-o color-main2"></i>
+												<span>04:30 Pm - 07:00 pm </span>
+												<i class="fa fa-user color-main2"></i>
+												<span>Elen Bucnan</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="s-pt-40 s-pb-50 s-py-lg-130 ds faq s-overlay bg-card" id="faq">
+				<div class="container">
+					<div class="divider-25"></div>
+					<div class="row c-gutter-60">
+						<div class="col-12 text-center">
+							<div class="section-heading">
+								<h6 class="small-text color-main2">Round the Globe</h6>
+								<h3>FAQ / Our Location</h3>
+								<img class="image-wrap" src="images/icon-main.png" alt="">
+							</div>
+						</div>
+						<div class="d-none d-lg-block divider-60"></div>
+						<div class="col-md-6">
+							<div id="accordion01" role="tablist">
+								<div class="card">
+									<div class="card-header" role="tab" id="collapse01_header">
+										<h5>
+											<a data-toggle="collapse" href="#collapse01" aria-expanded="true" aria-controls="collapse01">
+												<i class="fa fa-pencil" aria-hidden="true"></i>
+												Bacon ipsum dolor amet tail?
+											</a>
+										</h5>
+									</div>
+
+									<div id="collapse01" class="collapse show" role="tabpanel" aria-labelledby="collapse01_header" data-parent="#accordion01">
+										<div class="card-body">
+											<p>
+												Bacon ipsum dolor amet boudin jerky chuck turkey tail shank andouille capicola shankle corned beef shoulder jowl. Turducken short loin kielbasa ribeye salami filet.
+											</p>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="card">
+									<div class="card-header" role="tab" id="collapse02_header">
+										<h5>
+											<a class="collapsed" data-toggle="collapse" href="#collapse02" aria-expanded="false" aria-controls="collapse02">
+												<i class="fa fa-pencil" aria-hidden="true"></i>
+												Lorem ipsum dolor sit amet elit?
+											</a>
+										</h5>
+									</div>
+									<div id="collapse02" class="collapse" role="tabpanel" aria-labelledby="collapse02_header" data-parent="#accordion01">
+										<div class="card-body">
+											<p>
+												Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson.
+											</p>
+										</div>
+									</div>
+								</div>
+
+								<div class="card">
+									<div class="card-header" role="tab" id="collapse04_header">
+										<h5>
+											<a class="collapsed" data-toggle="collapse" href="#collapse04" aria-expanded="false" aria-controls="collapse04">
+												<i class="fa fa-pencil" aria-hidden="true"></i>
+												Integer venenatis tellus et est?
+											</a>
+										</h5>
+									</div>
+									<div id="collapse04" class="collapse" role="tabpanel" aria-labelledby="collapse04_header" data-parent="#accordion01">
+										<div class="card-body">
+											<p>
+												Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable sunt aliqua put a bird on.
+											</p>
+										</div>
+									</div>
+								</div>
+
+								<div class="card">
+									<div class="card-header" role="tab" id="collapse05_header">
+										<h5>
+											<a class="collapsed" data-toggle="collapse" href="#collapse05" aria-expanded="false" aria-controls="collapse05">
+												<i class="fa fa-pencil" aria-hidden="true"></i>
+												Maecenas vel libero ex nec?
+											</a>
+										</h5>
+									</div>
+									<div id="collapse05" class="collapse" role="tabpanel" aria-labelledby="collapse05_header" data-parent="#accordion01">
+										<div class="card-body">
+											<p>
+												Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson.
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="ls page_map">
+								<div class="marker">
+									<div class="marker-address">sydney, australia, Liverpool street, 66</div>
+									<div class="marker-title">Muka</div>
+									<div class="marker-description">
+
+										<ul class="list-unstyled">
+											<li>
+												<span class="icon-inline">
+													<span class="icon-styled color-main">
+														<i class="fa fa-map-marker"></i>
+													</span>
+
+													<span>
+														828 Curtis Ferry, NY
+													</span>
+												</span>
+											</li>
+
+											<li>
+												<span class="icon-inline">
+													<span class="icon-styled color-main">
+														<i class="fa fa-clock-o"></i>
+													</span>
+
+													<span>
+														wd: 9 am - 7 pm
+													</span>
+												</span>
+											</li>
+										</ul>
+									</div>
+
+									<img class="marker-icon" src="images/map_marker_icon2.png" alt="">
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<div class="divider-20"></div>
+				</div>
+			</section>
+
+			<section class="ls s-py-40 s-py-lg-130 chiefs chiefs-carousel ls animate" data-animation="fadeInUp" id="chiefs">
+				<div class="container">
+					<div class="divider-25"></div>
+					<div class="row">
+						<div class="col-sm-12 text-center">
+							<div class="section-heading">
+								<h6 class="small-text color-main">Our team of proffesionals</h6>
+								<h3>Best Chefs of America</h3>
+								<img class="image-wrap" src="images/icon-main2.png" alt="">
+							</div>
+							<div class="d-none d-lg-block divider-60"></div>
+							<div class="owl-carousel carousel-nav" data-responsive-lg="3" data-responsive-md="2" data-responsive-sm="2" data-responsive-xs="1" data-nav="true" data-loop="true">
+								<div class="vertical-item content-absolute content-hover text-center">
+									<div class="item-media">
+										<img src="images/team/01.jpg" alt="">
+									</div>
+									<div class="item-content bg-maincolor-transparent">
+										<h4>
+											<a class="dark" href="chief-single.html">Alexander Lamb</a>
+										</h4>
+										<h6 class="small-text">
+											Master Chef
+										</h6>
+										<div class="content-body">
+
+											<p class="social-icons">
+												<a href="#" class="fa fa-facebook color-light" title="facebook"></a>
+												<a href="#" class="fa fa-twitter color-light" title="twitter"></a>
+												<a href="#" class="fa fa-google-plus color-light" title="google"></a>
+											</p>
+											<div class="team-button">
+												<a href="chief-single.html" class="btn btn-team">view profile</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="vertical-item content-absolute content-hover text-center">
+									<div class="item-media">
+										<img src="images/team/02.jpg" alt="">
+									</div>
+									<div class="item-content bg-maincolor-transparent">
+										<h4>
+											<a class="dark" href="chief-single.html">Herbert Webster</a>
+										</h4>
+										<h6 class="small-text">
+											Master Chef
+										</h6>
+										<div class="content-body">
+
+											<p class="social-icons">
+												<a href="#" class="fa fa-facebook color-light" title="facebook"></a>
+												<a href="#" class="fa fa-twitter color-light" title="twitter"></a>
+												<a href="#" class="fa fa-google-plus color-light" title="google"></a>
+											</p>
+											<div class="team-button">
+												<a href="chief-single.html" class="btn btn-team">view profile</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="vertical-item content-absolute content-hover text-center">
+									<div class="item-media">
+										<img src="images/team/03.jpg" alt="">
+									</div>
+									<div class="item-content bg-maincolor-transparent">
+										<h4>
+											<a class="dark" href="chief-single.html">Hana Montgom</a>
+										</h4>
+										<h6 class="small-text">
+											Master Chef
+										</h6>
+										<div class="content-body">
+
+											<p class="social-icons">
+												<a href="#" class="fa fa-facebook color-light" title="facebook"></a>
+												<a href="#" class="fa fa-twitter color-light" title="twitter"></a>
+												<a href="#" class="fa fa-google-plus color-light" title="google"></a>
+											</p>
+											<div class="team-button">
+												<a href="chief-single.html" class="btn btn-team">view profile</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="vertical-item content-absolute content-hover text-center">
+									<div class="item-media">
+										<img src="images/team/04.jpg" alt="">
+									</div>
+									<div class="item-content bg-maincolor-transparent">
+										<h4>
+											<a class="dark" href="chief-single.html">Owen Bradley</a>
+										</h4>
+										<h6 class="small-text">
+											Master Chef
+										</h6>
+										<div class="content-body">
+
+											<p class="social-icons">
+												<a href="#" class="fa fa-facebook color-light" title="facebook"></a>
+												<a href="#" class="fa fa-twitter color-light" title="twitter"></a>
+												<a href="#" class="fa fa-google-plus color-light" title="google"></a>
+											</p>
+											<div class="team-button">
+												<a href="chief-single.html" class="btn btn-team">view profile</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="vertical-item content-absolute content-hover text-center">
+									<div class="item-media">
+										<img src="images/team/05.jpg" alt="">
+									</div>
+									<div class="item-content bg-maincolor-transparent">
+										<h4>
+											<a class="dark" href="chief-single.html">Susie Perez</a>
+										</h4>
+										<h6 class="small-text">
+											Assistant
+										</h6>
+										<div class="content-body">
+
+											<p class="social-icons">
+												<a href="#" class="fa fa-facebook color-light" title="facebook"></a>
+												<a href="#" class="fa fa-twitter color-light" title="twitter"></a>
+												<a href="#" class="fa fa-google-plus color-light" title="google"></a>
+											</p>
+											<div class="team-button">
+												<a href="chief-single.html" class="btn btn-team">view profile</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="vertical-item content-absolute content-hover text-center">
+									<div class="item-media">
+										<img src="images/team/06.jpg" alt="">
+									</div>
+									<div class="item-content bg-maincolor-transparent">
+										<h4>
+											<a class="dark" href="chief-single.html">Floyd Weaver</a>
+										</h4>
+										<h6 class="small-text">
+											Master Chef
+										</h6>
+										<div class="content-body">
+
+											<p class="social-icons">
+												<a href="#" class="fa fa-facebook color-light" title="facebook"></a>
+												<a href="#" class="fa fa-twitter color-light" title="twitter"></a>
+												<a href="#" class="fa fa-google-plus color-light" title="google"></a>
+											</p>
+											<div class="team-button">
+												<a href="chief-single.html" class="btn btn-team">view profile</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="divider-30"></div>
+				</div>
+			</section>
+
+			<section class="ls s-py-40 s-py-lg-130 contact-form main-from s-overlay" id="contacts">
+				<div class="container">
+					<div class="divider-25"></div>
+					<div class="row">
+						<div class="col-12 text-center">
+							<div class="section-heading">
+								<h6 class="small-text color-main2">please register now!</h6>
+								<h3>Our Form for Enrollment</h3>
+								<img class="image-wrap" src="images/icon-main.png" alt="">
+							</div>
+							<div class="d-none d-lg-block divider-60"></div>
+						</div>
+					</div>
+					<form class="contact-form c-mb-10 c-mb-md-20 c-gutter-20" method="post" action="/">
+						<div class="row">
+							<div class="col-12 col-md-3">
+								<div class="form-group has-placeholder">
+									<label for="name">Full Name
+										<span class="required">*</span>
+									</label>
+									<input type="text" aria-required="true" size="30" value="" name="name" id="name" class="form-control" placeholder="Full Name">
+								</div>
+							</div>
+							<div class="col-12 col-md-3">
+								<div class="form-group has-placeholder">
+									<label for="email">Email address
+										<span class="required">*</span>
+									</label>
+									<input type="email" aria-required="true" size="30" value="" name="email" id="email" class="form-control" placeholder="Email Address">
+								</div>
+							</div>
+							<div class="col-12 col-md-3">
+								<div class="form-group has-placeholder">
+									<label for="phone">Phone
+										<span class="required">*</span>
+									</label>
+									<input type="text" aria-required="true" size="30" value="" name="phone" id="phone" class="form-control" placeholder="Phone Number">
+								</div>
+							</div>
+							<div class="col-12 col-md-3">
+								<div class="form-group has-placeholder">
+									<label for="cooking-class">Example select</label>
+									<select class="form-control" id="cooking-class">
+										<option>Cooking class</option>
+										<option>Baking & Pastry</option>
+										<option>Exotic Cuisines</option>
+										<option>French Desserts</option>
+										<option>Seafood & Wine</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-12">
+
+								<div class="form-group has-placeholder">
+									<label for="message">Message</label>
+									<textarea aria-required="true" rows="6" cols="45" name="message" id="message" class="form-control" placeholder="Your Message..."></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="row c-mt-10">
+							<div class="col-sm-12">
+								<div class="form-group text-center">
+									<button type="submit" id="contact_form_submit" name="contact_submit" class="btn btn-maincolor2">Enroll Now</button>
+								</div>
+							</div>
+						</div>
+					</form>
+					<div class="divider-30"></div>
+				</div>
+			</section>
+
+			<section class="ls s-py-40 s-py-lg-130 blog-carousel animate" data-animation="fadeInUp" id="blog">
+				<div class="container">
+					<div class="divider-25"></div>
+					<div class="row">
+						<div class="col-sm-12 text-center">
+							<div class="section-heading">
+								<h6 class="small-text color-main">Latest news Muka</h6>
+								<h3>Our Fresh Blog Posts</h3>
+							</div>
+							<div class="d-block d-md-none divider-20"></div>
+							<div class="row justify-content-center">
+								<div class="col-md-10 col-xl-6">
+									<div class="filters gallery-filters small-text text-lg-right">
+										<a href="#" data-filter="*" class="active selected">All Categories</a>
+										<a href="#" data-filter=".recipes">recipes</a>
+										<a href="#" data-filter=".classes">classes</a>
+										<a href="#" data-filter=".cook">cook</a>
+										<a href="#" data-filter=".details">details</a>
+										<a href="#" data-filter=".kitchen">kitchen</a>
+									</div>
+								</div>
+							</div>
+							<div class="owl-carousel  carousel-nav" data-responsive-lg="3" data-responsive-md="2" data-responsive-sm="2" data-responsive-xs="1" data-nav="true" data-loop="true" data-filters=".gallery-filters">
+								<article class="vertical-item text-center content-padding padding-small bordered post type-post status-publish format-standard has-post-thumbnail recipes">
+									<div class="item-media post-thumbnail">
+										<img src="images/img-01.jpg" alt="">
+										<div class="media-links">
+											<a class="abs-link" href="blog-single-right.html"></a>
+										</div>
+										<div class="entry-meta small-text bg-dark-transpatent">
+											<span class="byline">
+												<span class="posted-on">
+													<span class="screen-reader-text">Posted on</span>
+
+													<a href="blog-single-right.html" rel="bookmark">
+														<i class="fa fa-calendar color-main2"></i>
+														<time datetime="2017-10-03T08:50:40+00:00" class="entry-date published updated">19 Jan, 18</time>
+													</a>
+												</span>
+												<span class="category-links links-maincolor">
+													<span class="screen-reader-text">Categories</span>
+													<a href="blog-right.html" rel="category tag">
+														<i class="fa fa-tags color-main2"></i>
+														Recipes
+													</a>
+												</span>
+												<span class="author vcard">
+													<a class="url fn n" href="blog-right.html">
+														<i class="fa fa-user color-main2"></i>
+														Admin
+													</a>
+												</span>
+											</span>
+										</div>
+									</div>
+									<!-- .post-thumbnail -->
+									<div class="item-content">
+										<header class="entry-header">
+											<h4 class="entry-title">
+												<a href="blog-single-right.html" rel="bookmark">
+													How To Cook A Tender Juicy Steak
+												</a>
+											</h4>
+										</header>
+										<!-- .entry-header -->
+
+										<div class="entry-content">
+											<p>Capicola kielbasa pork belly cow alcatra pancetta rump sausage meatloaf burgdoggen.</p>
+										</div>
+										<!-- .entry-content -->
+									</div>
+									<!-- .item-content -->
+									<div class="text-center blog-btn ">
+										<a href="#" class="btn btn-outline-maincolor">view more</a>
+									</div>
+								</article>
+								<!-- #post-## -->
+								<article class="vertical-item text-center content-padding padding-small bordered post type-post status-publish format-standard has-post-thumbnail classes">
+									<div class="item-media post-thumbnail">
+										<img src="images/img-02.jpg" alt="">
+										<div class="media-links">
+											<a class="abs-link" href="blog-single-right.html"></a>
+										</div>
+										<div class="entry-meta small-text bg-dark-transpatent">
+											<span class="byline">
+												<span class="posted-on">
+													<span class="screen-reader-text">Posted on</span>
+
+													<a href="blog-single-right.html" rel="bookmark">
+														<i class="fa fa-calendar color-main2"></i>
+														<time datetime="2017-10-03T08:50:40+00:00" class="entry-date published updated">19 Jan, 18</time>
+													</a>
+												</span>
+												<span class="category-links links-maincolor">
+													<span class="screen-reader-text">Categories</span>
+													<a href="blog-right.html" rel="category tag">
+														<i class="fa fa-tags color-main2"></i>
+														Recipes
+													</a>
+												</span>
+												<span class="author vcard">
+													<a class="url fn n" href="blog-right.html">
+														<i class="fa fa-user color-main2"></i>
+														Admin
+													</a>
+												</span>
+											</span>
+										</div>
+									</div>
+									<!-- .post-thumbnail -->
+									<div class="item-content">
+										<header class="entry-header">
+											<h4 class="entry-title">
+												<a href="blog-single-right.html" rel="bookmark">
+													How To Cook Turkey On Natural Gas Grills
+												</a>
+											</h4>
+										</header>
+										<!-- .entry-header -->
+
+										<div class="entry-content">
+											<p>Fatback meatloaf beef ribs, biltong frankfurter short ribs tri-tip jerky pork chop hank.</p>
+										</div>
+										<!-- .entry-content -->
+									</div>
+									<!-- .item-content -->
+									<div class="text-center blog-btn ">
+										<a href="#" class="btn btn-outline-maincolor">view more</a>
+									</div>
+								</article>
+								<!-- #post-## -->
+								<article class="vertical-item text-center content-padding padding-small bordered post type-post status-publish format-standard has-post-thumbnail cook">
+									<div class="item-media post-thumbnail">
+										<img src="images/img-03.jpg" alt="">
+										<div class="media-links">
+											<a class="abs-link" href="blog-single-right.html"></a>
+										</div>
+										<div class="entry-meta small-text bg-dark-transpatent">
+											<span class="byline">
+												<span class="posted-on">
+													<span class="screen-reader-text">Posted on</span>
+
+													<a href="blog-single-right.html" rel="bookmark">
+														<i class="fa fa-calendar color-main2"></i>
+														<time datetime="2017-10-03T08:50:40+00:00" class="entry-date published updated">19 Jan, 18</time>
+													</a>
+												</span>
+												<span class="category-links links-maincolor">
+													<span class="screen-reader-text">Categories</span>
+													<a href="blog-right.html" rel="category tag">
+														<i class="fa fa-tags color-main2"></i>
+														Recipes
+													</a>
+												</span>
+												<span class="author vcard">
+													<a class="url fn n" href="blog-right.html">
+														<i class="fa fa-user color-main2"></i>
+														Admin
+													</a>
+												</span>
+											</span>
+										</div>
+									</div>
+									<!-- .post-thumbnail -->
+									<div class="item-content">
+										<header class="entry-header">
+											<h4 class="entry-title">
+												<a href="blog-single-right.html" rel="bookmark">
+													The Importance Of Food Elements
+												</a>
+											</h4>
+										</header>
+										<!-- .entry-header -->
+
+										<div class="entry-content">
+											<p>Venison porchetta turkey corned beef, beef ribs pork belly tail pork chop shank meatball spare.</p>
+										</div>
+										<!-- .entry-content -->
+									</div>
+									<!-- .item-content -->
+									<div class="text-center blog-btn ">
+										<a href="#" class="btn btn-outline-maincolor">view more</a>
+									</div>
+								</article>
+								<!-- #post-## -->
+								<article class="vertical-item text-center content-padding padding-small bordered post type-post status-publish format-standard has-post-thumbnail details">
+									<div class="item-media post-thumbnail">
+										<img src="images/img-04.jpg" alt="">
+										<div class="media-links">
+											<a class="abs-link" href="blog-single-right.html"></a>
+										</div>
+										<div class="entry-meta small-text bg-dark-transpatent">
+											<span class="byline">
+												<span class="posted-on">
+													<span class="screen-reader-text">Posted on</span>
+
+													<a href="blog-single-right.html" rel="bookmark">
+														<i class="fa fa-calendar color-main2"></i>
+														<time datetime="2017-10-03T08:50:40+00:00" class="entry-date published updated">19 Jan, 18</time>
+													</a>
+												</span>
+												<span class="category-links links-maincolor">
+													<span class="screen-reader-text">Categories</span>
+													<a href="blog-right.html" rel="category tag">
+														<i class="fa fa-tags color-main2"></i>
+														Recipes
+													</a>
+												</span>
+												<span class="author vcard">
+													<a class="url fn n" href="blog-right.html">
+														<i class="fa fa-user color-main2"></i>
+														Admin
+													</a>
+												</span>
+											</span>
+										</div>
+									</div>
+									<!-- .post-thumbnail -->
+									<div class="item-content">
+										<header class="entry-header">
+											<h4 class="entry-title">
+												<a href="blog-single-right.html" rel="bookmark">
+													How To Cook A Tender Juicy Steak
+												</a>
+											</h4>
+										</header>
+										<!-- .entry-header -->
+
+										<div class="entry-content">
+											<p>Capicola kielbasa pork belly cow alcatra pancetta rump sausage meatloaf burgdoggen.</p>
+										</div>
+										<!-- .entry-content -->
+									</div>
+									<!-- .item-content -->
+									<div class="text-center blog-btn ">
+										<a href="#" class="btn btn-outline-maincolor">view more</a>
+									</div>
+								</article>
+								<!-- #post-## -->
+								<article class="vertical-item text-center content-padding padding-small bordered post type-post status-publish format-standard has-post-thumbnail kitchen">
+									<div class="item-media post-thumbnail">
+										<img src="images/img-05.jpg" alt="">
+										<div class="media-links">
+											<a class="abs-link" href="blog-single-right.html"></a>
+										</div>
+										<div class="entry-meta small-text bg-dark-transpatent">
+											<span class="byline">
+												<span class="posted-on">
+													<span class="screen-reader-text">Posted on</span>
+
+													<a href="blog-single-right.html" rel="bookmark">
+														<i class="fa fa-calendar color-main2"></i>
+														<time datetime="2017-10-03T08:50:40+00:00" class="entry-date published updated">19 Jan, 18</time>
+													</a>
+												</span>
+												<span class="category-links links-maincolor">
+													<span class="screen-reader-text">Categories</span>
+													<a href="blog-right.html" rel="category tag">
+														<i class="fa fa-tags color-main2"></i>
+														Recipes
+													</a>
+												</span>
+												<span class="author vcard">
+													<a class="url fn n" href="blog-right.html">
+														<i class="fa fa-user color-main2"></i>
+														Admin
+													</a>
+												</span>
+											</span>
+										</div>
+									</div>
+									<!-- .post-thumbnail -->
+									<div class="item-content">
+										<header class="entry-header">
+											<h4 class="entry-title">
+												<a href="blog-single-right.html" rel="bookmark">
+													How To Cook A Tender Juicy Steak
+												</a>
+											</h4>
+										</header>
+										<!-- .entry-header -->
+
+										<div class="entry-content">
+											<p>Capicola kielbasa pork belly cow alcatra pancetta rump sausage meatloaf burgdoggen.</p>
+										</div>
+										<!-- .entry-content -->
+									</div>
+									<!-- .item-content -->
+									<div class="text-center blog-btn ">
+										<a href="#" class="btn btn-outline-maincolor">view more</a>
+									</div>
+								</article>
+								<!-- #post-## -->
+								<article class="vertical-item text-center content-padding padding-small bordered post type-post status-publish format-standard has-post-thumbnail details">
+									<div class="item-media post-thumbnail">
+										<img src="images/img-06.jpg" alt="">
+										<div class="media-links">
+											<a class="abs-link" href="blog-single-right.html"></a>
+										</div>
+										<div class="entry-meta small-text bg-dark-transpatent">
+											<span class="byline">
+												<span class="posted-on">
+													<span class="screen-reader-text">Posted on</span>
+
+													<a href="blog-single-right.html" rel="bookmark">
+														<i class="fa fa-calendar color-main2"></i>
+														<time datetime="2017-10-03T08:50:40+00:00" class="entry-date published updated">19 Jan, 18</time>
+													</a>
+												</span>
+												<span class="category-links links-maincolor">
+													<span class="screen-reader-text">Categories</span>
+													<a href="blog-right.html" rel="category tag">
+														<i class="fa fa-tags color-main2"></i>
+														Recipes
+													</a>
+												</span>
+												<span class="author vcard">
+													<a class="url fn n" href="blog-right.html">
+														<i class="fa fa-user color-main2"></i>
+														Admin
+													</a>
+												</span>
+											</span>
+										</div>
+									</div>
+									<!-- .post-thumbnail -->
+									<div class="item-content">
+										<header class="entry-header">
+											<h4 class="entry-title">
+												<a href="blog-single-right.html" rel="bookmark">
+													How To Cook A Tender Juicy Steak
+												</a>
+											</h4>
+										</header>
+										<!-- .entry-header -->
+
+										<div class="entry-content">
+											<p>Capicola kielbasa pork belly cow alcatra pancetta rump sausage meatloaf burgdoggen.</p>
+										</div>
+										<!-- .entry-content -->
+									</div>
+									<!-- .item-content -->
+									<div class="text-center blog-btn ">
+										<a href="#" class="btn btn-outline-maincolor">view more</a>
+									</div>
+								</article>
+								<!-- #post-## -->
+							</div>
+						</div>
+					</div>
+					<div class="divider-25"></div>
+				</div>
+			</section>
+
+			<footer class="page_footer ds s-pt-90 s-pb-15 s-pt-lg-130 s-pb-lg-75 c-gutter-60 s-parallax">
+				<div class="s-pt-60 s-pb-60 s-py-lg-60 cs cs2 s-parallax s-overlay discount text-center text-lg-left">
+					<div class="container">
+						<div class="row align-items-center">
+
+							<div class="col-lg-8">
+								<h3>
+									Do You Want to Get a 30% Discount?
+								</h3>
+								<h6 class="small-text">
+									Fill in the registration form for the course now and get a discount
+								</h6>
+							</div>
+
+							<div class="col-lg-4 text-center text-lg-right">
+								<a href="#" class="btn btn-lightcolor">fill out the form now</a>
+							</div>
+						</div>
+					</div>
+					<div class="divider-10"></div>
+				</div>
+
+				<div class="container">
+					<div class="row">
+						<div class="divider-30 d-none d-xl-block"></div>
+
+						<div class="col-md-12 col-lg-4 animate text-center text-lg-left" data-animation="fadeInUp">
+							<div class="widget widget_icons_list footer-list">
+								<div class="text-center">
+									<a href="./" class="logo logo-footer">
+										<img src="images/logo.png" alt="">
+										<span class="logo-text color-darkgrey">Muka
+											<strong class="color-main">.</strong>
+										</span>
+									</a>
+								</div>
+								<p class="after-logo">Our Cooking School features a long and proud history of more than 100 years. Founded at the end of the XIXth century.</p>
+								<p class="icon-inline">
+									<span class="icon-styled color-main2">
+										<i class="fa fa-map-marker"></i>
+									</span>
+									<span>828 Curtis Ferry, New York, USA</span>
+								</p>
+								<p class="icon-inline">
+									<span class="icon-styled color-main2">
+										<i class="fa fa-phone"></i>
+									</span>
+									<span>+8 (800) 238 3597 (admin)</span>
+								</p>
+								<p class="icon-inline">
+									<span class="icon-styled color-main2">
+										<i class="fa fa-envelope"></i>
+									</span>
+									<span>
+										<a class="border-bottom" href="#">muka_office@example.com</a>
+									</span>
+								</p>
+								<p class="icon-inline">
+									<span class="icon-styled color-main2">
+										<i class="fa fa-internet-explorer"></i>
+									</span>
+									<span>
+										<a href="#">www.muka_cooking.com</a>
+									</span>
+								</p>
+
+							</div>
+						</div>
+						<div class="col-md-6 col-lg-4 animate" data-animation="fadeInUp">
+							<div class="widget widget_recent_posts">
+
+								<h3 class="widget-title">Recent Posts</h3>
+								<ul class="list-unstyled">
+									<li class="media">
+										<a class="media-image" href="blog-single-right.html">
+											<img src="images/events/01.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<p>
+												<a href="blog-single-right.html">Pro Cooking Tips Braising Meats For Tenderness</a>
+											</p>
+											<h6 class="item-meta">
+												<i class="fa fa-calendar color-main"></i>
+												20 jan, 18
+											</h6>
+										</div>
+									</li>
+
+									<li class="media">
+										<a class="media-image" href="blog-single-right.html">
+											<img src="images/events/02.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<p>
+												<a href="blog-single-right.html">Barbecue Party Tips For A Truly Amazing Event</a>
+											</p>
+											<h6 class="item-meta">
+												<i class="fa fa-calendar color-main"></i>
+												23 jan, 18
+											</h6>
+
+										</div>
+									</li>
+
+									<li class="media">
+										<a class="media-image" href="blog-single-right.html">
+											<img src="images/events/03.jpg" alt="">
+										</a>
+										<div class="media-body">
+											<p>
+												<a href="blog-single-right.html">The Best Way To Cook Your Freshly Caught Fish</a>
+											</p>
+											<h6 class="item-meta">
+												<i class="fa fa-calendar color-main"></i>
+												25 jan, 18
+											</h6>
+
+										</div>
+									</li>
+
+								</ul>
+							</div>
+
+
+						</div>
+
+						<div class="col-md-6 col-lg-4 animate text-center text-lg-left" data-animation="fadeInUp">
+							<div class="widget widget_mailchimp footer_mailchimp">
+
+								<h3 class="widget-title">Subscribe Now</h3>
+
+								<p>
+									Enter Email here to be updated. We promise not to send you spam!
+								</p>
+
+								<form class="signup" action="/">
+									<label for="mailchimp_email">
+										<span class="screen-reader-text">Subscribe:</span>
+									</label>
+
+									<input id="mailchimp_email" name="email" type="email" class="form-control mailchimp_email ds" placeholder="Enter Email address">
+
+									<button type="submit" class="btn btn-maincolor">Subscribe</button>
+									<div class="response"></div>
+								</form>
+
+							</div>
+						</div>
+						<div class="divider-20 d-none d-xl-block"></div>
+					</div>
+				</div>
+			</footer>
+
+			<section class="page_copyright ds s-py-25 s-py-lg-5 s-parallax s-overlay footer-overlay">
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="divider-20 d-none d-lg-block"></div>
+						<div class="col-md-12 text-center">
+							<p>&copy; Copyright
+								<span class="copyright_year">2018</span> All Rights Reserved</p>
+						</div>
+						<div class="divider-20 d-none d-lg-block"></div>
+					</div>
+				</div>
+			</section>
+
+
+		</div>
+		<!-- eof #box_wrapper -->
+	</div>
+	<!-- eof #canvas -->
+
+
+	<script src="js/compressed.js"></script>
+	<script src="js/main.js"></script>
+
+
+	<!-- Google Map Script -->
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0pr5xCHpaTGv12l73IExOHDJisBP2FK4"></script>
+
+</body>
+
+</html>
