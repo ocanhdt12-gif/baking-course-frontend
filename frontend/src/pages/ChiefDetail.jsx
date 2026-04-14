@@ -1,3 +1,4 @@
+import { useInitOnLoaded } from '../hooks/useInitOnLoaded';
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import PageTitle from '../components/Shared/PageTitle';
@@ -50,6 +51,8 @@ const ChiefDetail = () => {
     setSubmitting(false);
   };
 
+  useInitOnLoaded(loading);
+
   if (loading) {
     return (
       <div className="text-center" style={{ padding: '150px 0' }}>
@@ -87,7 +90,7 @@ const ChiefDetail = () => {
                 <div className="col-md-5">
                   <div className="vertical-item content-absolute text-center">
                     <div className="item-media">
-                      <img src={chief.image ? (chief.image.startsWith('http') ? chief.image : `/${chief.image}`) : '/images/team/single-profile.jpg'} alt={chief.name} />
+                      <img src={chief.image ? (chief.image.startsWith('http') ? chief.image : `${import.meta.env.BASE_URL}${chief.image.replace(/^\//, '')}`) : '/images/team/single-profile.jpg'} alt={chief.name} />
                     </div>
                     <div className="item-content bg-maincolor-transparent">
                       <h4>{chief.name}</h4>
@@ -131,7 +134,7 @@ const ChiefDetail = () => {
                   <div className="tab-content mb-40">
                     <div className="tab-pane fade show active" id="tab01_pane" role="tabpanel" aria-labelledby="tab01">
                       {chief.biography ? (
-                        <div style={{ whiteSpace: 'pre-wrap' }}>{chief.biography}</div>
+                        <div dangerouslySetInnerHTML={{ __html: chief.biography }} />
                       ) : (
                         <p>Detailed biography for {chief.name} will be updated soon.</p>
                       )}
@@ -142,20 +145,26 @@ const ChiefDetail = () => {
                     </div>
 
                     <div className="tab-pane fade" id="tab02_pane" role="tabpanel" aria-labelledby="tab02">
+                      <p>
+                        Dutem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit. Praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+                      </p>
                       {(!chief.parsedSkills || chief.parsedSkills.length === 0) ? (
                         <p>Skill details will be updated soon.</p>
                       ) : (
                         chief.parsedSkills.map((sk, index) => (
-                          <div key={index} className="mb-3">
+                          <React.Fragment key={index}>
                             <span className="small-text progress-title">{sk.name}</span>
                             <div className="progress">
-                              <div className="progress-bar bg-maincolor" role="progressbar" style={{ width: `${sk.percent}%` }} aria-valuenow={sk.percent} aria-valuemin="0" aria-valuemax="100">
+                              <div className="progress-bar bg-maincolor" role="progressbar" data-transitiongoal={sk.percent} style={{ width: `${sk.percent}%` }} aria-valuenow={sk.percent} aria-valuemin="0" aria-valuemax="100">
                                 <span>{sk.percent}%</span>
                               </div>
                             </div>
-                          </div>
+                          </React.Fragment>
                         ))
                       )}
+                      <p>
+                        <br /> Ut wisi enim ad minim veniaquis nostrud exetation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Dutem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit.
+                      </p>
                     </div>
 
                     <div className="tab-pane fade" id="tab03_pane" role="tabpanel" aria-labelledby="tab03">
@@ -179,6 +188,22 @@ const ChiefDetail = () => {
                     </div>
                   </div>
                   {/* tabs end */}
+
+                  <p>
+                    Andouille meatball pork doner pork loin jerky capicola sirloin picanha. Spare ribs burgdoggen beef ribs, ground round chuck kevin meatball jerky t-bone. Sausage buffalo beef ribs, chuck pork belly t-bone turkey swine filet mignon short loin. Bresaola chicken salami pork. Chicken t-bone short ribs, short loin porchetta flank rump shankle ball tip ham.
+                  </p>
+
+                  <blockquote className="bordered layout-2">
+                    <div>
+                      <h6 className="small-text color-main2 margin-0">former student</h6>
+                      <h5>Michael Delgado</h5>
+                    </div>
+                    <p>«Sirloin porchetta tenderloin flank. Prosciutto doner kielbasa andouille, turkey jowl ham cupim flank sirloin tenderloin. Picanha ball tip meatball shank. Buffalo pork belly cow boudin corned.»</p>
+                  </blockquote>
+
+                  <p>
+                    Biltong sausage ham hock burgdoggen leberkas short ribs pork loin alcatra meatball. Salami doner tongue spare ribs chuck turkey burgdoggen biltong meatball jowl porchetta beef ribs shank brisket ball tip. Porchetta turkey pastrami.
+                  </p>
 
                 </div>
               </div>

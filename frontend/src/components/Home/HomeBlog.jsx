@@ -8,13 +8,7 @@ const HomeBlog = ({ posts }) => {
   // Extract unique categories from posts, ignore missing
   const categories = [...new Set(posts.map(post => post.category).filter(Boolean))];
 
-  useEffect(() => {
-    if (posts && posts.length > 0 && window.mukaInitOwlCarousel && window.jQuery) {
-      setTimeout(() => {
-        window.mukaInitOwlCarousel(window.jQuery(carouselRef.current));
-      }, 100);
-    }
-  }, [posts]);
+
 	return (
 		<section className="ls s-py-40 s-py-lg-130 blog-carousel animate" data-animation="fadeInUp" id="blog">
 			<div className="container">

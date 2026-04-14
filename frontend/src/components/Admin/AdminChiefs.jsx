@@ -80,7 +80,7 @@ const AdminChiefs = () => {
   };
 
   const columns = [
-    { key: 'image', label: 'Photo', render: (row) => row.image ? <img src={row.image.startsWith('http') ? row.image : `/${row.image}`} alt="" style={{ width: 50, height: 50, objectFit: 'cover', borderRadius: 4 }} /> : <span style={{color:'#64748b'}}>No image</span> },
+    { key: 'image', label: 'Photo', render: (row) => row.image ? <img src={row.image.startsWith('http') ? row.image : `${import.meta.env.BASE_URL}${row.image.replace(/^\//, '')}`} alt="" style={{ width: 50, height: 50, objectFit: 'cover', borderRadius: 4 }} /> : <span style={{color:'#64748b'}}>No image</span> },
     { key: 'name', label: 'Name' },
     { key: 'role', label: 'Role' },
     { key: 'bio', label: 'Short Bio', render: (row) => row.bio ? row.bio.substring(0, 50) + '...' : '—' },

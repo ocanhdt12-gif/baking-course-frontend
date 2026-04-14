@@ -1,3 +1,4 @@
+import { useInitOnLoaded } from '../hooks/useInitOnLoaded';
 import React, { useState, useEffect } from 'react';
 import PageTitle from '../components/Shared/PageTitle';
 import AboutHistory from '../components/About/AboutHistory';
@@ -21,6 +22,8 @@ const About = () => {
         setLoading(false);
       });
   }, []);
+
+  useInitOnLoaded(loading);
 
   if (loading) {
     return (

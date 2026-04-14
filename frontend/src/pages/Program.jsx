@@ -1,3 +1,4 @@
+import { useInitOnLoaded } from '../hooks/useInitOnLoaded';
 import React, { useState, useEffect } from 'react';
 import PageTitle from '../components/Shared/PageTitle';
 import ProgramCard from '../components/Shared/ProgramCard';
@@ -32,6 +33,8 @@ const Program = () => {
         setLoading(false);
       });
   }, [currentPage, chiefId]);
+
+  useInitOnLoaded(loading);
 
   if (loading) {
     return (

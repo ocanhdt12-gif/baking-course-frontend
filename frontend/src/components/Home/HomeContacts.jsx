@@ -63,7 +63,7 @@ const HomeContacts = () => {
             <div className="section-heading">
               <h6 className="small-text color-main2">please register now!</h6>
               <h3>Our Form for Enrollment</h3>
-              <img className="image-wrap" src="images/icon-main.png" alt=""/>
+              <img className="image-wrap" src={`${import.meta.env.BASE_URL}images/icon-main.png`} alt=""/>
             </div>
             <div className="d-none d-lg-block divider-60"></div>
           </div>

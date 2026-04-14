@@ -1,3 +1,4 @@
+import { useInitOnLoaded } from '../hooks/useInitOnLoaded';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PageTitle from '../components/Shared/PageTitle';
@@ -41,6 +42,8 @@ const Receipt = () => {
         setLoading(false);
       });
   }, [currentPage]);
+
+  useInitOnLoaded(loading);
 
   if (loading) {
     return (

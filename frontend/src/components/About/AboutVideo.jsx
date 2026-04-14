@@ -7,7 +7,7 @@ const AboutVideo = ({ achievements }) => {
       <div className="row align-items-center">
         <div className="col-12 col-lg-6 order-lg-1">
           <a href="images/video-image.jpg" className="photoswipe-link iframe-link" data-iframe="https://www.youtube.com/embed/mcixldqDIEQ">
-            <img src="images/video-image.jpg" alt="" />
+            <img src={`${import.meta.env.BASE_URL}images/video-image.jpg`} alt="" />
           </a>
         </div>
         <div className="col-12 col-lg-5 order-lg-2 animate" data-animation="slideInRight">

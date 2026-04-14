@@ -11,9 +11,9 @@ const ProgramCard = ({ cls }) => {
           <Link className="abs-link" to={ROUTES.PROGRAM_DETAIL(cls.slug)}></Link>
         </div>
         <div className="content-absolute bg-maincolor2-transparent text-left ds">
-          <h6>{cls.chief?.name || cls.authorName}</h6>
+          <h6>{cls.authorName || cls.chief?.name}</h6>
           <div className={`autor ${cls.id === 1 ? 'half-circle' : ''}`}>
-            <img src={cls.chief?.image || cls.authorImage} alt="" />
+            <img src={cls.authorImage || cls.chief?.image} alt="" />
           </div>
         </div>
       </div>

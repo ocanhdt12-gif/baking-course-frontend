@@ -25,7 +25,7 @@ import ScrollToTop from './components/Shared/ScrollToTop';
 function App() {
   return (
     <>
-    <Router>
+    <Router basename={import.meta.env.BASE_URL}>
       <ScrollToTop />
       <Routes>
         {/* ALL ROUTES UNDER PUBLIC LAYOUT FOR UNIFIED THEME CSS */}

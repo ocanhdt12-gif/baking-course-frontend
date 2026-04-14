@@ -4,13 +4,7 @@ import ProgramCard from '../Shared/ProgramCard';
 const HomeClasses = ({ classes }) => {
   const carouselRef = useRef(null);
 
-  useEffect(() => {
-    if (classes && classes.length > 0 && window.mukaInitOwlCarousel && window.jQuery) {
-      setTimeout(() => {
-        window.mukaInitOwlCarousel(window.jQuery(carouselRef.current));
-      }, 100);
-    }
-  }, [classes]);
+
 	return (
 		<section className="ls s-py-40 s-py-lg-130 program program-carousel animate" data-animation="fadeInUp" id="classes">
 			<div className="container">
@@ -20,7 +14,7 @@ const HomeClasses = ({ classes }) => {
 						<div className="section-heading">
 							<h6 className="small-text color-main2">Round the Globe</h6>
 							<h3>Our Cooking Classes</h3>
-							<img className="image-wrap" src="images/icon-main.png" alt="" />
+							<img className="image-wrap" src={`${import.meta.env.BASE_URL}images/icon-main.png`} alt="" />
 						</div>
 						<div className="d-none d-lg-block divider-60"></div>
 						<div ref={carouselRef} className="owl-carousel carousel-nav" data-responsive-lg="3" data-responsive-md="2" data-responsive-sm="2" data-responsive-xs="1" data-nav="true" data-loop="true">

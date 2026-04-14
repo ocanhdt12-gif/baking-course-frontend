@@ -13,7 +13,7 @@ const Header = () => {
           <div className="row align-items-center">
             <div className="col-xl-2 col-lg-3 col-11">
               <Link to={ROUTES.HOME} className="logo">
-                <img src="/images/logo.png" alt="Logo" />
+                <img src={`${import.meta.env.BASE_URL}images/logo.png`} alt="Logo" />
                 <span className="logo-text color-darkgrey">
                   {siteConfig.logoText}<strong className="color-main logo-dot">{siteConfig.logoDot}</strong>
                 </span>

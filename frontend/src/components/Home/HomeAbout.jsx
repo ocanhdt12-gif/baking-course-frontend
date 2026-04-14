@@ -8,7 +8,7 @@ const HomeAbout = () => {
 			<div className="row align-items-center">
 				<div className="col-12 col-lg-6 order-lg-1">
 					<a href="images/video-image.jpg" className="photoswipe-link" data-iframe="https://www.youtube.com/embed/mcixldqDIEQ">
-						<img src="images/video-image.jpg" alt="" />
+						<img src={`${import.meta.env.BASE_URL}images/video-image.jpg`} alt="" />
 						<div className="video-text">
 							<h5>
 								<span>Watch</span>
@@ -24,7 +24,7 @@ const HomeAbout = () => {
 						<h6 className="fs-14 color-main text-uppercase">our achievements</h6>
 						<h3>Hello, Welcome to Muka!</h3>
 						<div className="icon-image">
-							<img src="images/icon-3.png" alt="" />
+							<img src={`${import.meta.env.BASE_URL}images/icon-3.png`} alt="" />
 						</div>
 						<div className="d-none d-lg-block divider-50"></div>
 						<div className="media">

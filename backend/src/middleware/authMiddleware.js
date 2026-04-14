@@ -13,7 +13,7 @@ module.exports = function (req, res, next) {
 
   // Check if no token
   if (!token) {
-    return res.status(401).json({ error: 'Truy cập bị từ chối, không tìm thấy Token.' });
+    return res.status(401).json({ error: 'Access denied, no token provided.' });
   }
 
   // Verify token
@@ -22,6 +22,6 @@ module.exports = function (req, res, next) {
     req.user = decoded.user;
     next();
   } catch (err) {
-    res.status(401).json({ error: 'Token không hợp lệ.' });
+    res.status(401).json({ error: 'Invalid token.' });
   }
 };

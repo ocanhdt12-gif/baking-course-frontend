@@ -1,3 +1,4 @@
+import { useInitOnLoaded } from '../hooks/useInitOnLoaded';
 import React, { useState, useEffect } from 'react';
 import HomeSlider from '../components/Home/HomeSlider';
 import HomeClasses from '../components/Home/HomeClasses';
@@ -51,6 +52,8 @@ const Home = () => {
       setLoading(false);
     });
   }, []);
+
+  useInitOnLoaded(loading);
 
   if (loading) {
     return (

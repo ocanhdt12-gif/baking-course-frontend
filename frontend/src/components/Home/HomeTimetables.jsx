@@ -24,7 +24,7 @@ const HomeTimetables = ({ schedules = [] }) => {
 						<div className="section-heading">
 							<h6 className="small-text color-main">updated schedule</h6>
 							<h3>Timetable of Classes</h3>
-							<img className="image-wrap" src="images/icon-main2.png" alt="" />
+							<img className="image-wrap" src={`${import.meta.env.BASE_URL}images/icon-main2.png`} alt="" />
 						</div>
 						<div className="d-none d-lg-block divider-60"></div>
 					</div>
@@ -65,7 +65,7 @@ const HomeTimetables = ({ schedules = [] }) => {
 											dayPrograms.map(session => (
 												<div key={session.id} className="media bordered">
 													<Link to={`/program/${session.program.slug}`} className="ds">
-														<img src={session.program.thumbnail || "images/gallery/01.jpg"} alt={session.program.title} style={{ width: '150px', height: '150px', objectFit: 'cover' }} />
+														<img src={`${import.meta.env.BASE_URL}images/gallery/${(session.program.title.length % 9) + 1 < 10 ? '0' : ''}${(session.program.title.length % 9) + 1}.jpg`} alt={session.program.title} style={{ width: '150px', height: '150px', objectFit: 'cover' }} />
 													</Link>
 													<div className="media-body">
 														<h5>

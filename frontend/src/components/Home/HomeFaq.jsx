@@ -11,7 +11,7 @@ const HomeFaq = () => {
 							<div className="section-heading">
 								<h6 className="small-text color-main2">Round the Globe</h6>
 								<h3>FAQ / Our Location</h3>
-								<img className="image-wrap" src="images/icon-main.png" alt=""/>
+								<img className="image-wrap" src={`${import.meta.env.BASE_URL}images/icon-main.png`} alt=""/>
 							</div>
 						</div>
 						<div className="d-none d-lg-block divider-60"></div>
@@ -126,7 +126,7 @@ const HomeFaq = () => {
 										</ul>
 									</div>
 
-									<img className="marker-icon" src="images/map_marker_icon2.png" alt=""/>
+									<img className="marker-icon" src={`${import.meta.env.BASE_URL}images/map_marker_icon2.png`} alt=""/>
 								</div>
 
 							</div>

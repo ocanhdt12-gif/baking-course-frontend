@@ -1,3 +1,4 @@
+import { useInitOnLoaded } from '../hooks/useInitOnLoaded';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PageTitle from '../components/Shared/PageTitle';
@@ -28,6 +29,8 @@ const Chiefs = () => {
       });
   }, [currentPage]);
 
+  useInitOnLoaded(loading);
+
   if (loading) {
     return (
       <div className="text-center" style={{ padding: '150px 0' }}>
@@ -40,8 +43,8 @@ const Chiefs = () => {
   const paginatedChiefs = chiefs;
 
   const imgSrc = (src) => {
-    if (!src) return '/images/team/01.jpg';
-    return src.startsWith('http') ? src : `/${src}`;
+    if (!src) return `${import.meta.env.BASE_URL}images/team/01.jpg`;
+    return src.startsWith('http') ? src : `${import.meta.env.BASE_URL}${src.replace(/^\//, '')}`;
   };
 
   return (

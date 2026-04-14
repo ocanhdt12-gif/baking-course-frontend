@@ -1,3 +1,4 @@
+import { useInitOnLoaded } from '../hooks/useInitOnLoaded';
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getProgramBySlug, createProgram, updateProgram, getChiefs } from '../services/api';
@@ -40,7 +41,7 @@ const AdminProgramEditor = () => {
             chiefId: prog.chiefId || '',
             authorName: prog.authorName || '',
             authorImage: prog.authorImage || '',
-            learningGoals: Array.isArray(prog.learningGoals) ? prog.learningGoals : [],
+            learningGoals: Array.isArray(prog.learningGoals) ? prog.learningGoals.map(g => typeof g === 'string' ? { skill: g, percent: 50 } : g) : [],
             classIncludes: Array.isArray(prog.classIncludes) ? prog.classIncludes : [],
             curriculum: Array.isArray(prog.curriculum) ? prog.curriculum : [],
             classSessions: Array.isArray(prog.classSessions) ? prog.classSessions.map(cs => ({
@@ -110,6 +111,8 @@ const AdminProgramEditor = () => {
   const addClassSession = () => {
     setFormData({ ...formData, classSessions: [...formData.classSessions, { startDate: '', endDate: '', enrollmentDeadline: '', dayOfWeek: '', timeRange: '', instructorOverride: '' }] });
   };
+
+  useInitOnLoaded(loading);
 
   if (loading) return <div className="p-5 text-center text-white">Loading Editor...</div>;
 
@@ -243,12 +246,12 @@ const AdminProgramEditor = () => {
         <div className="admin-paper p-4 mb-4">
           <h5 className="mb-2" style={{borderBottom: '1px solid var(--admin-border-light)', paddingBottom: '10px'}}>You Will Learn (Progress Bars)</h5>
           {formData.learningGoals.map((goal, i) => (
-            <div key={i} className="row mt-2 align-items-center">
+            <div key={i} className="row mt-2 align-items-center mb-2">
               <div className="col-7">
-                <AdminInput value={goal.skill} onChange={e => handleArrayChange('learningGoals', i, 'skill', e.target.value)} placeholder="Skill Name" />
+                <input className="admin-form-control shadow-none" value={goal.skill || ''} onChange={e => handleArrayChange('learningGoals', i, 'skill', e.target.value)} placeholder="Skill Name" />
               </div>
               <div className="col-3">
-                <AdminInput type="number" value={goal.percent} onChange={e => handleArrayChange('learningGoals', i, 'percent', parseInt(e.target.value))} placeholder="%" min="0" max="100" />
+                <input className="admin-form-control shadow-none" type="number" value={goal.percent || ''} onChange={e => handleArrayChange('learningGoals', i, 'percent', parseInt(e.target.value) || 0)} placeholder="%" min="0" max="100" />
               </div>
               <div className="col-2">
                 <button type="button" className="btn btn-sm btn-danger w-100" onClick={() => removeArrayItem('learningGoals', i)}><i className="fa fa-trash"></i></button>

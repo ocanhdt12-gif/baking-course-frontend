@@ -9,7 +9,7 @@ exports.login = async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(400).json({ error: 'Vui lòng cung cấp email và password.' });
+      return res.status(400).json({ error: 'Please provide email and password.' });
     }
 
     const user = await prisma.user.findUnique({
@@ -17,13 +17,13 @@ exports.login = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(401).json({ error: 'Tài khoản hoặc mật khẩu không chính xác.' });
+      return res.status(401).json({ error: 'Invalid credentials.' });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      return res.status(401).json({ error: 'Tài khoản hoặc mật khẩu không chính xác.' });
+      return res.status(401).json({ error: 'Invalid credentials.' });
     }
 
     const payload = {
@@ -44,7 +44,7 @@ exports.login = async (req, res) => {
     });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Lỗi Server.');
+    res.status(500).send('Internal Server Error.');
   }
 };
 
@@ -53,12 +53,12 @@ exports.register = async (req, res) => {
     const { fullName, email, password } = req.body;
 
     if (!fullName || !email || !password) {
-      return res.status(400).json({ error: 'Cần cung cấp đủ tên, email và mật khẩu.' });
+      return res.status(400).json({ error: 'Please provide name, email and password.' });
     }
 
     let user = await prisma.user.findUnique({ where: { email } });
     if (user) {
-      return res.status(400).json({ error: 'Email này đã được sử dụng.' });
+      return res.status(400).json({ error: 'This email is already in use.' });
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -88,7 +88,7 @@ exports.register = async (req, res) => {
     res.status(201).json({ token, user: payload.user });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Lỗi Server.');
+    res.status(500).send('Internal Server Error.');
   }
 };
 
@@ -112,12 +112,12 @@ exports.getMe = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(404).json({ error: 'Không tìm thấy thông tin người dùng.' });
+      return res.status(404).json({ error: 'User not found.' });
     }
 
     res.json(user);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Lỗi Server.');
+    res.status(500).send('Internal Server Error.');
   }
 };

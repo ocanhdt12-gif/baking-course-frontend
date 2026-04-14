@@ -3,13 +3,7 @@ import React, { useEffect, useRef } from 'react';
 const TestimonialsSlider = ({ testimonials }) => {
   const carouselRef = useRef(null);
 
-  useEffect(() => {
-    if (testimonials && testimonials.length > 0 && window.mukaInitOwlCarousel && window.jQuery) {
-      setTimeout(() => {
-        window.mukaInitOwlCarousel(window.jQuery(carouselRef.current));
-      }, 100);
-    }
-  }, [testimonials]);
+
 	return (
 		<section className="ls ms s-pt-lg-130 s-pb-lg-130 c-gutter-100 c-my-0 left-part-bg testimonials-section text-center text-md-left" id="testimonials">
 			<div ref={carouselRef} className="owl-carousel owl-nav-bottom" data-responsive-lg="1" data-responsive-md="1" data-responsive-sm="1" data-responsive-xs="1" data-nav="true" data-loop="true" data-margin="0">
@@ -27,7 +21,7 @@ const TestimonialsSlider = ({ testimonials }) => {
 								<div className="item-content">
 									<header>
 										<div className="icon-image">
-											<img src="images/icon-4.png" alt="" />
+											<img src={`${import.meta.env.BASE_URL}images/icon-4.png`} alt="" />
 										</div>
 										<h6 className="small-text color-main2">
 											Testimonials
@@ -43,7 +37,7 @@ const TestimonialsSlider = ({ testimonials }) => {
 										{test.text}
 									</p>
 									<span className="media-item float-right">
-										<img src="images/signature.png" alt="" />
+										<img src={`${import.meta.env.BASE_URL}images/signature.png`} alt="" />
 									</span>
 									<h4 className="text-left">{test.name}</h4>
 									<h6 className="small-text text-left color-main">{test.role}</h6>

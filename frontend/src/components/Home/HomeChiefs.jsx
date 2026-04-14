@@ -5,13 +5,7 @@ import { ROUTES } from '../../constants/routes';
 const HomeChiefs = ({ chiefs }) => {
   const carouselRef = useRef(null);
 
-  useEffect(() => {
-    if (chiefs && chiefs.length > 0 && window.mukaInitOwlCarousel && window.jQuery) {
-      setTimeout(() => {
-        window.mukaInitOwlCarousel(window.jQuery(carouselRef.current));
-      }, 100);
-    }
-  }, [chiefs]);
+
 	return (
 		<section className="ls s-py-40 s-py-lg-130 chiefs chiefs-carousel ls animate" data-animation="fadeInUp" id="chiefs">
 			<div className="container">
@@ -21,7 +15,7 @@ const HomeChiefs = ({ chiefs }) => {
 						<div className="section-heading">
 							<h6 className="small-text color-main">Our team of proffesionals</h6>
 							<h3>Best Chefs of America</h3>
-							<img className="image-wrap" src="images/icon-main2.png" alt="" />
+							<img className="image-wrap" src={`${import.meta.env.BASE_URL}images/icon-main2.png`} alt="" />
 						</div>
 						<div className="d-none d-lg-block divider-60"></div>
 						<div ref={carouselRef} className="owl-carousel carousel-nav" data-responsive-lg="3" data-responsive-md="2" data-responsive-sm="2" data-responsive-xs="1" data-nav="true" data-loop="true">

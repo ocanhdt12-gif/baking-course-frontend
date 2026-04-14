@@ -1,3 +1,4 @@
+import { useInitOnLoaded } from '../hooks/useInitOnLoaded';
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import PageTitle from '../components/Shared/PageTitle';
@@ -24,6 +25,8 @@ const PostDetail = () => {
         setLoading(false);
       });
   }, [slug]);
+
+  useInitOnLoaded(loading);
 
   if (loading) {
     return (
@@ -56,8 +59,8 @@ const PostDetail = () => {
 
   // Helper for image src
   const imgSrc = (src) => {
-    if (!src) return '/images/gallery/09.jpg';
-    return src.startsWith('http') ? src : `/${src}`;
+    if (!src) return `${import.meta.env.BASE_URL}images/gallery/09.jpg`;
+    return src.startsWith('http') ? src : `${import.meta.env.BASE_URL}${src.replace(/^\//, '')}`;
   };
 
   return (
@@ -158,7 +161,7 @@ const PostDetail = () => {
                 <div className="row">
                   <div className="col-xl-4 col-lg-6 col-md-6">
                     <div className="item-media cover-image">
-                      <img src="/images/author-bio.jpg" alt="" />
+                      <img src={`${import.meta.env.BASE_URL}images/author-bio.jpg`} alt="" />
                     </div>
                   </div>
                   <div className="col-xl-8 col-lg-6 col-md-6">

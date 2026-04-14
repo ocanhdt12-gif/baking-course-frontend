@@ -1,3 +1,4 @@
+import { useInitOnLoaded } from '../hooks/useInitOnLoaded';
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { getPostBySlug, createPost, updatePost, getPostCategories } from '../services/api';
@@ -73,6 +74,8 @@ const AdminPostEditor = () => {
       toast.error("Failed to save post");
     }
   };
+
+  useInitOnLoaded(loading);
 
   if (loading) return <div className="p-5 text-center text-white">Loading Editor...</div>;
 

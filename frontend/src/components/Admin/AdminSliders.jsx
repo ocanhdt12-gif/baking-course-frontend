@@ -63,7 +63,7 @@ const AdminSliders = () => {
             {featuredPrograms.map(prog => (
               <div key={prog.id} className="col-md-4 col-sm-6 mb-4">
                 <div className="card shadow-sm h-100" style={{ border: '2px solid #2ecc71' }}>
-                  <img src={prog.thumbnail || '/images/gallery/01.jpg'} className="card-img-top" alt={prog.title} style={{ height: '180px', objectFit: 'cover' }} />
+                  <img src={prog.thumbnail || `${import.meta.env.BASE_URL}images/gallery/01.jpg`} className="card-img-top" alt={prog.title} style={{ height: '180px', objectFit: 'cover' }} />
                   <div className="card-body">
                     <h6 className="card-title">{prog.title}</h6>
                     <p className="small text-muted mb-1">{prog.authorName || 'No instructor'}</p>
@@ -94,7 +94,7 @@ const AdminSliders = () => {
               return (
                 <div key={prog.id} className="col-md-3 col-sm-6 mb-4">
                   <div className={`card shadow-sm h-100 ${!eligible ? 'opacity-50' : ''}`}>
-                    <img src={prog.thumbnail || '/images/gallery/01.jpg'} className="card-img-top" alt={prog.title} style={{ height: '140px', objectFit: 'cover' }} />
+                    <img src={prog.thumbnail || `${import.meta.env.BASE_URL}images/gallery/01.jpg`} className="card-img-top" alt={prog.title} style={{ height: '140px', objectFit: 'cover' }} />
                     <div className="card-body p-3">
                       <h6 className="card-title" style={{ fontSize: '14px', marginBottom: '5px' }}>{prog.title}</h6>
                       {!eligible && <small className="text-danger d-block mb-1">Has started or lacks date</small>}

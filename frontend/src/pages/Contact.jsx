@@ -17,7 +17,7 @@ const Contact = () => {
 					<div className="marker-address">{siteConfig.contact.address}</div>
 					<div className="marker-title">Main Location</div>
 					<div className="marker-description">
-						<img src="images/logo.png" alt=""/>
+						<img src={`${import.meta.env.BASE_URL}images/logo.png`} alt=""/>
 						<ul className="list-unstyled">
 							<li>
 								<span className="icon-inline">
@@ -39,7 +39,7 @@ const Contact = () => {
 							</li>
 						</ul>
 					</div>
-					<img className="marker-icon" src="images/map_marker_icon.png" alt=""/>
+					<img className="marker-icon" src={`${import.meta.env.BASE_URL}images/map_marker_icon.png`} alt=""/>
 				</div>
 			</section>
 

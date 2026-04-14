@@ -23,7 +23,7 @@ const AboutHistory = ({ history }) => {
             </ul>
           </div>
           <div className="col-lg-6 border-none">
-            <img src="images/about.jpg" alt="" />
+            <img src={`${import.meta.env.BASE_URL}images/about.jpg`} alt="" />
           </div>
         </div>
         <div className="d-none d-lg-block divider-15"></div>

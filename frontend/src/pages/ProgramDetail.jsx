@@ -1,3 +1,4 @@
+import { useInitOnLoaded } from '../hooks/useInitOnLoaded';
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import PageTitle from '../components/Shared/PageTitle';
@@ -33,6 +34,8 @@ const ProgramDetail = () => {
       });
   }, [slug]);
 
+  useInitOnLoaded(loading);
+
   if (loading) {
     return (
       <div className="text-center" style={{ padding: '150px 0' }}>
@@ -63,7 +66,7 @@ const ProgramDetail = () => {
             <main className="col-lg-7 col-xl-8 vertical-item content-padding">
               <div className="item-media">
                 {program.thumbnail && (
-                  <img src={program.thumbnail.startsWith('http') ? program.thumbnail : `/${program.thumbnail}`} alt={program.title} />
+                  <img src={program.thumbnail.startsWith('http') ? program.thumbnail : `${import.meta.env.BASE_URL}${program.thumbnail.replace(/^\//, '')}`} alt={program.title} />
                 )}
                 
                 <div className="content-absolute bg-maincolor-transparent text-left ds">
@@ -197,7 +200,7 @@ const ProgramDetail = () => {
               {(program.chief || program.authorImage) && (
                 <div className="widget widget_instructor text-center p-4 mt-4 bordered">
                   <h4 className="widget-title">Your Instructor</h4>
-                  <img src={(program.chief?.image || program.authorImage).startsWith('http') ? (program.chief?.image || program.authorImage) : `/${(program.chief?.image || program.authorImage)}`} alt={program.chief?.name || program.authorName} className="rounded-circle mb-3" style={{ width: '120px', height: '120px', objectFit: 'cover' }} />
+                  <img src={(program.chief?.image || program.authorImage).startsWith('http') ? (program.chief?.image || program.authorImage) : `${import.meta.env.BASE_URL}${(program.chief?.image || program.authorImage).replace(/^\//, '')}`} alt={program.chief?.name || program.authorName} className="rounded-circle mb-3" style={{ width: '120px', height: '120px', objectFit: 'cover' }} />
                   <h5>{program.chief?.name || program.authorName}</h5>
                   <p className="small-text color-main">{program.chief?.role || 'Master Chef'}</p>
                   {program.chief && (

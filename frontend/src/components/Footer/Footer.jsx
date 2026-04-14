@@ -29,7 +29,7 @@ const Footer = () => {
               <div className="widget widget_icons_list footer-list">
                 <div className="text-center">
                   <Link to={ROUTES.HOME} className="logo logo-footer">
-                    <img src="images/logo.png" alt="" />
+                    <img src={`${import.meta.env.BASE_URL}images/logo.png`} alt="" />
                     <span className="logo-text color-darkgrey">{siteConfig.logoText}<strong className="color-main">{siteConfig.logoDot}</strong></span>
                   </Link>
                 </div>
@@ -58,21 +58,21 @@ const Footer = () => {
                 <h3 className="widget-title">Recent Posts</h3>
                 <ul className="list-unstyled">
                   <li className="media">
-                    <Link className="media-image" to={ROUTES.RECEIPT}><img src="images/events/01.jpg" alt="" /></Link>
+                    <Link className="media-image" to={ROUTES.RECEIPT}><img src={`${import.meta.env.BASE_URL}images/events/01.jpg`} alt="" /></Link>
                     <div className="media-body">
                       <p><Link to={ROUTES.RECEIPT}>Pro Cooking Tips Braising Meats For Tenderness</Link></p>
                       <h6 className="item-meta"><i className="fa fa-calendar color-main"></i>20 jan, 18</h6>
                     </div>
                   </li>
                   <li className="media">
-                    <Link className="media-image" to={ROUTES.RECEIPT}><img src="images/events/02.jpg" alt="" /></Link>
+                    <Link className="media-image" to={ROUTES.RECEIPT}><img src={`${import.meta.env.BASE_URL}images/events/02.jpg`} alt="" /></Link>
                     <div className="media-body">
                       <p><Link to={ROUTES.RECEIPT}>Barbecue Party Tips For A Truly Amazing Event</Link></p>
                       <h6 className="item-meta"><i className="fa fa-calendar color-main"></i>23 jan, 18</h6>
                     </div>
                   </li>
                   <li className="media">
-                    <Link className="media-image" to={ROUTES.RECEIPT}><img src="images/events/03.jpg" alt="" /></Link>
+                    <Link className="media-image" to={ROUTES.RECEIPT}><img src={`${import.meta.env.BASE_URL}images/events/03.jpg`} alt="" /></Link>
                     <div className="media-body">
                       <p><Link to={ROUTES.RECEIPT}>The Best Way To Cook Your Freshly Caught Fish</Link></p>
                       <h6 className="item-meta"><i className="fa fa-calendar color-main"></i>25 jan, 18</h6>
