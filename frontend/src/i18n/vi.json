@@ -154,6 +154,51 @@
   "checkout": {
     "pageTitle": "Thanh Toán"
   },
+  "payment": {
+    "resultTitle": "Kết Quả Giao Dịch",
+    "success": {
+      "title": "Thanh Toán Thành Công",
+      "courseActivated": "Khóa học {title} đã được kích hoạt.",
+      "accessNow": "Bạn có thể truy cập nội dung khóa học ngay bây giờ.",
+      "viewCourse": "Vào học ngay"
+    },
+    "pending": {
+      "title": "Đang Chờ Xác Nhận",
+      "processing": "Hệ thống đang xử lý giao dịch từ VNPay...",
+      "autoCheck": "Tự động kiểm tra ({current}/{max})",
+      "timeoutMsg": "Hết thời gian chờ nhưng chưa nhận được xác nhận từ ngân hàng.",
+      "checkAccount": "Vui lòng xem trạng thái tại mục ",
+      "myAccount": "Hồ sơ của tôi",
+      "backToCourse": "Quay lại khóa học"
+    },
+    "cancelled": {
+      "title": "Đã Hủy Giao Dịch",
+      "description": "Bạn đã hủy giao dịch trên hệ thống VNPay.",
+      "retry": "Thử thanh toán lại",
+      "goBack": "Quay lại"
+    },
+    "failed": {
+      "title": "Giao Dịch Thất Bại",
+      "description": "Thanh toán của bạn không thành công. Vui lòng thử lại với phương thức khác.",
+      "retry": "Thanh toán lại",
+      "goBack": "Quay lại"
+    },
+    "notFound": {
+      "title": "Không Tìm Thấy Hóa Đơn",
+      "description": "Hóa đơn này không tồn tại hoặc tài khoản của bạn bị từ chối truy cập.",
+      "viewCourses": "Xem danh sách khóa học"
+    },
+    "pendingOrder": {
+      "title": "Hóa Đơn Chờ Thanh Toán",
+      "description": "Bạn đang có một hóa đơn chưa thanh toán.",
+      "continuePay": "Tiếp tục thanh toán"
+    },
+    "orderInfo": {
+      "code": "Mã đơn hàng",
+      "amount": "Số tiền",
+      "paidAt": "Thanh toán lúc"
+    }
+  },
   "programDetail": {
     "title": "Chi Tiết Khóa Học",
     "loading": "Đang tải chi tiết khóa học...",
