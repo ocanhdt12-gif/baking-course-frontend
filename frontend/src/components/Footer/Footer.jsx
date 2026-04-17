@@ -9,6 +9,13 @@ const Footer = () => {
   const { t } = useTranslation();
   const [recentPosts, setRecentPosts] = useState([]);
 
+  // Helper for image src
+  const imgSrc = (src) => {
+    if (!src) return `${import.meta.env.BASE_URL}images/gallery/09.jpg`;
+    if (src.startsWith('http') || src.startsWith(import.meta.env.BASE_URL)) return src;
+    return `${import.meta.env.BASE_URL}${src.replace(/^\//, '')}`;
+  };
+
   useEffect(() => {
     getPosts().then(res => {
       const posts = res?.data || res || [];
@@ -73,7 +80,7 @@ const Footer = () => {
                   {recentPosts.length > 0 ? recentPosts.map(post => (
                     <li key={post.slug} className="media">
                       <Link className="media-image" to={ROUTES.POST_DETAIL(post.slug)}>
-                        <img src={post.thumbnail ? (post.thumbnail.startsWith('http') ? post.thumbnail : `${import.meta.env.BASE_URL}${post.thumbnail.replace(/^\//, '')}`) : `${import.meta.env.BASE_URL}images/gallery/09.jpg`} alt={post.title} />
+                        <img src={imgSrc(post.thumbnail)} alt={post.title} />
                       </Link>
                       <div className="media-body">
                         <p><Link to={ROUTES.POST_DETAIL(post.slug)}>{post.title}</Link></p>
