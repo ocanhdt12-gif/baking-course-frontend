@@ -95,11 +95,6 @@
     "messagePlaceholder": "Tin nhắn của bạn...",
     "success": "Tin nhắn đã được gửi thành công. Chúng tôi sẽ phản hồi sớm nhất!"
   },
-  "common": {
-    "optional": "Tùy chọn",
-    "sending": "Đang gửi...",
-    "sendNow": "Gửi Ngay"
-  },
   "form": {
     "fullName": "Họ và tên",
     "email": "Địa chỉ email",
@@ -107,6 +102,7 @@
     "phone": "Số điện thoại",
     "subject": "Tiêu đề",
     "message": "Nội dung",
+    "messagePlaceholder": "Tin nhắn của bạn...",
     "optional": "(Tùy chọn)",
     "cookingClass": "Lớp nấu ăn",
     "loadingClasses": "Đang tải lớp học...",
@@ -141,6 +137,8 @@
       "skills": "Kỹ năng",
       "sendMessage": "Gửi tin nhắn"
     },
+    "skillsIntro": "Những kỹ năng chuyên sâu của tôi được đúc kết qua nhiều năm theo nghề.",
+    "contactFormTitle": "Liên Hệ Giảng Viên",
     "tabBio": "Tiểu sử",
     "tabSkills": "Kỹ năng",
     "tabMessage": "Gửi tin nhắn",
@@ -367,6 +365,9 @@
     "backHome": "Về trang chủ"
   },
   "common": {
+    "optional": "Tùy chọn",
+    "sending": "Đang gửi...",
+    "sendNow": "Gửi Ngay",
     "viewMore": "xem thêm",
     "readMore": "Đọc thêm",
     "loading": "Đang tải...",

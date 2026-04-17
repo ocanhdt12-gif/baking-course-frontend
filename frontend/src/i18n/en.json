@@ -95,11 +95,6 @@
     "messagePlaceholder": "Your Message...",
     "success": "Your message has been sent successfully. We will get back to you soon!"
   },
-  "common": {
-    "optional": "Optional",
-    "sending": "Sending...",
-    "sendNow": "Send Now"
-  },
   "form": {
     "fullName": "Full Name",
     "email": "Email address",
@@ -107,6 +102,7 @@
     "phone": "Phone",
     "subject": "Subject",
     "message": "Message",
+    "messagePlaceholder": "Your Message...",
     "optional": "(Optional)",
     "cookingClass": "Cooking Class",
     "loadingClasses": "Loading classes...",
@@ -141,6 +137,8 @@
       "skills": "Skills",
       "sendMessage": "Send Message"
     },
+    "skillsIntro": "My specialized skills developed through years of experience.",
+    "contactFormTitle": "Contact Instructor",
     "tabBio": "Biography",
     "tabSkills": "Skills",
     "tabMessage": "Send Message",
@@ -367,6 +365,9 @@
     "backHome": "back to Home"
   },
   "common": {
+    "optional": "Optional",
+    "sending": "Sending...",
+    "sendNow": "Send Now",
     "viewMore": "view more",
     "readMore": "Read more",
     "loading": "Loading...",
