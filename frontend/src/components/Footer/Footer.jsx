@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom';
 import { siteConfig } from '../../config/siteConfig';
 import { ROUTES } from '../../constants/routes';
 import { useTranslation } from '../../i18n/LanguageContext';
-import { getPosts } from '../../services/api';
+import { getPosts, submitContact } from '../../services/api';
+import { toast } from 'react-toastify';
 
 const Footer = () => {
   const { t } = useTranslation();
   const [recentPosts, setRecentPosts] = useState([]);
+  const [email, setEmail] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   // Helper for image src
   const imgSrc = (src) => {
@@ -22,6 +25,25 @@ const Footer = () => {
       setRecentPosts(posts.slice(0, 3));
     }).catch(console.error);
   }, []);
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    if (!email) return;
+    setSubmitting(true);
+    try {
+      await submitContact({
+        name: 'Subscriber',
+        email: email,
+        subject: 'Đăng ký nhận bản tin (Newsletter)',
+        message: 'Yêu cầu đăng ký nhận tin tức mới qua email.'
+      });
+      toast.success(t('footer.subscribeSuccess') || 'Cảm ơn bạn đã đăng ký!');
+      setEmail('');
+    } catch (err) {
+      toast.error('Có lỗi xảy ra. Vui lòng thử lại sau.');
+    }
+    setSubmitting(false);
+  };
 
   return (
     <>
@@ -98,10 +120,12 @@ const Footer = () => {
               <div className="widget widget_mailchimp footer_mailchimp">
                 <h3 className="widget-title">{siteConfig.footer.newsletterTitle}</h3>
                 <p>{siteConfig.footer.newsletterDescription}</p>
-                <form className="signup" onSubmit={(e) => { e.preventDefault(); alert(t('footer.subscribeSuccess') || 'Cảm ơn bạn đã đăng ký!'); }}>
+                <form className="signup" onSubmit={handleSubscribe}>
                   <label htmlFor="mailchimp_email"><span className="screen-reader-text">Subscribe:</span></label>
-                  <input id="mailchimp_email" name="email" type="email" className="form-control mailchimp_email ds" placeholder={t('footer.emailPlaceholder') || 'Nhập địa chỉ Email'} />
-                  <button type="submit" className="btn btn-maincolor">{t('footer.subscribe')}</button>
+                  <input id="mailchimp_email" name="email" type="email" className="form-control mailchimp_email ds" placeholder={t('footer.emailPlaceholder') || 'Nhập địa chỉ Email'} value={email} onChange={e => setEmail(e.target.value)} required />
+                  <button type="submit" className="btn btn-maincolor" disabled={submitting}>
+                    {submitting ? (t('common.sending') || 'Đang gửi...') : t('footer.subscribe')}
+                  </button>
                   <div className="response"></div>
                 </form>
               </div>
