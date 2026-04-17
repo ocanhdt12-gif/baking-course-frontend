@@ -107,12 +107,12 @@ const AdminDashboard = () => {
                   <p>Bài viết</p>
                 </div>
               </div>
-              <div className="col-md-4 mb-4">
+              {/* <div className="col-md-4 mb-4">
                 <div className="admin-stat-card" onClick={() => setActiveTab('enrollments')} style={{ cursor: 'pointer' }}>
                   <h3>{stats.enrollments}</h3>
                   <p>Học viên Ghi danh</p>
                 </div>
-              </div>
+              </div> */}
               <div className="col-md-4 mb-4">
                 <div className="admin-stat-card" onClick={() => setActiveTab('contacts')} style={{ cursor: 'pointer' }}>
                   <h3>{stats.contacts}</h3>
@@ -174,11 +174,11 @@ const AdminDashboard = () => {
               <i className="fa fa-th-large"></i> Tổng quan
             </a>
           </li>
-          <li className={activeTab === 'enrollments' ? 'active' : ''}>
+          {/* <li className={activeTab === 'enrollments' ? 'active' : ''}>
             <a href="#enrollments" onClick={(e) => { e.preventDefault(); setActiveTab('enrollments'); }}>
               <i className="fa fa-graduation-cap"></i> Ghi danh
             </a>
-          </li>
+          </li> */}
           <li className={activeTab === 'orders' ? 'active' : ''}>
             <a href="#orders" onClick={(e) => { e.preventDefault(); setActiveTab('orders'); }}>
               <i className="fa fa-credit-card"></i> Đơn hàng
