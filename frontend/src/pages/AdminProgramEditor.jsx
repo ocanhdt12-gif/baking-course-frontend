@@ -59,7 +59,7 @@ const AdminProgramEditor = () => {
           setLoading(false);
         })
         .catch(err => {
-          toast.error("Failed to load program");
+          toast.error("Lỗi khi tải dữ liệu khóa học");
           setLoading(false);
         });
     }
@@ -80,14 +80,14 @@ const AdminProgramEditor = () => {
       };
       if (isEditing) {
         await updateProgram(id, payload);
-        toast.success("Program updated successfully!");
+        toast.success("Cập nhật khóa học thành công!");
       } else {
         await createProgram(payload);
-        toast.success("Program created successfully!");
+        toast.success("Tạo khóa học thành công!");
       }
       navigate(ROUTES.ADMIN + "#programs");
     } catch (err) {
-      toast.error("Failed to save program");
+      toast.error("Lỗi lưu khóa học");
     }
   };
 
@@ -123,7 +123,7 @@ const AdminProgramEditor = () => {
 
   useInitOnLoaded(loading);
 
-  if (loading) return <div className="p-5 text-center text-white">Loading Editor...</div>;
+  if (loading) return <div className="p-5 text-center text-white">Đang tải dữ liệu...</div>;
 
   return (
     <div className="admin-layout" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -132,43 +132,43 @@ const AdminProgramEditor = () => {
       <div className="admin-paper-header" style={{ position: 'sticky', top: 0, zIndex: 100, borderRadius: 0, padding: '15px 30px', backgroundColor: 'var(--admin-paper-bg)', borderBottom: '1px solid var(--admin-border-light)', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
         <div className="d-flex align-items-center">
           <button className="btn btn-dark mr-3" onClick={() => navigate(ROUTES.ADMIN + "#programs")}>
-            <i className="fa fa-arrow-left"></i> Back
+            <i className="fa fa-arrow-left"></i> Quay lại
           </button>
-          <h4 style={{ margin: 0 }}>{isEditing ? 'Edit Program' : 'Create New Program'}</h4>
+          <h4 style={{ margin: 0 }}>{isEditing ? 'Sửa Khóa Học' : 'Tạo Khóa Học Mới'}</h4>
         </div>
         <div>
           <button type="submit" form="admin-program-form" className="admin-btn-save">
-            <i className="fa fa-save mr-2"></i> Save Program
+            <i className="fa fa-save mr-2"></i> Lưu Khóa Học
           </button>
         </div>
       </div>
 
       <form id="admin-program-form" onSubmit={handleSave} className="container p-4" style={{ flexGrow: 1, maxWidth: '1000px' }}>
         <div className="admin-paper p-4 mb-4">
-          <h5 className="mb-4" style={{borderBottom: '1px solid var(--admin-border-light)', paddingBottom: '10px'}}>General Details</h5>
+          <h5 className="mb-4" style={{borderBottom: '1px solid var(--admin-border-light)', paddingBottom: '10px'}}>Thông tin chung</h5>
           
           <AdminInput 
-            label={<>Program Title <span className="text-danger">*</span></>} 
+            label={<>Tên Khóa Học <span className="text-danger">*</span></>} 
             name="title" 
             value={formData.title} 
             onChange={handleChange}
-            placeholder="Mastering French Pastries..."
+            placeholder="Làm Bánh Ngọt Pháp Cơ Bản..."
             required
             minLength={5}
           />
 
           <div className="row mt-3">
             <div className="col-md-6">
-              <AdminInput label={<>Price ($) <span className="text-danger">*</span></>} name="price" type="number" step="0.01" min="0" value={formData.price} onChange={handleChange} placeholder="550.00" required />
+              <AdminInput label={<>Giá (đ) <span className="text-danger">*</span></>} name="price" type="number" step="1000" min="0" value={formData.price} onChange={handleChange} placeholder="500000" required />
             </div>
             <div className="col-md-6">
               <AdminSelect 
-                label={<>Instructor (Chief) <span className="text-danger">*</span></>} 
+                label={<>Giảng viên <span className="text-danger">*</span></>} 
                 name="chiefId" 
                 value={formData.chiefId} 
                 onChange={handleChange}
                 options={[
-                  { value: '', label: '-- Select Instructor --' },
+                  { value: '', label: '-- Chọn Giảng viên --' },
                   ...chiefsList.map(c => ({ value: c.id, label: c.name }))
                 ]}
               />
@@ -192,16 +192,16 @@ const AdminProgramEditor = () => {
 
           <div className="row mt-3">
             <div className="col-sm-12">
-              <AdminImageUpload label="Thumbnail Image" name="thumbnail" value={formData.thumbnail} onChange={(url) => setFormData({ ...formData, thumbnail: url })} />
+              <AdminImageUpload label="Ảnh Đại Diện (Thumbnail)" name="thumbnail" value={formData.thumbnail} onChange={(url) => setFormData({ ...formData, thumbnail: url })} />
             </div>
           </div>
 
           <AdminTextarea 
-            label={<>General Description <span className="text-danger">*</span></>} 
+            label={<>Mô tả tổng quát <span className="text-danger">*</span></>} 
             name="description" 
             value={formData.description} 
             onChange={handleChange} 
-            placeholder="Brief program details..."
+            placeholder="Nhập thông tin khóa học..."
             required
             minLength={20}
           />
@@ -209,72 +209,72 @@ const AdminProgramEditor = () => {
 
         {formData.programType === 'LIVE_CLASS' && (
         <div className="admin-paper p-4 mb-4">
-          <h5 className="mb-4" style={{borderBottom: '1px solid var(--admin-border-light)', paddingBottom: '10px'}}>Class Cohorts & Schedules</h5>
-          <p className="text-muted"><small>Add specific class sessions (cohorts) for this program. These will appear in the main timetable and students will select them when enrolling.</small></p>
+          <h5 className="mb-4" style={{borderBottom: '1px solid var(--admin-border-light)', paddingBottom: '10px'}}>Lịch học & Ngày khai giảng</h5>
+          <p className="text-muted"><small>Thêm các lịch học cụ thể. Học viên sẽ chọn lịch này khi đăng ký ghi danh.</small></p>
           
           {formData.classSessions.map((session, i) => (
             <div key={i} className="mt-4 p-4 position-relative" style={{ backgroundColor: 'var(--admin-glass-bg)', borderRadius: '12px', border: '1px solid var(--admin-glass-border)', transition: 'all 0.3s' }}>
               <div className="d-flex justify-content-between align-items-center mb-4 pb-3" style={{borderBottom: '1px solid var(--admin-glass-border)'}}>
                 <h6 className="m-0" style={{ color: 'var(--admin-primary)', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <i className="fa fa-calendar-check-o"></i> Class Session #{i + 1}
+                  <i className="fa fa-calendar-check-o"></i> Lịch học #{i + 1}
                 </h6>
                 <button type="button" className="btn btn-sm btn-danger rounded-pill px-3" onClick={() => removeArrayItem('classSessions', i)}>
-                  <i className="fa fa-trash mr-1"></i> Remove
+                  <i className="fa fa-trash mr-1"></i> Xóa
                 </button>
               </div>
               <div className="row">
                 <div className="col-md-4">
-                  <AdminInput label={<>Start Date <span className="text-danger">*</span></>} type="datetime-local" value={session.startDate} onChange={e => handleArrayChange('classSessions', i, 'startDate', e.target.value)} required />
+                  <AdminInput label={<>Ngày khai giảng <span className="text-danger">*</span></>} type="datetime-local" value={session.startDate} onChange={e => handleArrayChange('classSessions', i, 'startDate', e.target.value)} required />
                 </div>
                 <div className="col-md-4">
-                  <AdminInput label={<>End Date <span className="text-danger">*</span></>} type="datetime-local" value={session.endDate} onChange={e => handleArrayChange('classSessions', i, 'endDate', e.target.value)} required />
+                  <AdminInput label={<>Ngày kết thúc <span className="text-danger">*</span></>} type="datetime-local" value={session.endDate} onChange={e => handleArrayChange('classSessions', i, 'endDate', e.target.value)} required />
                 </div>
                 <div className="col-md-4">
-                  <AdminInput label="Enroll Deadline" type="datetime-local" value={session.enrollmentDeadline} onChange={e => handleArrayChange('classSessions', i, 'enrollmentDeadline', e.target.value)} />
+                  <AdminInput label="Hạn chót đăng ký" type="datetime-local" value={session.enrollmentDeadline} onChange={e => handleArrayChange('classSessions', i, 'enrollmentDeadline', e.target.value)} />
                 </div>
               </div>
 
               <div className="row mt-2">
                 <div className="col-md-4">
                   <AdminSelect 
-                    label={<>Day of Week <span className="text-danger">*</span></>} 
+                    label={<>Ngày trong tuần <span className="text-danger">*</span></>} 
                     value={session.dayOfWeek} 
                     onChange={e => handleArrayChange('classSessions', i, 'dayOfWeek', e.target.value)}
                     required 
                     options={[
-                      {label: '- Select Day -', value: ''},
-                      {label: 'Monday', value: 'Monday'},
-                      {label: 'Tuesday', value: 'Tuesday'},
-                      {label: 'Wednesday', value: 'Wednesday'},
-                      {label: 'Thursday', value: 'Thursday'},
-                      {label: 'Friday', value: 'Friday'},
-                      {label: 'Saturday', value: 'Saturday'},
-                      {label: 'Sunday', value: 'Sunday'}
+                      {label: '- Chọn ngày -', value: ''},
+                      {label: 'Thứ Hai', value: 'Monday'},
+                      {label: 'Thứ Ba', value: 'Tuesday'},
+                      {label: 'Thứ Tư', value: 'Wednesday'},
+                      {label: 'Thứ Năm', value: 'Thursday'},
+                      {label: 'Thứ Sáu', value: 'Friday'},
+                      {label: 'Thứ Bảy', value: 'Saturday'},
+                      {label: 'Chủ Nhật', value: 'Sunday'}
                     ]}
                   />
                 </div>
                 <div className="col-md-4">
-                  <AdminInput label="Time Range" value={session.timeRange} onChange={e => handleArrayChange('classSessions', i, 'timeRange', e.target.value)} placeholder="e.g. 10:00 AM - 12:00 PM" />
+                  <AdminInput label="Giờ học" value={session.timeRange} onChange={e => handleArrayChange('classSessions', i, 'timeRange', e.target.value)} placeholder="VD: 10:00 AM - 12:00 PM" />
                 </div>
                 <div className="col-md-4">
-                  <AdminInput label="Instructor Override" value={session.instructorOverride || ''} onChange={e => handleArrayChange('classSessions', i, 'instructorOverride', e.target.value)} placeholder="Optional (leaves blank to use general)" />
+                  <AdminInput label="Ghi chú Giảng viên" value={session.instructorOverride || ''} onChange={e => handleArrayChange('classSessions', i, 'instructorOverride', e.target.value)} placeholder="Giảng viên khác dạy thay" />
                 </div>
               </div>
             </div>
           ))}
           <button type="button" className="btn btn-info rounded-pill px-4 mt-4" style={{ fontWeight: '600', letterSpacing: '0.5px' }} onClick={addClassSession}>
-            <i className="fa fa-plus mr-2"></i> Add Class Session
+            <i className="fa fa-plus mr-2"></i> Thêm Lịch học
           </button>
         </div>
         )}
 
         {/* JSON ARRAY: Learning Goals */}
         <div className="admin-paper p-4 mb-4">
-          <h5 className="mb-2" style={{borderBottom: '1px solid var(--admin-border-light)', paddingBottom: '10px'}}>You Will Learn (Progress Bars)</h5>
+          <h5 className="mb-2" style={{borderBottom: '1px solid var(--admin-border-light)', paddingBottom: '10px'}}>Mục tiêu khóa học (Thanh Kỹ Năng)</h5>
           {formData.learningGoals.map((goal, i) => (
             <div key={i} className="row mt-2 align-items-center mb-2">
               <div className="col-7">
-                <input className="admin-form-control shadow-none" value={goal.skill || ''} onChange={e => handleArrayChange('learningGoals', i, 'skill', e.target.value)} placeholder="Skill Name" />
+                <input className="admin-form-control shadow-none" value={goal.skill || ''} onChange={e => handleArrayChange('learningGoals', i, 'skill', e.target.value)} placeholder="Tên kỹ năng" />
               </div>
               <div className="col-3">
                 <input className="admin-form-control shadow-none" type="number" value={goal.percent || ''} onChange={e => handleArrayChange('learningGoals', i, 'percent', parseInt(e.target.value) || 0)} placeholder="%" min="0" max="100" />
@@ -284,50 +284,50 @@ const AdminProgramEditor = () => {
               </div>
             </div>
           ))}
-          <button type="button" className="btn btn-outline-info btn-sm mt-3" onClick={addLearningGoal}>+ Add Skill</button>
+          <button type="button" className="btn btn-outline-info btn-sm mt-3" onClick={addLearningGoal}>+ Thêm Kỹ Năng</button>
         </div>
 
         {/* JSON ARRAY: Class Includes */}
         <div className="admin-paper p-4 mb-4">
-          <h5 className="mb-2" style={{borderBottom: '1px solid var(--admin-border-light)', paddingBottom: '10px'}}>Class Includes (Bullet Points)</h5>
+          <h5 className="mb-2" style={{borderBottom: '1px solid var(--admin-border-light)', paddingBottom: '10px'}}>Lợi ích khóa học</h5>
           {formData.classIncludes.map((item, i) => (
             <div key={i} className="row mt-2 align-items-center">
               <div className="col-10">
-                <AdminInput value={item} onChange={e => handleArrayChange('classIncludes', i, null, e.target.value)} placeholder="Bullet text..." />
+                <AdminInput value={item} onChange={e => handleArrayChange('classIncludes', i, null, e.target.value)} placeholder="Nội dung..." />
               </div>
               <div className="col-2">
                 <button type="button" className="btn btn-sm btn-danger w-100" onClick={() => removeArrayItem('classIncludes', i)}><i className="fa fa-trash"></i></button>
               </div>
             </div>
           ))}
-          <button type="button" className="btn btn-outline-info btn-sm mt-3" onClick={addClassInclude}>+ Add Bullet</button>
+          <button type="button" className="btn btn-outline-info btn-sm mt-3" onClick={addClassInclude}>+ Thêm Lợi Ích</button>
         </div>
 
         {/* JSON ARRAY: Curriculum */}
         <div className="admin-paper p-4 mb-4">
-          <h5 className="mb-2" style={{borderBottom: '1px solid var(--admin-border-light)', paddingBottom: '10px'}}>Curriculum Overview (Accordion)</h5>
+          <h5 className="mb-2" style={{borderBottom: '1px solid var(--admin-border-light)', paddingBottom: '10px'}}>Chương Trình Học (Curriculum)</h5>
           {formData.curriculum.map((mod, i) => (
             <div key={i} className="mt-3 p-3 position-relative" style={{ backgroundColor: 'var(--admin-glass-bg)', borderRadius: '12px', border: '1px solid var(--admin-glass-border)' }}>
               <div className="d-flex justify-content-between mb-3 border-bottom pb-2" style={{borderColor: 'var(--admin-glass-border)'}}>
-                <label style={{ color: 'var(--admin-primary)', fontWeight: '600', margin: 0 }}>Module {i + 1}</label>
+                <label style={{ color: 'var(--admin-primary)', fontWeight: '600', margin: 0 }}>Chương {i + 1}</label>
                 <button type="button" className="btn btn-sm btn-danger rounded-pill px-3" onClick={() => removeArrayItem('curriculum', i)}><i className="fa fa-trash"></i></button>
               </div>
-              <AdminInput value={mod.title} onChange={e => handleArrayChange('curriculum', i, 'title', e.target.value)} placeholder="Module Title" required />
-              <AdminTextarea value={mod.content} onChange={e => handleArrayChange('curriculum', i, 'content', e.target.value)} rows="2" placeholder="Module Content..." required minLength={10} />
+              <AdminInput value={mod.title} onChange={e => handleArrayChange('curriculum', i, 'title', e.target.value)} placeholder="Tiêu đề chương" required />
+              <AdminTextarea value={mod.content} onChange={e => handleArrayChange('curriculum', i, 'content', e.target.value)} rows="2" placeholder="Nội dung chương học..." required minLength={10} />
             </div>
           ))}
-          <button type="button" className="btn btn-outline-info btn-sm mt-3" onClick={addCurriculum}>+ Add Module</button>
+          <button type="button" className="btn btn-outline-info btn-sm mt-3" onClick={addCurriculum}>+ Thêm Chương Mới</button>
         </div>
 
         {/* Premium Content Section */}
         <div className="admin-paper p-4 mb-4">
           <h5 className="mb-4" style={{borderBottom: '1px solid var(--admin-border-light)', paddingBottom: '10px'}}>
-            <i className="fa fa-star mr-2" style={{color: '#c19a5b'}}></i> Premium Content
-            <small className="text-muted ml-2">(visible only to purchasers)</small>
+            <i className="fa fa-star mr-2" style={{color: '#c19a5b'}}></i> Nội Dung Private (Premium)
+            <small className="text-muted ml-2">(Chỉ hiển thị cho người dùng đã làm lễ mua khóa học)</small>
           </h5>
 
           {/* Videos */}
-          <h6 className="mb-2">Video Lessons</h6>
+          <h6 className="mb-2">Video Bài Giảng</h6>
           {(formData.premiumContent?.videos || []).map((video, i) => (
             <div key={i} className="row mt-2 align-items-center">
               <div className="col-5">
@@ -335,14 +335,14 @@ const AdminProgramEditor = () => {
                   const updated = [...(formData.premiumContent?.videos || [])];
                   updated[i] = { ...updated[i], title: e.target.value };
                   setFormData({ ...formData, premiumContent: { ...formData.premiumContent, videos: updated } });
-                }} placeholder="Video title" />
+                }} placeholder="Tiêu đề video" />
               </div>
               <div className="col-5">
                 <AdminInput value={video.url || ''} onChange={e => {
                   const updated = [...(formData.premiumContent?.videos || [])];
                   updated[i] = { ...updated[i], url: e.target.value };
                   setFormData({ ...formData, premiumContent: { ...formData.premiumContent, videos: updated } });
-                }} placeholder="YouTube/Vimeo embed URL" />
+                }} placeholder="Link nhúng Youtube/Vimeo/GoogleDrive" />
               </div>
               <div className="col-2">
                 <button type="button" className="btn btn-sm btn-danger w-100" onClick={() => {
@@ -355,10 +355,10 @@ const AdminProgramEditor = () => {
           ))}
           <button type="button" className="btn btn-outline-info btn-sm mt-2" onClick={() => {
             setFormData({ ...formData, premiumContent: { ...formData.premiumContent, videos: [...(formData.premiumContent?.videos || []), { title: '', url: '' }] } });
-          }}>+ Add Video</button>
+          }}>+ Thêm Video</button>
 
           {/* Resources */}
-          <h6 className="mt-4 mb-2">Downloadable Resources</h6>
+          <h6 className="mt-4 mb-2">Tài nguyên tải xuống</h6>
           {(formData.premiumContent?.resources || []).map((res, i) => (
             <div key={i} className="row mt-2 align-items-center">
               <div className="col-5">
@@ -366,14 +366,14 @@ const AdminProgramEditor = () => {
                   const updated = [...(formData.premiumContent?.resources || [])];
                   updated[i] = { ...updated[i], title: e.target.value };
                   setFormData({ ...formData, premiumContent: { ...formData.premiumContent, resources: updated } });
-                }} placeholder="Resource title" />
+                }} placeholder="Tên tài nguyên" />
               </div>
               <div className="col-5">
                 <AdminInput value={res.url || ''} onChange={e => {
                   const updated = [...(formData.premiumContent?.resources || [])];
                   updated[i] = { ...updated[i], url: e.target.value };
                   setFormData({ ...formData, premiumContent: { ...formData.premiumContent, resources: updated } });
-                }} placeholder="Download URL" />
+                }} placeholder="Link tải" />
               </div>
               <div className="col-2">
                 <button type="button" className="btn btn-sm btn-danger w-100" onClick={() => {
@@ -386,15 +386,15 @@ const AdminProgramEditor = () => {
           ))}
           <button type="button" className="btn btn-outline-info btn-sm mt-2" onClick={() => {
             setFormData({ ...formData, premiumContent: { ...formData.premiumContent, resources: [...(formData.premiumContent?.resources || []), { title: '', url: '' }] } });
-          }}>+ Add Resource</button>
+          }}>+ Thêm Tài Nguyên</button>
 
           {/* Guides */}
-          <h6 className="mt-4 mb-2">Detailed Guide</h6>
+          <h6 className="mt-4 mb-2">Hướng Dẫn Chi Tiết</h6>
           <AdminTextarea 
             value={formData.premiumContent?.guides || ''} 
             onChange={e => setFormData({ ...formData, premiumContent: { ...formData.premiumContent, guides: e.target.value } })}
             rows="4"
-            placeholder="Step-by-step guide content (supports HTML)..."
+            placeholder="Nội dung hướng dẫn chi tiết (Hỗ trợ HTML)..."
           />
         </div>
       </form>

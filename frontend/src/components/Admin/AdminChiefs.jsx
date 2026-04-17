@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AdminTable from './AdminTable';
 import AdminModal from './AdminModal';
 import AdminImageUpload from './AdminImageUpload';
+import AdminButton from './Shared/AdminButton';
 import { AdminInput, AdminTextarea } from './Shared/AdminFormControls';
 import { getChiefs, createChief, updateChief, deleteChief } from '../../services/api';
 import { toast } from 'react-toastify';
@@ -60,30 +61,30 @@ const AdminChiefs = () => {
       const payload = { ...form, skills: JSON.stringify(form.skills) };
       if (modal.item) {
         await updateChief(modal.item.id, payload);
-        toast.success('Instructor updated!');
+        toast.success('Cập nhật giảng viên thành công!');
       } else {
         await createChief(payload);
-        toast.success('Instructor added!');
+        toast.success('Thêm giảng viên thành công!');
       }
       closeModal();
       fetchData();
-    } catch { toast.error('Failed to save instructor.'); }
+    } catch { toast.error('Lỗi lưu giảng viên.'); }
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Delete this instructor?')) return;
+    if (!window.confirm('Xóa giảng viên này?')) return;
     try {
       await deleteChief(id);
-      toast.success('Deleted!');
+      toast.success('Đã xóa!');
       fetchData();
-    } catch { toast.error('Failed to delete.'); }
+    } catch { toast.error('Lỗi khi xóa.'); }
   };
 
   const columns = [
-    { key: 'image', label: 'Photo', render: (row) => row.image ? <img src={row.image.startsWith('http') ? row.image : `${import.meta.env.BASE_URL}${row.image.replace(/^\//, '')}`} alt="" style={{ width: 50, height: 50, objectFit: 'cover', borderRadius: 4 }} /> : <span style={{color:'#64748b'}}>No image</span> },
-    { key: 'name', label: 'Name' },
-    { key: 'role', label: 'Role' },
-    { key: 'bio', label: 'Short Bio', render: (row) => row.bio ? row.bio.substring(0, 50) + '...' : '—' },
+    { key: 'image', label: 'Ảnh', render: (row) => row.image ? <img src={row.image.startsWith('http') ? row.image : `${import.meta.env.VITE_API_BASE_URL?.replace('/api', '')}${row.image}`} alt="" style={{ width: 50, height: 50, objectFit: 'cover', borderRadius: 4 }} /> : <span style={{color:'#64748b'}}>Chưa có ảnh</span> },
+    { key: 'name', label: 'Họ tên' },
+    { key: 'role', label: 'Vị trí' },
+    { key: 'bio', label: 'Giới thiệu ngắn', render: (row) => row.bio ? row.bio.substring(0, 50) + '...' : '—' },
   ];
 
 
@@ -91,42 +92,42 @@ const AdminChiefs = () => {
   return (
     <div>
       <AdminTable 
-        title={<span><i className="fa fa-users mr-2"></i> Manage Instructors</span>}
+        title={<span><i className="fa fa-users mr-2"></i> Quản lý Giảng Viên</span>}
         columns={columns} 
         data={data} 
         loading={loading} 
         onEdit={openModal}
         onDelete={handleDelete}
-        emptyMessage="No instructors yet." 
+        emptyMessage="Chưa có giảng viên nào." 
         onCreate={() => openModal()}
       />
 
-      <AdminModal isOpen={modal.isOpen} onClose={closeModal} title={modal.item ? 'Edit Instructor' : 'Add Instructor'}>
+      <AdminModal isOpen={modal.isOpen} onClose={closeModal} title={modal.item ? 'Sửa Giảng Viên' : 'Thêm Giảng Viên'}>
         <form onSubmit={handleSave} style={{ maxHeight: '75vh', overflowY: 'auto', padding: '0 4px' }}>
 
           {/* Photo + Basic */}
           <div className="row">
             <div className="col-md-6">
-              <AdminInput label="Full Name" name="name" value={form.name} onChange={handleChange} required />
+              <AdminInput label="Họ tên" name="name" value={form.name} onChange={handleChange} required />
             </div>
             <div className="col-md-6">
-              <AdminInput label="Role / Title" name="role" value={form.role} onChange={handleChange} placeholder="e.g. Master Chef" required />
+              <AdminInput label="Vị trí / Chức danh" name="role" value={form.role} onChange={handleChange} placeholder="VD: Đầu bếp chuẩn sao Michelin" required />
             </div>
           </div>
 
-          <AdminImageUpload label="Profile Photo" name="image" value={form.image} onChange={(url) => setForm({ ...form, image: url })} />
+          <AdminImageUpload label="Ảnh đại diện" name="image" value={form.image} onChange={(url) => setForm({ ...form, image: url })} />
 
-          <AdminTextarea label="Short Bio (Intro)" name="bio" value={form.bio} onChange={handleChange} rows="2" placeholder="1-2 lines of introduction displayed on the card..." />
+          <AdminTextarea label="Giới thiệu ngắn (Mô tả)" name="bio" value={form.bio} onChange={handleChange} rows="2" placeholder="1-2 dòng giới thiệu hiển thị trên card..." />
 
           <AdminInput
-            label="Highlights (separated by |)"
+            label="Thành tựu (ngăn cách bằng dấu |)"
             name="highlights"
             value={form.highlights}
             onChange={handleChange}
-            placeholder="Award-winning chef | Expert in French Pastry | 10+ years teaching"
+            placeholder="Đoạt giải thưởng | Chuyên gia bánh Pháp | Hơn 10 năm kinh nghiệm"
           />
 
-          <AdminTextarea label="Full Biography (Tab Detail)" name="biography" value={form.biography} onChange={handleChange} rows="5" placeholder="Detailed biography displayed in the Biography Tab..." />
+          <AdminTextarea label="Tiểu sử đầy đủ" name="biography" value={form.biography} onChange={handleChange} rows="5" placeholder="Tiểu sử chi tiết hiển thị trong tab Khóa học..." />
 
           {/* Social */}
           <div className="row mt-2">
@@ -144,15 +145,15 @@ const AdminChiefs = () => {
           {/* Skills */}
           <div className="mt-4">
             <div className="d-flex justify-content-between align-items-center mb-2">
-              <label style={{ color: 'var(--admin-primary)', fontWeight: 600 }}>Skills (Progress Bars)</label>
-              <button type="button" className="btn btn-sm btn-outline-info" onClick={addSkill}>+ Add Skill</button>
+              <label style={{ color: 'var(--admin-primary)', fontWeight: 600 }}>Kỹ năng (Thanh %)</label>
+              <AdminButton variant="info" outline size="sm" icon="plus" label="Thêm Kỹ năng" onClick={addSkill} />
             </div>
             {form.skills.map((skill, i) => (
               <div key={i} className="d-flex align-items-center mb-2" style={{ gap: 8 }}>
                 <input
                   className="admin-form-control"
                   style={{ flex: 2 }}
-                  placeholder="Skill name (e.g. Pastry)"
+                  placeholder="Tên kỹ năng (vd: Nướng bánh)"
                   value={skill.name}
                   onChange={(e) => updateSkill(i, 'name', e.target.value)}
                 />
@@ -164,14 +165,14 @@ const AdminChiefs = () => {
                   value={skill.percent}
                   onChange={(e) => updateSkill(i, 'percent', e.target.value)}
                 />
-                <button type="button" className="btn btn-sm btn-danger" onClick={() => removeSkill(i)}><i className="fa fa-trash"></i></button>
+                <AdminButton variant="danger" icon="trash" onClick={() => removeSkill(i)} />
               </div>
             ))}
           </div>
 
           <div className="mt-4 text-right">
-            <button type="button" className="btn btn-secondary mr-2" onClick={closeModal}>Cancel</button>
-            <button type="submit" className="btn btn-maincolor">Save Instructor</button>
+            <AdminButton variant="secondary" onClick={closeModal} label="Hủy" className="mr-2" />
+            <AdminButton type="submit" variant="primary" icon="save" label="Lưu Giảng Viên" />
           </div>
         </form>
       </AdminModal>

@@ -9,9 +9,7 @@ import { useTranslation } from '../i18n/LanguageContext';
 
 const STEPS = {
   SUMMARY: 1,
-  METHOD: 2,
-  PAYMENT: 3,
-  STATUS: 4
+  STATUS: 2
 };
 
 const Checkout = () => {
@@ -27,13 +25,7 @@ const Checkout = () => {
   const [step, setStep] = useState(STEPS.SUMMARY);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState('VNPAY'); // 'VNPAY' | 'MANUAL_BANK'
-
-  // Proof form
-  const [proofImage, setProofImage] = useState('');
-  const [transactionRef, setTransactionRef] = useState('');
-  const [uploading, setUploading] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState('VNPAY');
 
   useEffect(() => {
     const init = async () => {
@@ -57,15 +49,8 @@ const Checkout = () => {
           // Re-create order to get full details
           const orderRes = await createOrder({ programId: prog.id, classSessionId: sessionId });
           setOrder(orderRes.order);
-          
-          if (prog.orderStatus === 'AWAITING_CONFIRM') {
-            setStep(STEPS.STATUS);
-          } else if (prog.orderStatus === 'REJECTED') {
-            setStep(STEPS.PAYMENT);
-            setPaymentMethod('MANUAL_BANK');
-          } else {
-            setStep(STEPS.METHOD);
-          }
+          // With VNPay only, any pending order means we just wait at Status summary, or let them click pay again
+          setStep(STEPS.STATUS);
         }
       } catch (err) {
         console.error('Checkout init error:', err);
@@ -82,11 +67,11 @@ const Checkout = () => {
     try {
       const res = await createOrder({ programId: program.id, classSessionId: sessionId });
       setOrder(res.order);
-      setStep(STEPS.METHOD);
-      toast.success(t('checkout.toast.orderCreated'));
+      // Immediately call VNPay
+      const vnpayRes = await createVnpayPaymentUrl(res.order.id);
+      window.location.href = vnpayRes.paymentUrl;
     } catch (err) {
       toast.error(err.response?.data?.error || t('checkout.toast.orderCreateFailed'));
-    } finally {
       setSubmitting(false);
     }
   };
@@ -104,49 +89,6 @@ const Checkout = () => {
     }
   };
 
-  const handleSelectMethod = (method) => {
-    setPaymentMethod(method);
-    if (method === 'VNPAY') {
-      handleVnpayPayment();
-    } else {
-      setStep(STEPS.PAYMENT);
-    }
-  };
-
-  const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setUploading(true);
-    try {
-      const res = await uploadImage(file);
-      setProofImage(res.url);
-      toast.success('Image uploaded successfully.');
-    } catch (err) {
-      toast.error('Failed to upload image.');
-    } finally {
-      setUploading(false);
-    }
-  };
-
-  const handleSubmitProof = async (e) => {
-    e.preventDefault();
-    if (!proofImage && !transactionRef) {
-      toast.error(t('checkout.transfer.memoWarning') || 'Please provide a proof image or transaction reference.');
-      return;
-    }
-    setSubmitting(true);
-    try {
-      const res = await submitOrderProof(order.id, { proofImage, transactionRef });
-      setOrder(res.order);
-      setStep(STEPS.STATUS);
-      toast.success(t('checkout.toast.proofSubmitted'));
-    } catch (err) {
-      toast.error(err.response?.data?.error || t('checkout.toast.proofFailed'));
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
   const handleCancel = async () => {
     if (!window.confirm('Are you sure you want to cancel this order?')) return;
     try {
@@ -158,24 +100,17 @@ const Checkout = () => {
     }
   };
 
-  const handleCopyMemo = () => {
-    navigator.clipboard.writeText(order?.transferContent || '');
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   const handleRefreshStatus = async () => {
     if (!order) return;
     try {
       const updated = await getOrderById(order.id);
       setOrder(updated);
       if (updated.status === 'CONFIRMED') {
-        toast.success(t('checkout.toast.paymentConfirmed'));
+        toast.success(t('checkout.toast.paymentConfirmed') || 'Payment confirmed');
         setStep(STEPS.STATUS);
-      } else if (updated.status === 'REJECTED') {
-        toast.warn(t('checkout.toast.paymentRejected'));
-        setStep(STEPS.PAYMENT);
-        setPaymentMethod('MANUAL_BANK');
+      } else if (updated.status === 'REJECTED' || updated.status === 'CANCELLED') {
+        toast.warn('Thanh toán thất bại hoặc đã hủy.');
+        setStep(STEPS.STATUS);
       }
     } catch (err) {
       console.error('refresh error', err);
@@ -201,10 +136,8 @@ const Checkout = () => {
 
   const statusBadge = order ? getOrderStatusBadge(order.status) : null;
   const stepLabels = [
-    { num: 1, label: t('checkout.steps.summary') },
-    { num: 2, label: t('checkout.steps.method') },
-    { num: 3, label: t('checkout.steps.payment') },
-    { num: 4, label: t('checkout.steps.status') }
+    { num: 1, label: t('checkout.steps.summary') || 'Xác nhận đơn' },
+    { num: 2, label: t('checkout.steps.status') || 'Trạng thái' }
   ];
 
   return (
@@ -272,260 +205,14 @@ const Checkout = () => {
                       disabled={submitting}
                     >
                       {submitting ? (
-                        <><span className="spinner-border spinner-border-sm mr-2"></span> Processing...</>
+                        <><span className="spinner-border spinner-border-sm mr-2"></span> Đang kết nối VNPay...</>
                       ) : (
-                        <><i className="fa fa-lock mr-2"></i> {t('checkout.proceedToPayment')}</>
+                        <><i className="fa fa-lock mr-2"></i> Trả tiền qua VNPay</>
                       )}
                     </button>
                     <p className="text-muted small mt-3">
-                      <i className="fa fa-shield mr-1"></i> Secure payment via VNPay or bank transfer
+                      <i className="fa fa-shield mr-1"></i> Thanh toán an toàn qua cổng VNPay
                     </p>
-                  </div>
-                </div>
-              )}
-
-              {/* STEP 2: Payment Method */}
-              {step === STEPS.METHOD && order && (
-                <div className="checkout-card bordered p-4 p-lg-5">
-                  <h4 className="mb-4"><i className="fa fa-credit-card color-main mr-2"></i> {t('checkout.selectMethod')}</h4>
-                  
-                  <div className="row" style={{ gap: '0' }}>
-                    {/* VNPay Option */}
-                    <div className="col-md-6 mb-3">
-                      <div 
-                        className={`payment-method-card ${paymentMethod === 'VNPAY' ? 'selected' : ''}`}
-                        onClick={() => !submitting && setPaymentMethod('VNPAY')}
-                        style={{
-                          border: paymentMethod === 'VNPAY' ? '2px solid var(--colorMain, #c19a5b)' : '2px solid #e0e0e0',
-                          borderRadius: '12px',
-                          padding: '24px',
-                          cursor: submitting ? 'wait' : 'pointer',
-                          transition: 'all 0.3s ease',
-                          backgroundColor: paymentMethod === 'VNPAY' ? 'rgba(193,154,91,0.05)' : '#fff',
-                          height: '100%',
-                        }}
-                      >
-                        <div className="text-center">
-                          <div style={{ fontSize: '36px', marginBottom: '12px' }}>💳</div>
-                          <h5 className="mb-2">{t('checkout.vnpay.title')}</h5>
-                          <span className="badge bg-success text-white mb-2" style={{ fontSize: '10px' }}>{t('checkout.vnpay.badge')}</span>
-                          <p className="text-muted small mb-0">
-                            {t('checkout.vnpay.description')}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Manual Transfer Option */}
-                    <div className="col-md-6 mb-3">
-                      <div 
-                        className={`payment-method-card ${paymentMethod === 'MANUAL_BANK' ? 'selected' : ''}`}
-                        onClick={() => !submitting && setPaymentMethod('MANUAL_BANK')}
-                        style={{
-                          border: paymentMethod === 'MANUAL_BANK' ? '2px solid var(--colorMain, #c19a5b)' : '2px solid #e0e0e0',
-                          borderRadius: '12px',
-                          padding: '24px',
-                          cursor: submitting ? 'wait' : 'pointer',
-                          transition: 'all 0.3s ease',
-                          backgroundColor: paymentMethod === 'MANUAL_BANK' ? 'rgba(193,154,91,0.05)' : '#fff',
-                          height: '100%',
-                        }}
-                      >
-                        <div className="text-center">
-                          <div style={{ fontSize: '36px', marginBottom: '12px' }}>🏦</div>
-                          <h5 className="mb-2">{t('checkout.manual.title')}</h5>
-                          <span className="badge bg-secondary text-white mb-2" style={{ fontSize: '10px' }}>Manual</span>
-                          <p className="text-muted small mb-0">
-                            {t('checkout.manual.description')}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Order info summary */}
-                  <div className="p-3 mt-3 mb-4" style={{ backgroundColor: '#f8f9fa', borderRadius: '8px' }}>
-                    <div className="d-flex justify-content-between mb-1">
-                      <span>Order:</span>
-                      <strong>{order.orderCode}</strong>
-                    </div>
-                    <div className="d-flex justify-content-between">
-                      <span>{t('checkout.total')}:</span>
-                      <strong style={{ color: 'var(--colorMain)', fontSize: '18px' }}>{formatPrice(order.amount)}</strong>
-                    </div>
-                  </div>
-
-                  <div className="d-flex justify-content-between">
-                    <button type="button" className="btn btn-outline-secondary" onClick={handleCancel}>
-                      <i className="fa fa-times mr-1"></i> {t('checkout.cancelOrder')}
-                    </button>
-                    <button 
-                      className="btn btn-maincolor btn-lg px-4" 
-                      onClick={() => handleSelectMethod(paymentMethod)}
-                      disabled={submitting}
-                    >
-                      {submitting ? (
-                        <><span className="spinner-border spinner-border-sm mr-2"></span> Processing...</>
-                      ) : paymentMethod === 'VNPAY' ? (
-                        <><i className="fa fa-external-link mr-2"></i> Pay with VNPay</>
-                      ) : (
-                        <><i className="fa fa-arrow-right mr-2"></i> {t('checkout.continueWith', { method: t('checkout.manual.title') })}</>
-                      )}
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* STEP 3: Payment (Manual Bank Transfer) */}
-              {step === STEPS.PAYMENT && order && (
-                <div className="checkout-card bordered p-4 p-lg-5">
-                  <h4 className="mb-4"><i className="fa fa-qrcode color-main mr-2"></i> {t('checkout.steps.payment')}</h4>
-                  
-                  {order.status === 'REJECTED' && (
-                    <div className="alert alert-danger mb-4">
-                      <strong><i className="fa fa-exclamation-triangle mr-2"></i>Payment Rejected</strong>
-                      <p className="mb-0 mt-2">{order.adminNote || 'Your previous payment was rejected. Please re-upload your proof.'}</p>
-                    </div>
-                  )}
-
-                  {/* Order Info */}
-                  <div className="p-3 mb-4" style={{ backgroundColor: '#f8f9fa', borderRadius: '8px' }}>
-                    <div className="d-flex justify-content-between mb-2">
-                      <span>{t('status.orderCode')}:</span>
-                      <strong>{order.orderCode}</strong>
-                    </div>
-                    <div className="d-flex justify-content-between mb-2">
-                      <span>{t('checkout.course')}:</span>
-                      <strong>{order.program?.title}</strong>
-                    </div>
-                    <div className="d-flex justify-content-between">
-                      <span>{t('checkout.total')}:</span>
-                      <strong style={{ color: 'var(--colorMain)', fontSize: '20px' }}>{formatPrice(order.amount)}</strong>
-                    </div>
-                  </div>
-
-                  {/* QR Code + Bank Info */}
-                  {paymentConfig ? (
-                    <div className="row">
-                      <div className="col-md-6 text-center mb-4">
-                        {paymentConfig.qrImage ? (
-                          <img 
-                            src={paymentConfig.qrImage.startsWith('http') ? paymentConfig.qrImage : `${import.meta.env.BASE_URL}${paymentConfig.qrImage.replace(/^\//, '')}`}
-                            alt="Payment QR Code" 
-                            style={{ maxWidth: '280px', width: '100%', borderRadius: '12px', border: '2px solid #e0e0e0' }}
-                          />
-                        ) : (
-                          <div className="p-5 text-center" style={{ backgroundColor: '#f0f0f0', borderRadius: '12px' }}>
-                            <i className="fa fa-qrcode" style={{ fontSize: '60px', color: '#ccc' }}></i>
-                            <p className="text-muted mt-2">QR Code not available</p>
-                          </div>
-                        )}
-                      </div>
-                      <div className="col-md-6">
-                        <h5 className="mb-3">{t('checkout.transfer.title')}</h5>
-                        <div className="mb-2">
-                          <small className="text-muted">{t('checkout.transfer.bankName')}</small>
-                          <div style={{ fontWeight: '600' }}>{paymentConfig.bankName}</div>
-                        </div>
-                        <div className="mb-2">
-                          <small className="text-muted">{t('checkout.transfer.accountNumber')}</small>
-                          <div style={{ fontWeight: '600' }}>{paymentConfig.accountNumber}</div>
-                        </div>
-                        <div className="mb-2">
-                          <small className="text-muted">{t('checkout.transfer.accountHolder')}</small>
-                          <div style={{ fontWeight: '600' }}>{paymentConfig.accountHolder}</div>
-                        </div>
-                        <div className="mb-3">
-                          <small className="text-muted">{t('checkout.transfer.memo')}</small>
-                          <div className="d-flex align-items-center" style={{ gap: '8px' }}>
-                            <code style={{ fontSize: '16px', fontWeight: '700', color: 'var(--colorMain)' }}>
-                              {order.transferContent}
-                            </code>
-                            <button 
-                              className="btn btn-sm btn-outline-dark" 
-                              onClick={handleCopyMemo}
-                              title="Copy to clipboard"
-                            >
-                              <i className={`fa ${copied ? 'fa-check' : 'fa-clipboard'}`}></i>
-                            </button>
-                          </div>
-                        </div>
-                        <div className="alert alert-warning small">
-                          <i className="fa fa-info-circle mr-1"></i>
-                          {t('checkout.transfer.memoWarning')}
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="alert alert-info">
-                      <i className="fa fa-info-circle mr-2"></i>
-                      Payment configuration is not set up yet. Please contact support.
-                    </div>
-                  )}
-
-                  <hr className="my-4" />
-
-                  {/* Upload Proof */}
-                  <h5 className="mb-3"><i className="fa fa-upload mr-2"></i> {t('checkout.transfer.proofTitle')}</h5>
-                  
-                  <form onSubmit={handleSubmitProof}>
-                    <div className="mb-3">
-                      <label className="fw-bold mb-2">{t('checkout.transfer.proofLabel')}</label>
-                      <div className="d-flex align-items-center" style={{ gap: '12px' }}>
-                        <input 
-                          type="file" 
-                          accept="image/*" 
-                          onChange={handleImageUpload}
-                          className="form-control"
-                          disabled={uploading}
-                        />
-                        {uploading && <span className="spinner-border spinner-border-sm"></span>}
-                      </div>
-                      {proofImage && (
-                        <div className="mt-2">
-                          <img 
-                            src={proofImage.startsWith('http') ? proofImage : `${import.meta.env.VITE_API_BASE_URL?.replace('/api', '')}${proofImage}`}
-                            alt="Proof" 
-                            style={{ maxWidth: '200px', borderRadius: '8px', border: '1px solid #ddd' }}
-                          />
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="mb-4">
-                      <label className="fw-bold mb-2">{t('checkout.transfer.transactionRef')}</label>
-                      <input 
-                        type="text" 
-                        className="form-control" 
-                        value={transactionRef}
-                        onChange={e => setTransactionRef(e.target.value)}
-                        placeholder={t('checkout.transfer.transactionRefPlaceholder')}
-                      />
-                    </div>
-
-                    <div className="d-flex justify-content-between">
-                      <button type="button" className="btn btn-outline-secondary" onClick={handleCancel}>
-                        <i className="fa fa-times mr-1"></i> {t('checkout.cancelOrder')}
-                      </button>
-                      <button type="submit" className="btn btn-maincolor btn-lg px-4" disabled={submitting || (!proofImage && !transactionRef)}>
-                        {submitting ? (
-                          <><span className="spinner-border spinner-border-sm mr-2"></span> Submitting...</>
-                        ) : (
-                          <><i className="fa fa-paper-plane mr-2"></i> {t('checkout.transfer.submitProof')}</>
-                        )}
-                      </button>
-                    </div>
-                  </form>
-
-                  {/* Option to switch to VNPay */}
-                  <div className="text-center mt-4 pt-3" style={{ borderTop: '1px solid #eee' }}>
-                    <button 
-                      className="btn btn-sm btn-outline-maincolor" 
-                      onClick={handleVnpayPayment}
-                      disabled={submitting}
-                    >
-                      <i className="fa fa-credit-card mr-1"></i> Switch to VNPay Payment
-                    </button>
                   </div>
                 </div>
               )}
@@ -576,12 +263,12 @@ const Checkout = () => {
                       <div className="mb-4">
                         <i className="fa fa-times-circle" style={{ fontSize: '60px', color: '#dc3545' }}></i>
                       </div>
-                      <h4 className="mb-3" style={{ color: '#dc3545' }}>Payment Rejected</h4>
+                      <h4 className="mb-3" style={{ color: '#dc3545' }}>Thanh toán thất bại</h4>
                       <p className="text-muted mb-2">
-                        {order.adminNote || t('checkout.status.rejectedMsg')}
+                        {order.adminNote || 'Đơn hàng đã bị hủy hoặc thanh toán thất bại qua cổng VNPay.'}
                       </p>
-                      <button className="btn btn-maincolor mt-3" onClick={() => { setStep(STEPS.PAYMENT); setPaymentMethod('MANUAL_BANK'); }}>
-                        <i className="fa fa-upload mr-1"></i> {t('checkout.status.reupload')}
+                      <button className="btn btn-maincolor mt-3" onClick={handleVnpayPayment} disabled={submitting}>
+                        {submitting ? '...' : <><i className="fa fa-refresh mr-1"></i> Thử lại (Pay over VNPay)</>}
                       </button>
                     </>
                   )}
@@ -591,9 +278,9 @@ const Checkout = () => {
                       <div className="mb-4">
                         <i className="fa fa-hourglass-half" style={{ fontSize: '60px', color: '#ffc107' }}></i>
                       </div>
-                      <h4 className="mb-3">Payment Pending</h4>
-                      <button className="btn btn-maincolor" onClick={() => setStep(STEPS.METHOD)}>
-                        <i className="fa fa-arrow-right mr-1"></i> Go to Payment
+                      <h4 className="mb-3">Thanh toán đang chờ</h4>
+                      <button className="btn btn-maincolor" onClick={handleVnpayPayment} disabled={submitting}>
+                        {submitting ? '...' : <><i className="fa fa-arrow-right mr-1"></i> Thanh toán qua VNPay ngay</>}
                       </button>
                     </>
                   )}

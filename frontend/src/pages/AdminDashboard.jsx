@@ -7,7 +7,6 @@ import AdminEnrollments from '../components/Admin/AdminEnrollments';
 import AdminTestimonials from '../components/Admin/AdminTestimonials';
 import AdminChiefs from '../components/Admin/AdminChiefs';
 import AdminOrders from '../components/Admin/AdminOrders';
-import AdminPaymentConfig from '../components/Admin/AdminPaymentConfig';
 import { getMe, getPrograms, getPosts, getEnrollments, getContacts, getTestimonials, getChiefs, getAllOrders } from '../services/api';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../constants/routes';
@@ -87,8 +86,6 @@ const AdminDashboard = () => {
         return <AdminContacts />;
       case 'orders':
         return <AdminOrders />;
-      case 'paymentConfig':
-        return <AdminPaymentConfig />;
       case 'overview':
       default:
         return (
@@ -217,11 +214,6 @@ const AdminDashboard = () => {
           <li className={activeTab === 'chiefs' ? 'active' : ''}>
             <a href="#chiefs" onClick={(e) => { e.preventDefault(); setActiveTab('chiefs'); }}>
               <i className="fa fa-user-circle"></i> Giảng viên
-            </a>
-          </li>
-          <li className={activeTab === 'paymentConfig' ? 'active' : ''}>
-            <a href="#paymentConfig" onClick={(e) => { e.preventDefault(); setActiveTab('paymentConfig'); }}>
-              <i className="fa fa-cog"></i> Cấu hình thanh toán
             </a>
           </li>
         </ul>

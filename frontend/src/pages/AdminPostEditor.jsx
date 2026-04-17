@@ -44,7 +44,7 @@ const AdminPostEditor = () => {
           setLoading(false);
         })
         .catch(err => {
-          toast.error("Failed to load post");
+          toast.error("Lỗi khi tải bài viết");
           setLoading(false);
         });
     }
@@ -64,20 +64,20 @@ const AdminPostEditor = () => {
 
       if (isEditing) {
         await updatePost(id, payload);
-        toast.success("Post updated successfully!");
+        toast.success("Cập nhật bài viết thành công!");
       } else {
         await createPost(payload);
-        toast.success("Post created successfully!");
+        toast.success("Tạo bài viết thành công!");
       }
       navigate(ROUTES.ADMIN + "#posts");
     } catch (err) {
-      toast.error("Failed to save post");
+      toast.error("Lỗi lưu bài viết");
     }
   };
 
   useInitOnLoaded(loading);
 
-  if (loading) return <div className="p-5 text-center text-white">Loading Editor...</div>;
+  if (loading) return <div className="p-5 text-center text-white">Đang tải biểu mẫu...</div>;
 
   return (
     <div className="admin-layout" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -86,13 +86,13 @@ const AdminPostEditor = () => {
       <div className="admin-paper-header" style={{ position: 'sticky', top: 0, zIndex: 100, borderRadius: 0, padding: '15px 30px', backgroundColor: 'var(--admin-paper-bg)', borderBottom: '1px solid var(--admin-border-light)', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
         <div className="d-flex align-items-center">
           <button className="btn btn-dark mr-3" onClick={() => navigate(ROUTES.ADMIN + "#posts")}>
-            <i className="fa fa-arrow-left"></i> Back
+            <i className="fa fa-arrow-left"></i> Quay lại
           </button>
-          <h4 style={{ margin: 0 }}>{isEditing ? 'Edit Post' : 'Create New Post'}</h4>
+          <h4 style={{ margin: 0 }}>{isEditing ? 'Sửa Bài Viết' : 'Tạo Bài Viết Mới'}</h4>
         </div>
         <div>
           <button type="submit" form="admin-post-form" className="admin-btn-save">
-            <i className="fa fa-save mr-2"></i> Save Post
+            <i className="fa fa-save mr-2"></i> Lưu Bài Viết
           </button>
         </div>
       </div>
@@ -103,58 +103,58 @@ const AdminPostEditor = () => {
           {/* LEFT: EDITOR FORM */}
           <div className="col-lg-6 mb-4">
             <div className="admin-paper h-100 w-100 p-4">
-              <h5 className="mb-4" style={{borderBottom: '1px solid #334155', paddingBottom: '10px'}}>Content Editor</h5>
+              <h5 className="mb-4" style={{borderBottom: '1px solid #334155', paddingBottom: '10px'}}>Trình Soạn Thảo</h5>
               
               <div className="admin-form-group">
-                <label>Title <span className="text-danger">*</span></label>
+                <label>Tiêu đề <span className="text-danger">*</span></label>
                 <input
                   type="text"
                   name="title"
                   value={formData.title}
                   onChange={handleChange}
                   className="admin-form-control input-lg"
-                  placeholder="Enter post title..."
+                  placeholder="Nhập tiêu đề bài viết..."
                   style={{ fontSize: '18px', fontWeight: 'bold' }}
                   required
                   minLength={5}
                 />
                 <small className="form-text mt-1 text-muted">
-                   Slug will be auto-generated from title saving. Current slug: <strong>{formData.slug || 'N/A'}</strong>
+                   Đường dẫn (slug) sẽ tự động tạo khi lưu. Slug hiện tại: <strong>{formData.slug || 'Chưa có'}</strong>
                 </small>
               </div>
 
               <div className="row mt-4">
                 <div className="col-md-6 admin-form-group">
-                  <label>Type</label>
+                  <label>Loại</label>
                   <select name="type" value={formData.type} onChange={handleChange} className="admin-form-control">
-                    <option value="BLOG">Blog Post</option>
-                    <option value="RECIPE">Recipe</option>
+                    <option value="BLOG">Bài Viết Blog</option>
+                    <option value="RECIPE">Công Thức</option>
                   </select>
                 </div>
                 <div className="col-md-6 admin-form-group">
-                  <label>Category</label>
+                  <label>Chuyên mục</label>
                   <select name="category" value={formData.category} onChange={handleChange} className="admin-form-control mb-2">
-                    <option value="">-- Select Existing --</option>
+                    <option value="">-- Chọn có sẵn --</option>
                     {categories.map(c => <option key={c} value={c}>{c}</option>)}
                   </select>
-                  <input type="text" value={newCat} onChange={e => setNewCat(e.target.value)} className="admin-form-control" placeholder="Or type new category..." />
+                  <input type="text" value={newCat} onChange={e => setNewCat(e.target.value)} className="admin-form-control" placeholder="Hoặc nhập chuyên mục mới..." />
                 </div>
               </div>
 
               <div className="row mt-3">
                 <div className="col-md-6 admin-form-group">
-                  <label>Author Name</label>
+                  <label>Tên Tác Giả</label>
                   <input type="text" name="authorName" value={formData.authorName} onChange={handleChange} className="admin-form-control" />
                 </div>
                 <div className="col-md-6 admin-form-group">
-                  <label>Display Date</label>
-                  <input type="text" name="dateString" value={formData.dateString} onChange={handleChange} className="admin-form-control" placeholder="12 Aug, 2026" />
+                  <label>Ngày Hiển Thị</label>
+                  <input type="text" name="dateString" value={formData.dateString} onChange={handleChange} className="admin-form-control" placeholder="12 Thg 8, 2026" />
                 </div>
               </div>
 
               <div className="mt-3">
                 <AdminImageUpload
-                  label="Featured Thumbnail"
+                  label="Ảnh Đại Diện"
                   name="thumbnail"
                   value={formData.thumbnail}
                   onChange={(url) => setFormData({ ...formData, thumbnail: url })}
@@ -162,19 +162,19 @@ const AdminPostEditor = () => {
               </div>
 
               <div className="admin-form-group mt-3">
-                <label>Short Description (Excerpt)</label>
-                <textarea name="desc" value={formData.desc} onChange={handleChange} className="admin-form-control" rows="3" placeholder="Brief introduction..."></textarea>
+                <label>Mô tả ngắn</label>
+                <textarea name="desc" value={formData.desc} onChange={handleChange} className="admin-form-control" rows="3" placeholder="Đoạn trích giới thiệu..."></textarea>
               </div>
 
               <div className="admin-form-group mt-3 flex-grow-1 d-flex flexDirection-column">
-                <label>Full Content <span className="text-danger">*</span></label>
+                <label>Nội dung chi tiết <span className="text-danger">*</span></label>
                 <textarea 
                   name="content" 
                   value={formData.content} 
                   onChange={handleChange} 
                   className="admin-form-control"
                   style={{ minHeight: '300px', fontFamily: 'monospace', lineHeight: '1.6' }} 
-                  placeholder="<p>Write your full story here...</p>"
+                  placeholder="<p>Viết nội dung bài viết HTML tại đây...</p>"
                   required
                   minLength={50}
                 ></textarea>
@@ -186,28 +186,28 @@ const AdminPostEditor = () => {
           <div className="col-lg-6 mb-4">
             <div className="admin-paper h-100 w-100 p-0 overflow-hidden" style={{ display: 'flex', flexDirection: 'column' }}>
               <div className="p-3" style={{ borderBottom: '1px solid #334155', backgroundColor: '#1e293b' }}>
-                <h5 className="m-0"><i className="fa fa-eye mr-2"></i> Live Preview</h5>
+                <h5 className="m-0"><i className="fa fa-eye mr-2"></i> Xem Trước</h5>
               </div>
               
               <div className="preview-container p-4" style={{ backgroundColor: '#fff', color: '#333', flexGrow: 1, overflowY: 'auto' }}>
                 {/* Simulated Blog Post View */}
                 {formData.thumbnail && (
-                  <img src={formData.thumbnail.startsWith('http') ? formData.thumbnail : `${import.meta.env.BASE_URL}${formData.thumbnail.replace(/^\//, '')}`} alt="" style={{ width: '100%', height: '300px', objectFit: 'cover', borderRadius: '4px', marginBottom: '20px' }} />
+                  <img src={formData.thumbnail.startsWith('http') ? formData.thumbnail : `${import.meta.env.VITE_API_BASE_URL?.replace('/api', '')}${formData.thumbnail}`} alt="" style={{ width: '100%', height: '300px', objectFit: 'cover', borderRadius: '4px', marginBottom: '20px' }} />
                 )}
                 
                 <div style={{ color: '#eb5e43', fontWeight: '600', textTransform: 'uppercase', fontSize: '12px', marginBottom: '10px' }}>
-                  {formData.category || 'CATEGORY'} • {formData.dateString || 'RECENT'}
+                  {formData.category || 'CHUYÊN MỤC'} • {formData.dateString || 'MỚI NHẤT'}
                 </div>
                 
                 <h1 style={{ fontSize: '28px', color: '#222', marginBottom: '15px' }}>
-                  {formData.title || 'Untitled Post'}
+                  {formData.title || 'Bài viết chưa có tiêu đề'}
                 </h1>
                 
                 <div style={{ fontStyle: 'italic', color: '#666', borderLeft: '4px solid #eb5e43', paddingLeft: '15px', marginBottom: '25px', fontSize: '16px' }}>
-                  {formData.desc || 'Short description will appear here...'}
+                  {formData.desc || 'Đoạn chú thích sẽ xuất hiện tại đây...'}
                 </div>
 
-                <div className="content-preview" dangerouslySetInnerHTML={{ __html: formData.content || '<p class="text-muted">Content will appear here...</p>' }} />
+                <div className="content-preview" dangerouslySetInnerHTML={{ __html: formData.content || '<p class="text-muted">Nội dung sẽ xuất hiện tại đây...</p>' }} />
               </div>
 
             </div>

@@ -68,6 +68,7 @@ const BlogSidebar = ({ data }) => {
         </ul>
       </div>
 
+      {/* Tạm ẩn Tags do chưa có API thật
       <div className="widget widget_tag_cloud">
         <h3 className="widget-title">Tags</h3>
         <div className="tagcloud">
@@ -76,6 +77,7 @@ const BlogSidebar = ({ data }) => {
           ))}
         </div>
       </div>
+      */}
     </aside>
   );
 };

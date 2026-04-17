@@ -30,7 +30,8 @@ const AdminImageUpload = ({ label, value, onChange, name }) => {
       const result = await uploadImage(file);
       // Backend returns { url: '/uploads/image-xxxxx.jpg' }
       // Prefix with backend base URL for display
-      const fullUrl = `http://localhost:5001${result.url}`;
+      const baseUrl = import.meta.env.VITE_API_BASE_URL?.replace('/api', '') || window.location.origin;
+      const fullUrl = result.url.startsWith('http') ? result.url : `${baseUrl}${result.url}`;
       onChange(fullUrl);
     } catch (err) {
       setError(err.response?.data?.error || 'Upload failed. Please try again.');

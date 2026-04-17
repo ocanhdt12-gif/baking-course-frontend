@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { getAllOrders, confirmOrder, rejectOrder } from '../../services/api';
 import { formatPrice, getOrderStatusBadge } from '../../utils/formatters';
 import AdminTable from './AdminTable';
+import AdminButton from './Shared/AdminButton';
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -17,7 +18,7 @@ const AdminOrders = () => {
       const data = await getAllOrders();
       setOrders(data);
     } catch (err) {
-      toast.error('Failed to fetch orders');
+      toast.error('Lỗi khi tải danh sách đơn hàng');
     } finally {
       setLoading(false);
     }
@@ -32,12 +33,12 @@ const AdminOrders = () => {
     setProcessing(true);
     try {
       await confirmOrder(selectedOrder.id, adminNote);
-      toast.success(`Order ${selectedOrder.orderCode} confirmed!`);
+      toast.success(`Đã xác nhận đơn hàng ${selectedOrder.orderCode}!`);
       setSelectedOrder(null);
       setAdminNote('');
       fetchOrders();
     } catch (err) {
-      toast.error(err.response?.data?.error || 'Failed to confirm order');
+      toast.error(err.response?.data?.error || 'Lỗi khi xác nhận đơn');
     } finally {
       setProcessing(false);
     }
@@ -46,18 +47,18 @@ const AdminOrders = () => {
   const handleReject = async () => {
     if (!selectedOrder) return;
     if (!adminNote.trim()) {
-      toast.warn('Please provide a reason for rejection.');
+      toast.warn('Vui lòng nhập lý do từ chối.');
       return;
     }
     setProcessing(true);
     try {
       await rejectOrder(selectedOrder.id, adminNote);
-      toast.info(`Order ${selectedOrder.orderCode} rejected.`);
+      toast.info(`Đã từ chối đơn hàng ${selectedOrder.orderCode}.`);
       setSelectedOrder(null);
       setAdminNote('');
       fetchOrders();
     } catch (err) {
-      toast.error(err.response?.data?.error || 'Failed to reject order');
+      toast.error(err.response?.data?.error || 'Lỗi khi từ chối đơn');
     } finally {
       setProcessing(false);
     }
@@ -80,8 +81,8 @@ const AdminOrders = () => {
   return (
     <div>
       <div className="admin-content-header">
-        <h2>Order Management</h2>
-        <p style={{ color: '#88929e' }}>Review and manage payment orders</p>
+        <h2>Quản Lý Đơn Hàng</h2>
+        <p style={{ color: '#88929e' }}>Kiểm tra và quản lý thanh toán ghi danh</p>
       </div>
 
       {/* Filter Tabs */}
@@ -167,20 +168,26 @@ const AdminOrders = () => {
       {selectedOrder && (
         <div className="admin-modal-overlay" onClick={() => setSelectedOrder(null)}>
           <div className="admin-modal" onClick={e => e.stopPropagation()} style={{ maxWidth: '650px' }}>
-            <div className="admin-modal-header">
-              <h5>Order Details — {selectedOrder.orderCode}</h5>
-              <button onClick={() => setSelectedOrder(null)} className="admin-modal-close">&times;</button>
+            <div className="admin-modal-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <h5 style={{ margin: 0 }}>Chi tiết đơn hàng — {selectedOrder.orderCode}</h5>
+              <button 
+                onClick={() => setSelectedOrder(null)} 
+                className="admin-modal-close"
+                style={{ background: '#f1f5f9', border: 'none', borderRadius: '50%', width: '32px', height: '32px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              >
+                <i className="fa fa-times text-muted"></i>
+              </button>
             </div>
             <div className="admin-modal-body" style={{ maxHeight: '70vh', overflowY: 'auto' }}>
               {/* Order Info */}
               <div className="row mb-3">
                 <div className="col-6">
-                  <small style={{ color: '#88929e' }}>User</small>
+                  <small style={{ color: '#88929e' }}>Học viên</small>
                   <div style={{ fontWeight: '600' }}>{selectedOrder.user?.fullName}</div>
                   <small>{selectedOrder.user?.email}</small>
                 </div>
                 <div className="col-6">
-                  <small style={{ color: '#88929e' }}>Course</small>
+                  <small style={{ color: '#88929e' }}>Khóa học</small>
                   <div style={{ fontWeight: '600' }}>{selectedOrder.program?.title}</div>
                   <small>{formatPrice(selectedOrder.amount)}</small>
                 </div>
@@ -188,7 +195,7 @@ const AdminOrders = () => {
 
               <div className="row mb-3">
                 <div className="col-6">
-                  <small style={{ color: '#88929e' }}>Status</small>
+                  <small style={{ color: '#88929e' }}>Trạng thái</small>
                   <div>
                     <span className={`badge ${getOrderStatusBadge(selectedOrder.status).className}`}>
                       {getOrderStatusBadge(selectedOrder.status).label}
@@ -196,7 +203,7 @@ const AdminOrders = () => {
                   </div>
                 </div>
                 <div className="col-6">
-                  <small style={{ color: '#88929e' }}>Transfer Memo</small>
+                  <small style={{ color: '#88929e' }}>Nội dung chuyển khoản</small>
                   <div><code>{selectedOrder.transferContent}</code></div>
                 </div>
               </div>
@@ -204,7 +211,7 @@ const AdminOrders = () => {
               {/* Transaction Reference */}
               {selectedOrder.transactionRef && (
                 <div className="mb-3">
-                  <small style={{ color: '#88929e' }}>Transaction Reference</small>
+                  <small style={{ color: '#88929e' }}>Mã giao dịch (TxnRef)</small>
                   <div style={{ fontWeight: '600' }}>{selectedOrder.transactionRef}</div>
                 </div>
               )}
@@ -212,13 +219,13 @@ const AdminOrders = () => {
               {/* Proof Image */}
               {selectedOrder.proofImage && (
                 <div className="mb-3">
-                  <small style={{ color: '#88929e' }}>Payment Proof</small>
+                  <small style={{ color: '#88929e' }}>Ảnh biên lai (Proof)</small>
                   <div className="mt-1">
                     <img 
-                      src={selectedOrder.proofImage.startsWith('http') ? selectedOrder.proofImage : `${window.location.origin}${selectedOrder.proofImage}`}
+                      src={selectedOrder.proofImage.startsWith('http') ? selectedOrder.proofImage : `${import.meta.env.VITE_API_BASE_URL?.replace('/api', '')}${selectedOrder.proofImage}`}
                       alt="Payment proof"
                       style={{ maxWidth: '100%', maxHeight: '400px', borderRadius: '8px', border: '1px solid #ddd', cursor: 'pointer' }}
-                      onClick={() => window.open(selectedOrder.proofImage.startsWith('http') ? selectedOrder.proofImage : `${window.location.origin}${selectedOrder.proofImage}`, '_blank')}
+                      onClick={() => window.open(selectedOrder.proofImage.startsWith('http') ? selectedOrder.proofImage : `${import.meta.env.VITE_API_BASE_URL?.replace('/api', '')}${selectedOrder.proofImage}`, '_blank')}
                     />
                   </div>
                 </div>
@@ -226,71 +233,59 @@ const AdminOrders = () => {
 
               {selectedOrder.paidViaWebhook && (
                 <div className="alert alert-info small mb-3">
-                  <i className="fa fa-bolt mr-1"></i> This order was auto-confirmed via {selectedOrder.paymentMethod === 'VNPAY' ? 'VNPay' : 'payment webhook'}.
+                  <i className="fa fa-bolt mr-1"></i> Đơn hàng này được tự động xác nhận qua {selectedOrder.paymentMethod === 'VNPAY' ? 'VNPay' : 'webhook'}.
                 </div>
               )}
 
               {/* VNPay Gateway Info */}
               {selectedOrder.paymentMethod === 'VNPAY' && (
                 <div className="mb-3 p-3" style={{ backgroundColor: 'rgba(40,167,69,0.05)', borderRadius: '8px', border: '1px solid rgba(40,167,69,0.15)' }}>
-                  <small style={{ color: '#88929e', fontWeight: '600' }}>VNPay Gateway Info</small>
+                  <small style={{ color: '#88929e', fontWeight: '600' }}>Thông tin cổng VNPay</small>
                   <div className="row mt-2" style={{ fontSize: '13px' }}>
                     <div className="col-6 mb-1">
-                      <small style={{ color: '#88929e' }}>TxnRef</small>
+                      <small style={{ color: '#88929e' }}>Mã giao dịch API</small>
                       <div><code>{selectedOrder.gatewayTxnRef || '—'}</code></div>
                     </div>
                     <div className="col-6 mb-1">
-                      <small style={{ color: '#88929e' }}>Transaction No</small>
+                      <small style={{ color: '#88929e' }}>Mã GD Tại Ngân Hàng</small>
                       <div><code>{selectedOrder.gatewayTransactionNo || '—'}</code></div>
                     </div>
                     <div className="col-6 mb-1">
-                      <small style={{ color: '#88929e' }}>Response Code</small>
+                      <small style={{ color: '#88929e' }}>Mã Phản Hồi VNPay</small>
                       <div><code>{selectedOrder.gatewayResponseCode || '—'}</code></div>
                     </div>
                     <div className="col-6 mb-1">
-                      <small style={{ color: '#88929e' }}>Paid At</small>
+                      <small style={{ color: '#88929e' }}>Thời gian thanh toán</small>
                       <div>{selectedOrder.paidAt ? new Date(selectedOrder.paidAt).toLocaleString() : '—'}</div>
                     </div>
                   </div>
                 </div>
               )}
 
-              {/* Admin Actions — hidden for auto-confirmed VNPay orders */}
+              {/* Admin Actions */}
               {['PENDING', 'AWAITING_CONFIRM'].includes(selectedOrder.status) && (
                 <>
                   <hr />
                   <div className="mb-3">
-                    <label style={{ fontWeight: '600' }}>Admin Note</label>
+                    <label style={{ fontWeight: '600' }}>Ghi chú Admin</label>
                     <textarea
                       className="form-control mt-1"
                       rows="2"
                       value={adminNote}
                       onChange={e => setAdminNote(e.target.value)}
-                      placeholder="Optional note (required for rejection)..."
+                      placeholder="Ghi chú tùy chọn (Bắt buộc nếu từ chối đơn hàng)..."
                     />
                   </div>
                   <div className="d-flex justify-content-end" style={{ gap: '10px' }}>
-                    <button
-                      className="btn btn-danger px-4"
-                      onClick={handleReject}
-                      disabled={processing}
-                    >
-                      <i className="fa fa-times mr-1"></i> Reject
-                    </button>
-                    <button
-                      className="btn btn-success px-4"
-                      onClick={handleConfirm}
-                      disabled={processing}
-                    >
-                      <i className="fa fa-check mr-1"></i> Confirm Payment
-                    </button>
+                    <AdminButton variant="danger" icon="times" label="Từ chối" onClick={handleReject} disabled={processing} />
+                    <AdminButton variant="success" icon="check" label="Xác nhận Thanh toán" onClick={handleConfirm} disabled={processing} />
                   </div>
                 </>
               )}
 
               {selectedOrder.adminNote && selectedOrder.status !== 'AWAITING_CONFIRM' && (
                 <div className="mt-3 p-2" style={{ backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '6px' }}>
-                  <small style={{ color: '#88929e' }}>Admin Note:</small>
+                  <small style={{ color: '#88929e' }}>Ghi chú của Admin:</small>
                   <div>{selectedOrder.adminNote}</div>
                 </div>
               )}

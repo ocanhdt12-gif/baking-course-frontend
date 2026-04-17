@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import AdminConfirmModal from './AdminConfirmModal';
+import AdminButton from './Shared/AdminButton';
 import { getEnrollments, updateEnrollmentStatus, deleteEnrollment } from '../../services/api';
 
 const AdminEnrollments = () => {
@@ -14,7 +15,7 @@ const AdminEnrollments = () => {
       setEnrollments(data);
       setLoading(false);
     } catch (err) {
-      console.error("Failed to load enrollments", err);
+      console.error("Lỗi khi tải danh sách ghi danh", err);
       setLoading(false);
     }
   };
@@ -27,57 +28,57 @@ const AdminEnrollments = () => {
     const newStatus = currentStatus === 'PENDING' ? 'CONFIRMED' : 'PENDING';
     try {
       await updateEnrollmentStatus(id, newStatus);
-      toast.success(`Status changed to ${newStatus}`);
+      toast.success(`Đã chuyển trạng thái thành ${newStatus === 'CONFIRMED' ? 'XÁC NHẬN' : 'CHỜ DUYỆT'}`);
       fetchEnrollments();
     } catch (err) {
-      toast.error('Failed to update status');
+      toast.error('Lỗi khi cập nhật trạng thái');
     }
   };
 
   const handleDelete = async (id) => {
     try {
       await deleteEnrollment(id);
-      toast.success('Enrollment deleted successfully!');
+      toast.success('Xóa ghi danh thành công!');
       fetchEnrollments();
     } catch (err) {
-      toast.error('Failed to delete enrollment');
+      toast.error('Lỗi khi xóa ghi danh');
     }
   };
 
-  if (loading) return <div>Loading enrollments...</div>;
+  if (loading) return <div>Đang tải dữ liệu ghi danh...</div>;
 
   return (
     <>
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-        <h3 className="mb-0">Course Enrollments</h3>
+        <h3 className="mb-0">Danh sách Ghi danh</h3>
       </div>
       
       <div className="admin-paper">
         <table className="admin-table">
           <thead>
             <tr>
-              <th>Date</th>
-              <th>Student Name</th>
+              <th>Ngày</th>
+              <th>Tên Học viên</th>
               <th>Email</th>
-              <th>Phone</th>
-              <th>Course</th>
-              <th>Status</th>
-              <th>Action</th>
+              <th>SĐT</th>
+              <th>Khóa học</th>
+              <th>Trạng thái</th>
+              <th>Thao tác</th>
             </tr>
           </thead>
           <tbody>
             {enrollments.length === 0 ? (
-              <tr><td colSpan="7" className="text-center">No enrollments found</td></tr>
+              <tr><td colSpan="7" className="text-center">Chưa có lượt ghi danh nào</td></tr>
             ) : (
               enrollments.map(enr => (
                 <tr key={enr.id}>
                   <td>{new Date(enr.createdAt).toLocaleDateString()}</td>
                   <td>{enr.fullName}</td>
                   <td>{enr.email}</td>
-                  <td>{enr.phone || 'N/A'}</td>
+                  <td>{enr.phone || '—'}</td>
                   <td>
-                    {enr.classSession?.program?.title || 'Unknown Course'}
+                    {enr.classSession?.program?.title || 'Không rõ khóa học'}
                     <br/><small className="text-muted">{enr.classSession?.startDate ? new Date(enr.classSession.startDate).toLocaleDateString() : ''}</small>
                   </td>
                   <td>
@@ -92,11 +93,11 @@ const AdminEnrollments = () => {
                       }}
                       onClick={() => handleStatusChange(enr.id, enr.status)}
                     >
-                      {enr.status}
+                      {enr.status === 'CONFIRMED' ? 'XÁC NHẬN' : 'CHỜ DUYỆT'}
                     </span>
                   </td>
                   <td>
-                    <button className="admin-btn-delete" onClick={() => setDeleteTargetId(enr.id)}>Delete</button>
+                    <AdminButton variant="danger" icon="trash" outline size="sm" onClick={() => setDeleteTargetId(enr.id)} />
                   </td>
                 </tr>
               ))
@@ -110,8 +111,8 @@ const AdminEnrollments = () => {
       isOpen={!!deleteTargetId}
       onClose={() => setDeleteTargetId(null)}
       onConfirm={() => { handleDelete(deleteTargetId); setDeleteTargetId(null); }}
-      title="Delete Enrollment"
-      message="Are you sure you want to delete this enrollment? This action cannot be undone."
+      title="Xóa Ghi danh"
+      message="Bạn có chắc chắn muốn xóa lượt ghi danh này? Hành động này không thể hoàn tác."
     />
     </>
   );

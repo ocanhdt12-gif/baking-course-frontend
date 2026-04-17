@@ -29,27 +29,25 @@ const AdminPosts = () => {
   const handleDelete = async (id) => {
     try {
       await deletePost(id);
-      toast.success('Post deleted successfully!');
+      toast.success('Xóa bài viết thành công!');
       fetchData();
     } catch (err) {
-      toast.error('Failed to delete post');
+      toast.error('Lỗi khi xóa bài viết');
     }
   };
 
-
-
   const columns = [
-    { label: 'Thumb', render: (row) => <img src={row.thumbnail} alt="" width="50" style={{borderRadius: '4px'}}/> },
-    { label: 'Title', key: 'title' },
-    { label: 'Category', render: (row) => <span className="badge badge-info bg-info">{row.category}</span> },
-    { label: 'Author', render: (row) => row.authorName || 'Admin' },
-    { label: 'Date', render: (row) => row.dateString || new Date(row.createdAt).toLocaleDateString() }
+    { label: 'Ảnh', render: (row) => <img src={row.thumbnail} alt="" width="50" style={{borderRadius: '4px'}}/> },
+    { label: 'Tiêu đề', key: 'title' },
+    { label: 'Chuyên mục', render: (row) => <span className="badge badge-info bg-info">{row.category}</span> },
+    { label: 'Tác giả', render: (row) => row.authorName || 'Admin' },
+    { label: 'Ngày đăng', render: (row) => row.dateString || new Date(row.createdAt).toLocaleDateString() }
   ];
 
   return (
     <div>
       <AdminTable 
-        title="Manage Posts & Recipes" 
+        title="Quản lý Bài viết & Công thức" 
         columns={columns} 
         data={posts} 
         onCreate={handleOpenCreate}

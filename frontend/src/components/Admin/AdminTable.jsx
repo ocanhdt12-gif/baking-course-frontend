@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Pagination from '../Shared/Pagination';
 import AdminConfirmModal from './AdminConfirmModal';
+import AdminButton from './Shared/AdminButton';
 
 const AdminTable = ({ columns, data, onEdit, onDelete, title, onCreate, itemsPerPage = 10 }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,9 +17,9 @@ const AdminTable = ({ columns, data, onEdit, onDelete, title, onCreate, itemsPer
     <div className="admin-paper fade-in">
       <div className="admin-paper-header">
         <h4>{title}</h4>
-        <button onClick={onCreate} className="admin-btn-primary">
-          <i className="fa fa-plus" style={{marginRight: '6px'}}></i> Add New
-        </button>
+        {onCreate && (
+          <AdminButton variant="primary" icon="plus" label="Thêm Mới" onClick={onCreate} />
+        )}
       </div>
       
       <div className="table-responsive">
@@ -28,14 +29,14 @@ const AdminTable = ({ columns, data, onEdit, onDelete, title, onCreate, itemsPer
               {columns.map(col => (
                 <th key={col.key || col.label}>{col.label}</th>
               ))}
-              <th width="150" className="text-center">Actions</th>
+              <th width="150" className="text-center">Thao tác</th>
             </tr>
           </thead>
           <tbody>
             {paginatedData.length === 0 ? (
               <tr>
                 <td colSpan={columns.length + 1} className="text-center py-4" style={{color: '#888'}}>
-                  <i>No data available.</i>
+                  <i>Chưa có dữ liệu.</i>
                 </td>
               </tr>
             ) : (
@@ -73,8 +74,8 @@ const AdminTable = ({ columns, data, onEdit, onDelete, title, onCreate, itemsPer
         isOpen={!!deleteTarget}
         onClose={() => setDeleteTarget(null)}
         onConfirm={() => { onDelete(deleteTarget.id); setDeleteTarget(null); }}
-        title="Confirm Delete"
-        message={`Are you sure you want to delete this item? This action cannot be undone.`}
+        title="Xác nhận Xóa"
+        message={`Bạn có chắc chắn muốn xóa mục này? Hành động này không thể hoàn tác.`}
       />
     </div>
   );
