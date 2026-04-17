@@ -211,6 +211,13 @@ const ChiefDetail = () => {
                   </div>
                   {/* tabs end */}
 
+                  <blockquote className="bordered layout-2 mt-40">
+                    <div>
+                      <h6 className="small-text color-main2 margin-0">{t('chiefDetail.featuredReview.role')}</h6>
+                      <h5>{t('chiefDetail.featuredReview.author')}</h5>
+                    </div>
+                    <p>{t('chiefDetail.featuredReview.text')}</p>
+                  </blockquote>
 
                 </div>
               </div>

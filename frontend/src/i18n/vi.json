@@ -131,6 +131,11 @@
     "loading": "Đang tải hồ sơ giảng viên...",
     "notFound": "Không tìm thấy giảng viên.",
     "pageTitle": "Thông Tin Giảng Viên",
+    "featuredReview": {
+      "role": "cựu học viên",
+      "author": "Hoàng Kiên",
+      "text": "«Thầy không chỉ dạy cách nấu ăn mà còn truyền đạt cả một nghệ thuật sống. Những giờ học vô cùng nghiêm khắc nhưng đầy nhiệt huyết đã thay đổi hoàn toàn tư duy ẩm thực của tôi.»"
+    },
     "tabs": {
       "biography": "Tiểu sử",
       "skills": "Kỹ năng",

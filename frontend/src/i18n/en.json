@@ -131,6 +131,11 @@
     "loading": "Loading Instructor Profile...",
     "notFound": "Instructor Not Found.",
     "pageTitle": "Instructor Profile",
+    "featuredReview": {
+      "role": "former student",
+      "author": "Michael Delgado",
+      "text": "«He doesn't just teach cooking, he teaches the art of living. The classes were strict but incredibly passionate, completely transforming my culinary mindset.»"
+    },
     "tabs": {
       "biography": "Biography",
       "skills": "Skills",

@@ -31,13 +31,6 @@ async function main() {
   const bioHTML = `<h4 class="mb-20">Tiểu sử:</h4>
 <p>Bắt đầu sự nghiệp từ một học việc nhỏ trong lò bánh mì ở Pháp, từng bước vươn lên vị trí Bếp trưởng điều hành (Executive Chef) tại khách sạn 5 sao. Niềm đam mê mãnh liệt với các loại gia vị đã thúc đẩy việc nghiên cứu ẩm thực toàn cầu.</p>
 <p>Phương châm làm việc: "Sự hoàn hảo không đến từ phép màu, nó đến từ những kỹ năng cơ bản được luyện tập nghìn lần". Có kinh nghiệm thiết kế thực đơn cho nhiều nguyên thủ quốc gia.</p>
-<blockquote class="bordered layout-2">
-  <div>
-    <h6 class="small-text color-main2 margin-0">cựu học viên</h6>
-    <h5>Hoàng Kiên</h5>
-  </div>
-  <p>«Thầy không chỉ dạy cách nấu ăn mà còn truyền đạt cả một nghệ thuật sống. Những giờ học vô cùng nghiêm khắc nhưng đầy nhiệt huyết đã thay đổi hoàn toàn tư duy ẩm thực của tôi.»</p>
-</blockquote>
 <h4 class="mb-10 mt-40">Đời sống chuyên môn:</h4>
 <p>Thường xuyên tổ chức các buổi hội thảo và lớp học chuyên sâu. Khám phá văn hóa ẩm thực các vùng miền để đưa vào giáo án. Sự chu đáo và tận tâm luôn là kim chỉ nam truyền lửa cho các lứa học viên.</p>`;
   const highlightsText = "Kỹ thuật thái dao điêu luyện|Bậc thầy kiểm soát nhiệt độ nướng|Chuyên gia phối hợp rượu và thực phẩm";
