@@ -282,8 +282,8 @@ const AdminProgramEditor = () => {
               <div className="col-3">
                 <input className="admin-form-control shadow-none" type="number" value={goal.percent || ''} onChange={e => handleArrayChange('learningGoals', i, 'percent', parseInt(e.target.value) || 0)} placeholder="%" min="0" max="100" />
               </div>
-              <div className="col-2">
-                <button type="button" className="btn btn-sm btn-danger w-100" onClick={() => removeArrayItem('learningGoals', i)}><i className="fa fa-trash"></i></button>
+              <div className="col-2 text-center">
+                <button type="button" className="admin-btn-icon delete" onClick={() => removeArrayItem('learningGoals', i)}><i className="fa fa-trash"></i></button>
               </div>
             </div>
           ))}
@@ -298,8 +298,8 @@ const AdminProgramEditor = () => {
               <div className="col-10">
                 <AdminInput value={item} onChange={e => handleArrayChange('classIncludes', i, null, e.target.value)} placeholder="Nội dung..." />
               </div>
-              <div className="col-2">
-                <button type="button" className="btn btn-sm btn-danger w-100" onClick={() => removeArrayItem('classIncludes', i)}><i className="fa fa-trash"></i></button>
+              <div className="col-2 text-center" style={{ paddingBottom: '24px' }}>
+                <button type="button" className="admin-btn-icon delete" onClick={() => removeArrayItem('classIncludes', i)}><i className="fa fa-trash"></i></button>
               </div>
             </div>
           ))}
@@ -313,7 +313,7 @@ const AdminProgramEditor = () => {
             <div key={i} className="mt-3 p-3 position-relative" style={{ backgroundColor: 'var(--admin-glass-bg)', borderRadius: '12px', border: '1px solid var(--admin-glass-border)' }}>
               <div className="d-flex justify-content-between mb-3 border-bottom pb-2" style={{borderColor: 'var(--admin-glass-border)'}}>
                 <label style={{ color: 'var(--admin-primary)', fontWeight: '600', margin: 0 }}>Chương {i + 1}</label>
-                <button type="button" className="btn btn-sm btn-danger rounded-pill px-3" onClick={() => removeArrayItem('curriculum', i)}><i className="fa fa-trash"></i></button>
+                <button type="button" className="admin-btn-icon delete" title="Xóa chương" onClick={() => removeArrayItem('curriculum', i)}><i className="fa fa-trash"></i></button>
               </div>
               <AdminInput value={mod.title} onChange={e => handleArrayChange('curriculum', i, 'title', e.target.value)} placeholder="Tiêu đề chương" required />
               <AdminTextarea value={mod.content} onChange={e => handleArrayChange('curriculum', i, 'content', e.target.value)} rows="2" placeholder="Nội dung chương học..." required minLength={10} />
@@ -347,8 +347,8 @@ const AdminProgramEditor = () => {
                   setFormData({ ...formData, premiumContent: { ...formData.premiumContent, videos: updated } });
                 }} placeholder="Link nhúng Youtube/Vimeo/GoogleDrive" />
               </div>
-              <div className="col-2">
-                <button type="button" className="btn btn-sm btn-danger w-100" onClick={() => {
+              <div className="col-2 text-center" style={{ paddingBottom: '24px' }}>
+                <button type="button" className="admin-btn-icon delete" title="Xóa" onClick={() => {
                   const updated = [...(formData.premiumContent?.videos || [])];
                   updated.splice(i, 1);
                   setFormData({ ...formData, premiumContent: { ...formData.premiumContent, videos: updated } });
@@ -378,8 +378,8 @@ const AdminProgramEditor = () => {
                   setFormData({ ...formData, premiumContent: { ...formData.premiumContent, resources: updated } });
                 }} placeholder="Link tải" />
               </div>
-              <div className="col-2">
-                <button type="button" className="btn btn-sm btn-danger w-100" onClick={() => {
+              <div className="col-2 text-center" style={{ paddingBottom: '24px' }}>
+                <button type="button" className="admin-btn-icon delete" title="Xóa" onClick={() => {
                   const updated = [...(formData.premiumContent?.resources || [])];
                   updated.splice(i, 1);
                   setFormData({ ...formData, premiumContent: { ...formData.premiumContent, resources: updated } });
