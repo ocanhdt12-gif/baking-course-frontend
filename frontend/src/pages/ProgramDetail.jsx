@@ -110,6 +110,12 @@ const ProgramDetail = () => {
     );
   };
 
+  const imgSrc = (src) => {
+    if (!src) return `${import.meta.env.BASE_URL}images/gallery/09.jpg`;
+    if (src.startsWith('http') || src.startsWith(import.meta.env.BASE_URL)) return src;
+    return `${import.meta.env.BASE_URL}${src.replace(/^\//, '')}`;
+  };
+
   return (
     <>
       <PageTitle 
@@ -127,7 +133,7 @@ const ProgramDetail = () => {
             <main className="col-lg-7 col-xl-8 vertical-item content-padding">
               <div className="item-media">
                 {program.thumbnail && (
-                  <img src={program.thumbnail.startsWith('http') ? program.thumbnail : `${import.meta.env.BASE_URL}${program.thumbnail.replace(/^\//, '')}`} alt={program.title} />
+                  <img src={imgSrc(program.thumbnail)} alt={program.title} />
                 )}
                 
                 <div className="content-absolute bg-maincolor-transparent text-left ds">
@@ -408,7 +414,7 @@ const ProgramDetail = () => {
               {(program.chief || program.authorImage) && (
                 <div className="widget widget_instructor text-center p-4 mt-4 bordered">
                   <h4 className="widget-title">{t('programDetail.instructor') || 'Giảng Viên'}</h4>
-                  <img src={(program.chief?.image || program.authorImage).startsWith('http') ? (program.chief?.image || program.authorImage) : `${import.meta.env.BASE_URL}${(program.chief?.image || program.authorImage).replace(/^\//, '')}`} alt={program.chief?.name || program.authorName} className="rounded-circle mb-3" style={{ width: '120px', height: '120px', objectFit: 'cover' }} />
+                  <img src={imgSrc(program.chief?.image || program.authorImage)} alt={program.chief?.name || program.authorName} className="rounded-circle mb-3" style={{ width: '120px', height: '120px', objectFit: 'cover' }} />
                   <h5>{program.chief?.name || program.authorName}</h5>
                   <p className="small-text color-main">{program.chief?.role || t('programDetail.masterChef') || 'Bếp Trưởng'}</p>
                   {program.chief && (

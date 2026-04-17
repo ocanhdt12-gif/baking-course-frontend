@@ -167,6 +167,16 @@ const Checkout = () => {
                 ))}
               </div>
 
+              {/* Helper for image src */}
+              {(() => {
+                window.imgSrc = (src) => {
+                  if (!src) return `${import.meta.env.BASE_URL}images/gallery/09.jpg`;
+                  if (src.startsWith('http') || src.startsWith(import.meta.env.BASE_URL)) return src;
+                  return `${import.meta.env.BASE_URL}${src.replace(/^\//, '')}`;
+                };
+                return null;
+              })()}
+
               {/* STEP 1: Order Summary */}
               {step === STEPS.SUMMARY && (
                 <div className="checkout-card bordered p-4 p-lg-5">
@@ -175,7 +185,7 @@ const Checkout = () => {
                   <div className="d-flex align-items-start mb-4" style={{ gap: '20px' }}>
                     {program.thumbnail && (
                       <img 
-                        src={program.thumbnail.startsWith('http') ? program.thumbnail : `${import.meta.env.BASE_URL}${program.thumbnail.replace(/^\//, '')}`} 
+                        src={window.imgSrc(program.thumbnail)} 
                         alt={program.title} 
                         style={{ width: '120px', height: '90px', objectFit: 'cover', borderRadius: '8px' }}
                       />

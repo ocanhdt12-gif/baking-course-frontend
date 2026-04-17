@@ -46,7 +46,8 @@ const Chiefs = () => {
 
   const imgSrc = (src) => {
     if (!src) return `${import.meta.env.BASE_URL}images/team/01.jpg`;
-    return src.startsWith('http') ? src : `${import.meta.env.BASE_URL}${src.replace(/^\//, '')}`;
+    if (src.startsWith('http') || src.startsWith(import.meta.env.BASE_URL)) return src;
+    return `${import.meta.env.BASE_URL}${src.replace(/^\//, '')}`;
   };
 
   return (

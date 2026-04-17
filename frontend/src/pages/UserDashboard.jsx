@@ -39,6 +39,12 @@ const UserDashboard = () => {
     { key: 'orders', icon: 'fa-shopping-bag', label: t('userDash.tabs.orders') },
   ];
 
+  const imgSrc = (src) => {
+    if (!src) return `${import.meta.env.BASE_URL}images/gallery/09.jpg`;
+    if (src.startsWith('http') || src.startsWith(import.meta.env.BASE_URL)) return src;
+    return `${import.meta.env.BASE_URL}${src.replace(/^\//, '')}`;
+  };
+
   return (
     <>
       <PageTitle 
@@ -128,7 +134,7 @@ const UserDashboard = () => {
                         <div className="ud-course-thumb">
                           {order.program?.thumbnail ? (
                             <img 
-                              src={order.program.thumbnail.startsWith('http') ? order.program.thumbnail : `${import.meta.env.BASE_URL}${order.program.thumbnail.replace(/^\//, '')}`}
+                              src={imgSrc(order.program.thumbnail)}
                               alt={order.program?.title}
                             />
                           ) : (
@@ -184,7 +190,7 @@ const UserDashboard = () => {
                         <div className="ud-order-thumb">
                           {order.program?.thumbnail ? (
                             <img 
-                              src={order.program.thumbnail.startsWith('http') ? order.program.thumbnail : `${import.meta.env.BASE_URL}${order.program.thumbnail.replace(/^\//, '')}`}
+                              src={imgSrc(order.program.thumbnail)}
                               alt={order.program?.title}
                             />
                           ) : (

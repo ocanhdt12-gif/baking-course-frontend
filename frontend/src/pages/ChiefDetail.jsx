@@ -75,6 +75,12 @@ const ChiefDetail = () => {
   // highlights
   const highlights = chief.highlights ? chief.highlights.split('|').map(s => s.trim()).filter(Boolean) : [];
 
+  const imgSrc = (src) => {
+    if (!src) return `${import.meta.env.BASE_URL}images/team/single-profile.jpg`;
+    if (src.startsWith('http') || src.startsWith(import.meta.env.BASE_URL)) return src;
+    return `${import.meta.env.BASE_URL}${src.replace(/^\//, '')}`;
+  };
+
   return (
     <>
       <PageTitle 
@@ -96,7 +102,7 @@ const ChiefDetail = () => {
                 <div className="col-md-5">
                   <div className="vertical-item content-absolute text-center">
                     <div className="item-media">
-                      <img src={chief.image ? (chief.image.startsWith('http') ? chief.image : `${import.meta.env.BASE_URL}${chief.image.replace(/^\//, '')}`) : '/images/team/single-profile.jpg'} alt={chief.name} />
+                      <img src={imgSrc(chief.image)} alt={chief.name} />
                     </div>
                     <div className="item-content bg-maincolor-transparent">
                       <h4>{chief.name}</h4>
