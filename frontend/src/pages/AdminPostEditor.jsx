@@ -192,7 +192,7 @@ const AdminPostEditor = () => {
               <div className="preview-container p-4" style={{ backgroundColor: '#fff', color: '#333', flexGrow: 1, overflowY: 'auto' }}>
                 {/* Simulated Blog Post View */}
                 {formData.thumbnail && (
-                  <img src={formData.thumbnail.startsWith('http') ? formData.thumbnail : `${import.meta.env.VITE_API_BASE_URL?.replace('/api', '')}${formData.thumbnail}`} alt="" style={{ width: '100%', height: '300px', objectFit: 'cover', borderRadius: '4px', marginBottom: '20px' }} />
+                  <img src={formData.thumbnail.startsWith('http') ? formData.thumbnail : `${(import.meta.env.VITE_API_BASE_URL || '').replace(/\/api$/, '')}${formData.thumbnail.startsWith('/') ? '' : '/'}${formData.thumbnail}`} alt="" style={{ width: '100%', height: '300px', objectFit: 'cover', borderRadius: '4px', marginBottom: '20px' }} />
                 )}
                 
                 <div style={{ color: '#eb5e43', fontWeight: '600', textTransform: 'uppercase', fontSize: '12px', marginBottom: '10px' }}>
