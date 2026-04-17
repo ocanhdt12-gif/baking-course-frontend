@@ -413,7 +413,7 @@ const ProgramDetail = () => {
                   <p className="small-text color-main">{program.chief?.role || t('programDetail.masterChef') || 'Bếp Trưởng'}</p>
                   {program.chief && (
                     <div className="mt-3">
-                      <Link to={`/chiefs/${program.chief.id}`} className="btn btn-sm btn-outline-maincolor">{t('programDetail.viewProfile') || 'Xem Hồ Sơ'}</Link>
+                      <Link to={ROUTES.CHIEF_DETAIL(program.chief.id)} className="btn btn-sm btn-outline-maincolor">{t('programDetail.viewProfile') || 'Xem Hồ Sơ'}</Link>
                     </div>
                   )}
                 </div>
