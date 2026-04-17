@@ -80,12 +80,19 @@ exports.createPost = async (req, res) => {
 
 exports.updatePost = async (req, res) => {
   try {
+    const identifier = req.params.id;
+    let existingPost = await prisma.post.findUnique({ where: { slug: identifier } }).catch(() => null);
+    if (!existingPost) {
+      existingPost = await prisma.post.findUnique({ where: { id: identifier } }).catch(() => null);
+    }
+    if (!existingPost) return res.status(404).json({ error: 'Post not found' });
+
     const payload = { ...req.body };
     if (!payload.slug && payload.title) {
       payload.slug = generateSlug(payload.title);
     }
     const post = await prisma.post.update({
-      where: { id: req.params.id },
+      where: { id: existingPost.id },
       data: payload
     });
     res.json(post);
@@ -96,7 +103,14 @@ exports.updatePost = async (req, res) => {
 
 exports.deletePost = async (req, res) => {
   try {
-    await prisma.post.delete({ where: { id: req.params.id } });
+    const identifier = req.params.id;
+    let existingPost = await prisma.post.findUnique({ where: { slug: identifier } }).catch(() => null);
+    if (!existingPost) {
+      existingPost = await prisma.post.findUnique({ where: { id: identifier } }).catch(() => null);
+    }
+    if (!existingPost) return res.status(404).json({ error: 'Post not found for deletion' });
+
+    await prisma.post.delete({ where: { id: existingPost.id } });
     res.json({ message: 'Deleted successfully' });
   } catch (e) {
     res.status(500).json({ error: 'Failed to delete post' });
