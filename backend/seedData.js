@@ -16,7 +16,7 @@ async function main() {
     data: {
       name: 'Gordon Ramsey',
       role: 'Master Baker',
-      image: 'images/team/01.jpg',
+      image: '/baking/images/team/01.jpg',
       bio: 'Michelin-starred master with 20 years of experience.',
       biography: `
         <p>A culinary artist and master pastry chef with over 20 years of experience in Michelin-starred restaurants across Paris and London.</p>
@@ -40,7 +40,7 @@ async function main() {
     data: {
       name: 'Paul Hollywood',
       role: 'Head Pastry Chef',
-      image: 'images/team/02.jpg',
+      image: '/baking/images/team/02.jpg',
       bio: 'The king of bread and traditional British baking.',
       biography: `
         <p>Renowned for his unyielding standards and deep understanding of yeast, Paul has revolutionized the way modern bakers approach traditional bread.</p>
@@ -58,7 +58,7 @@ async function main() {
     data: {
       name: 'Dominique Ansel',
       role: 'Innovator Chef',
-      image: 'images/team/03.jpg',
+      image: '/baking/images/team/03.jpg',
       bio: 'Creator of world-famous hybrid pastries.',
       biography: `
         <p>Dominique is the creative genius behind some of the most viral and beloved pastries of the 21st century. His philosophy is rooted in constant innovation.</p>
@@ -67,7 +67,7 @@ async function main() {
                 <p>His classes focus on pushing boundaries, mixing distinct cultural flavors, and perfecting the aesthetic appeal of desserts. Students will learn the science behind baking stable, layered creations.</p>
             </div>
             <div class="col-md-6">
-                <img src="images/gallery/04.jpg" alt="French Pastry" class="rounded img-fluid">
+                <img src="/baking/images/gallery/04.jpg" alt="French Pastry" class="rounded img-fluid">
             </div>
         </div>
         <ul>
@@ -95,7 +95,7 @@ async function main() {
       price: 45000,
       reviews: 124,
       students: 856,
-      thumbnail: 'images/service/01.jpg',
+      thumbnail: '/baking/images/service/01.jpg',
       chiefId: chief1.id,
       isFeatured: true,
       learningGoals: ["Understand intricate lamination", "Master macarons perfectly", "Temper chocolate", "Bake the perfect choux pastry"],
@@ -131,7 +131,7 @@ async function main() {
       price: 29900,
       reviews: 89,
       students: 412,
-      thumbnail: 'images/service/02.jpg',
+      thumbnail: '/baking/images/service/02.jpg',
       chiefId: chief2.id,
       isFeatured: true,
       learningGoals: ["Create and maintain wild yeast starter", "Understand baker's percentages", "Score like a professional", "Manage fermentation temperatures"],
@@ -158,7 +158,7 @@ async function main() {
         <p>Take your cakes from ordinary to extraordinary. This course focuses entirely on aesthetics, structure, and contemporary decorating trends.</p>
         <div class="row pt-2 mb-3">
             <div class="col-md-5">
-                <img src="images/gallery/08.jpg" alt="Cake Decorating" class="rounded img-fluid">
+                <img src="/baking/images/gallery/08.jpg" alt="Cake Decorating" class="rounded img-fluid">
             </div>
             <div class="col-md-7">
                 <p>We explore Swiss Meringue buttercream, sharp edges, fondant wrapping, tier stacking, and realistic sugar flower craftsmanship.</p>
@@ -169,7 +169,7 @@ async function main() {
       price: 35000,
       reviews: 215,
       students: 980,
-      thumbnail: 'images/service/03.jpg',
+      thumbnail: '/baking/images/service/03.jpg',
       chiefId: chief3.id,
       isFeatured: true,
       learningGoals: ["Achieve perfectly sharp buttercream edges", "Stack multi-tier cakes securely", "Craft realistic sugar flowers", "Paint and texture with edible colors"],
@@ -200,14 +200,14 @@ async function main() {
         title: 'The Secret to a Perfect Sourdough Starter',
         category: 'Recipes',
         type: 'BLOG',
-        thumbnail: 'images/gallery/02.jpg',
+        thumbnail: '/baking/images/gallery/02.jpg',
         authorId: admin ? admin.id : null,
         authorName: 'Admin',
         desc: 'Creating an active sourdough starter is the foundation of artisan bread baking.',
         content: `
           <h3>The Core Foundation of Artisan Bread</h3>
           <p>Creating a vibrant, active sourdough starter is the core foundation of artisan bread baking. It is a living, breathing entity that requires consistency and patience.</p>
-          <img src="images/gallery/13.jpg" alt="Sourdough Starter" class="img-fluid rounded mb-4 mt-2">
+          <img src="/baking/images/gallery/13.jpg" alt="Sourdough Starter" class="img-fluid rounded mb-4 mt-2">
           <h4>Your Step-by-Step Guide:</h4>
           <ol>
               <li><strong>Day 1:</strong> Mix 50g of whole rye flour with 50g of lukewarm water. Rest for 24 hours in a warm spot.</li>
@@ -225,7 +225,7 @@ async function main() {
         title: '5 Baking Mistakes You Are Probably Making',
         category: 'Tips',
         type: 'BLOG',
-        thumbnail: 'images/gallery/03.jpg',
+        thumbnail: '/baking/images/gallery/03.jpg',
         authorId: admin ? admin.id : null,
         authorName: 'Admin',
         desc: 'Avoid these common pitfalls to instantly elevate your baking game.',
@@ -250,14 +250,14 @@ async function main() {
         title: 'The Fascinating History of the Croissant',
         category: 'History',
         type: 'BLOG',
-        thumbnail: 'images/gallery/05.jpg',
+        thumbnail: '/baking/images/gallery/05.jpg',
         authorId: admin ? admin.id : null,
         authorName: 'Admin',
         desc: 'Uncovering the Viennese origins of France\'s most famous pastry.',
         content: `
           <h3>Not Entirely French?</h3>
           <p>When you think of a croissant, you undoubtedly picture a Parisian café, a cup of espresso, and the Eiffel Tower. But the buttery, flaky pastry we know and love today actually traces its roots back to Austria.</p>
-          <img src="images/gallery/10.jpg" alt="Croissants" class="img-fluid rounded mb-4 mt-2">
+          <img src="/baking/images/gallery/10.jpg" alt="Croissants" class="img-fluid rounded mb-4 mt-2">
           <h4>The Kipferl</h4>
           <p>The ancestor of the croissant is the <em>kipferl</em>, a crescent-shaped baked good referenced in Austrian records as far back as the 13th century. It wasn't until the 19th century that August Zang, an Austrian artillery officer, opened a Viennese bakery ("Boulangerie Viennoise") in Paris.</p>
           <p>Zang introduced Parisians to the kipferl, which they quickly embraced. French bakers eventually adapted the recipe, utilizing layered yeast-leavened dough (pâte feuilletée) packed with butter, resulting in the modern croissant.</p>
@@ -272,7 +272,7 @@ async function main() {
         title: 'Essential Equipments Every Home Baker Needs',
         category: 'Tools',
         type: 'BLOG',
-        thumbnail: 'images/gallery/07.jpg',
+        thumbnail: '/baking/images/gallery/07.jpg',
         authorId: admin ? admin.id : null,
         authorName: 'Admin',
         desc: 'Stop wasting money on gadgets. Here is what you actually need to buy.',
@@ -281,7 +281,7 @@ async function main() {
           <p>It's easy to get overwhelmed by the endless array of baking gadgets available at culinary supply stores. However, professional pastry kitchens operate on remarkably few, highly versatile tools.</p>
           <div class="row mb-3">
               <div class="col-md-4">
-                  <img src="images/gallery/06.jpg" alt="Tools" class="img-fluid rounded">
+                  <img src="/baking/images/gallery/06.jpg" alt="Tools" class="img-fluid rounded">
               </div>
               <div class="col-md-8">
                   <h4>The Non-Negotiables</h4>
@@ -304,7 +304,7 @@ async function main() {
         title: 'The Ultimate Guide to Vegan Baking Substitutions',
         category: 'Recipes',
         type: 'BLOG',
-        thumbnail: 'images/gallery/06.jpg',
+        thumbnail: '/baking/images/gallery/06.jpg',
         authorId: admin ? admin.id : null,
         authorName: 'Admin',
         desc: 'How to bake incredible desserts without eggs, dairy, or honey.',

@@ -5,21 +5,21 @@ const prisma = new PrismaClient({ errorFormat: 'minimal' });
 const MOCK_DATA = {
   slider: [
     {
-      image: 'images/slide01.jpg',
+      image: '/baking/images/slide01.jpg',
       titleHighlight: 'Cooking is Easy, We Will Prove it to You!',
       titleMain: 'Next Cooking Class Starts In:',
       btnLink: '#',
       btnText: 'enroll now'
     },
     {
-      image: 'images/slide02.jpg',
+      image: '/baking/images/slide02.jpg',
       titleHighlight: 'Cooking is Easy, We Will Prove it to You!',
       titleMain: 'Next Cooking Class Starts In:',
       btnLink: '#',
       btnText: 'enroll now'
     },
     {
-      image: 'images/slide03.jpg',
+      image: '/baking/images/slide03.jpg',
       titleHighlight: 'Cooking is Easy, We Will Prove it to You!',
       titleMain: 'Next Cooking Class Starts In:',
       btnLink: '#',
@@ -27,82 +27,82 @@ const MOCK_DATA = {
     }
   ],
   timetables: [
-    { dayOfWeek: "Sunday", title: "International Cuisine from Alexander Lamb", dateRange: "19 jan - 25 feb, 2018", timeRange: "09:00 am - 11:30 am", instructor: "Alexander Lamb", image: "images/gallery/02.jpg" },
-    { dayOfWeek: "Sunday", title: "Fish, Meat & Poultry", dateRange: "31 jan - 05 mar, 2018", timeRange: "11:30 am - 01:15 pm", instructor: "Bert Webster", image: "images/gallery/01.jpg" },
-    { dayOfWeek: "Monday", title: "Secrets of French Desserts", dateRange: "19 jan - 25 feb, 2018", timeRange: "09:00 am - 11:30 am", instructor: "Alexander Lamb", image: "images/gallery/03.jpg" },
-    { dayOfWeek: "Tuesday", title: "Exotic Cuisine for Connoisseurs of Exotics", dateRange: "31 jan - 20 feb, 2018", timeRange: "01:15 pm - 04:30 pm", instructor: "Hana Montgom", image: "images/gallery/10.jpg" }
+    { dayOfWeek: "Sunday", title: "International Cuisine from Alexander Lamb", dateRange: "19 jan - 25 feb, 2018", timeRange: "09:00 am - 11:30 am", instructor: "Alexander Lamb", image: "/baking/images/gallery/02.jpg" },
+    { dayOfWeek: "Sunday", title: "Fish, Meat & Poultry", dateRange: "31 jan - 05 mar, 2018", timeRange: "11:30 am - 01:15 pm", instructor: "Bert Webster", image: "/baking/images/gallery/01.jpg" },
+    { dayOfWeek: "Monday", title: "Secrets of French Desserts", dateRange: "19 jan - 25 feb, 2018", timeRange: "09:00 am - 11:30 am", instructor: "Alexander Lamb", image: "/baking/images/gallery/03.jpg" },
+    { dayOfWeek: "Tuesday", title: "Exotic Cuisine for Connoisseurs of Exotics", dateRange: "31 jan - 20 feb, 2018", timeRange: "01:15 pm - 04:30 pm", instructor: "Hana Montgom", image: "/baking/images/gallery/10.jpg" }
   ],
   programs: [
     {
       id: 1,
-      image: 'images/service/01.jpg',
+      image: '/baking/images/service/01.jpg',
       title: 'Baking & Pastry',
       price: 55000,
       reviews: 423,
       students: 18,
       desc: 'Capicola kielbasa pork belly cow alcatra pancetta rump sausage meatloaf burgdoggen.',
       authorName: 'Alexander Lamb',
-      authorImage: 'images/team/07.jpg',
+      authorImage: '/baking/images/team/07.jpg',
       slug: 'program-1-baking'
     },
     {
       id: 2,
-      image: 'images/service/02.jpg',
+      image: '/baking/images/service/02.jpg',
       title: 'Fish, Meat & Poultry',
       price: 48000,
       reviews: 658,
       students: 23,
       desc: 'Venison prosciutto beef pork loin doner chuck sirloin filet mignon. Bresaola landjaeger chicken.',
       authorName: 'Herbert Webster',
-      authorImage: 'images/team/08.jpg',
+      authorImage: '/baking/images/team/08.jpg',
       slug: 'program-2-fish'
     },
     {
       id: 3,
-      image: 'images/service/03.jpg',
+      image: '/baking/images/service/03.jpg',
       title: 'Exotic Cuisines',
       price: 66000,
       reviews: 359,
       students: 12,
       desc: 'Pig venison pork, leberkas biltong short loin beef ribs meatball bacon pastrami picanha drumstick.',
       authorName: 'Hana Montgom',
-      authorImage: 'images/team/09.jpg',
+      authorImage: '/baking/images/team/09.jpg',
       slug: 'program-3-exotic'
     },
     {
       id: 4,
-      image: 'images/service/04.jpg',
+      image: '/baking/images/service/04.jpg',
       title: 'French Desserts',
       price: 35900,
       reviews: 259,
       students: 24,
       desc: 'Picanha andouille capicola doner, jerky swine alcatra cow landjaeger rump pastrami frankfurter.',
       authorName: 'Owen Bradley',
-      authorImage: 'images/team/10.jpg',
+      authorImage: '/baking/images/team/10.jpg',
       slug: 'program-4-french'
     },
     {
       id: 5,
-      image: 'images/service/05.jpg',
+      image: '/baking/images/service/05.jpg',
       title: 'International Cuisine',
       price: 35000,
       reviews: 751,
       students: 30,
       desc: 'Picanha pork belly rump, short ribs tail shankle tongue ham hock strip steak andouille. Tail short ribs.',
       authorName: 'Susie Perez',
-      authorImage: 'images/team/11.jpg',
+      authorImage: '/baking/images/team/11.jpg',
       slug: 'program-5-international'
     },
     {
       id: 6,
-      image: 'images/service/06.jpg',
+      image: '/baking/images/service/06.jpg',
       title: 'Seafood & Wine',
       price: 79900,
       reviews: 469,
       students: 16,
       desc: 'Venison t-bone ham ham hock swine fatback, pastrami shankle kevin jerky chuck buffalo jowl beef.',
       authorName: 'Floyd Weaver',
-      authorImage: 'images/team/12.jpg',
+      authorImage: '/baking/images/team/12.jpg',
       slug: 'program-6-seafood'
     }
   ],
@@ -110,37 +110,37 @@ const MOCK_DATA = {
     {
       name: 'Alexander Lamb',
       role: 'Master Chef',
-      image: 'images/team/01.jpg',
+      image: '/baking/images/team/01.jpg',
       socialFb: '#', socialTw: '#', socialIn: '#'
     },
     {
       name: 'Herbert Webster',
       role: 'Master Chef',
-      image: 'images/team/02.jpg',
+      image: '/baking/images/team/02.jpg',
       socialFb: '#', socialTw: '#', socialIn: '#'
     },
     {
       name: 'Hana Montgom',
       role: 'Master Chef',
-      image: 'images/team/03.jpg',
+      image: '/baking/images/team/03.jpg',
       socialFb: '#', socialTw: '#', socialIn: '#'
     },
     {
       name: 'Owen Bradley',
       role: 'Master Chef',
-      image: 'images/team/04.jpg',
+      image: '/baking/images/team/04.jpg',
       socialFb: '#', socialTw: '#', socialIn: '#'
     },
     {
       name: 'Susie Perez',
       role: 'Assistant',
-      image: 'images/team/05.jpg',
+      image: '/baking/images/team/05.jpg',
       socialFb: '#', socialTw: '#', socialIn: '#'
     },
     {
       name: 'Floyd Weaver',
       role: 'Master Chef',
-      image: 'images/team/06.jpg',
+      image: '/baking/images/team/06.jpg',
       socialFb: '#', socialTw: '#', socialIn: '#'
     }
   ],
@@ -149,7 +149,7 @@ const MOCK_DATA = {
       title: 'How To Cook A Tender Juicy Steak',
       dateString: '19 Jan, 18',
       dateIso: '2017-10-03T08:50:40+00:00',
-      image: 'images/img-01.jpg',
+      image: '/baking/images/img-01.jpg',
       authorName: 'Admin',
       category: 'Recipes',
       content: 'Capicola kielbasa pork belly cow alcatra pancetta rump sausage meatloaf burgdoggen.',
@@ -159,7 +159,7 @@ const MOCK_DATA = {
       title: 'How To Cook Turkey On Natural Gas Grills',
       dateString: '23 Jan, 18',
       dateIso: '2017-10-03T08:50:40+00:00',
-      image: 'images/img-02.jpg',
+      image: '/baking/images/img-02.jpg',
       authorName: 'Admin',
       category: 'Classes',
       content: 'Fatback meatloaf beef ribs, biltong frankfurter short ribs tri-tip jerky pork chop hank landjaeger.',
@@ -169,7 +169,7 @@ const MOCK_DATA = {
       title: 'The Importance Of Food Elements',
       dateString: '30 Jan, 18',
       dateIso: '2017-10-03T08:50:40+00:00',
-      image: 'images/img-03.jpg',
+      image: '/baking/images/img-03.jpg',
       authorName: 'Admin',
       category: 'Coach',
       content: 'Venison porchetta turkey corned beef, beef ribs pork belly tail pork chop shank meatball spare ribs.',

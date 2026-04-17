@@ -19,12 +19,12 @@ async function main() {
   // 1. Chiefs
   console.log('Seeding Chiefs...');
   const chiefsData = [
-    { name: 'Alexander Lamb', role: 'Bếp trưởng', image: 'images/team/01.jpg', email: 'alex@baking.com', bio: 'Bếp trưởng chuyên về Ẩm thực Quốc tế.' },
-    { name: 'Herbert Webster', role: 'Bếp trưởng', image: 'images/team/02.jpg', email: 'herb@baking.com', bio: 'Chuyên gia về Cá, Thịt & Gia cầm.' },
-    { name: 'Hana Montgom', role: 'Bếp trưởng', image: 'images/team/03.jpg', email: 'hana@baking.com', bio: 'Nhà am hiểu về Ẩm thực Nam Mỹ.' },
-    { name: 'Owen Bradley', role: 'Bếp trưởng', image: 'images/team/04.jpg', email: 'owen@baking.com', bio: 'Chuyên gia bậc thầy về Tráng miệng Pháp.' },
-    { name: 'Susie Perez', role: 'Bếp phó', image: 'images/team/05.jpg', email: 'susie@baking.com', bio: 'Bếp phó phụ trách Sushi & đồ u.' },
-    { name: 'Floyd Weaver', role: 'Chuyên gia rượu', image: 'images/team/06.jpg', email: 'floyd@baking.com', bio: 'Chuyên gia Rượu vang và Hải sản.' }
+    { name: 'Alexander Lamb', role: 'Bếp trưởng', image: '/baking/images/team/01.jpg', email: 'alex@baking.com', bio: 'Bếp trưởng chuyên về Ẩm thực Quốc tế.' },
+    { name: 'Herbert Webster', role: 'Bếp trưởng', image: '/baking/images/team/02.jpg', email: 'herb@baking.com', bio: 'Chuyên gia về Cá, Thịt & Gia cầm.' },
+    { name: 'Hana Montgom', role: 'Bếp trưởng', image: '/baking/images/team/03.jpg', email: 'hana@baking.com', bio: 'Nhà am hiểu về Ẩm thực Nam Mỹ.' },
+    { name: 'Owen Bradley', role: 'Bếp trưởng', image: '/baking/images/team/04.jpg', email: 'owen@baking.com', bio: 'Chuyên gia bậc thầy về Tráng miệng Pháp.' },
+    { name: 'Susie Perez', role: 'Bếp phó', image: '/baking/images/team/05.jpg', email: 'susie@baking.com', bio: 'Bếp phó phụ trách Sushi & đồ u.' },
+    { name: 'Floyd Weaver', role: 'Chuyên gia rượu', image: '/baking/images/team/06.jpg', email: 'floyd@baking.com', bio: 'Chuyên gia Rượu vang và Hải sản.' }
   ];
 
   const bioText = "Hơn 15 năm kinh nghiệm làm việc tại các nhà hàng sao Michelin trên toàn cầu. Một triết lí nấu ăn tôn trọng hương vị nguyên bản và kỹ thuật chế biến tỉ mỉ. Các món ăn luôn được cân bằng hoàn hảo giữa sáng tạo và truyền thống.";
@@ -48,7 +48,7 @@ async function main() {
         name: c.name, 
         role: c.role, 
         bio: bioText, 
-        image: c.image === 'images/team/01.jpg' ? 'images/team/single-profile.jpg' : c.image,
+        image: c.image === '/baking/images/team/01.jpg' ? '/baking/images/team/single-profile.jpg' : c.image,
         biography: bioHTML,
         highlights: highlightsText,
         skills: skillsJSON,
@@ -78,12 +78,12 @@ async function main() {
   };
 
   const programsData = [
-    { title: 'Làm bánh ngọt & Pastry', slug: 'baking-and-pastry', price: 55000, students: 18, reviews: 423, thumbnail: 'images/service/01.jpg', description: 'Đắm mình trong men và bột mì. Nurture đôi tay đánh trứng và nướng bánh vàng ươm.', chiefId: createdChiefs[0].id, authorImage: 'images/team/07.jpg' },
-    { title: 'Xử lý Thịt, Cá & Gia Cầm', slug: 'fish-meat-poultry', price: 48000, students: 23, reviews: 658, thumbnail: 'images/service/02.jpg', description: 'Hướng dẫn tách xương cá nghệ thuật, ướp thịt bò bít tết đúng chuẩn và cách quay da ngỗng giòn rụm.', chiefId: createdChiefs[1].id, authorImage: 'images/team/08.jpg' },
-    { title: 'Ẩm thực Ngoại m', slug: 'exotic-cuisines', price: 66000, students: 12, reviews: 359, thumbnail: 'images/service/03.jpg', description: 'Du hành hương vị qua các quốc gia với những món ăn đầy sắc mầu gia vị từ vùng Caribbean đến Trung Đông.', chiefId: createdChiefs[2].id, authorImage: 'images/team/09.jpg' },
-    { title: 'Tráng Miệng Kiểu Pháp', slug: 'french-desserts', price: 35900, students: 24, reviews: 259, thumbnail: 'images/service/04.jpg', description: 'Làm chủ nghệ thuật bánh Macaron, kĩ thuật đánh choux và cách tạo ra bánh opera tầng quyến rũ.', chiefId: createdChiefs[3].id, authorImage: 'images/team/10.jpg' },
-    { title: 'Ẩm thực Quốc tế Á Âu', slug: 'international-cuisine', price: 35000, students: 30, reviews: 751, thumbnail: 'images/service/05.jpg', description: 'Từ món mì Ý cổ điển tới đĩa Sushi tinh tế. Các kĩ thuật đan xen Âu - Á đỉnh cao nhất hiện nay.', chiefId: createdChiefs[4].id, authorImage: 'images/team/11.jpg' },
-    { title: 'Hải sản Cao cấp & Rượu vang', slug: 'seafood-and-wine', price: 79900, students: 16, reviews: 469, thumbnail: 'images/service/06.jpg', description: 'Pha chế nước sốt hảo hạng, xử lý tôm hùm, vẹm xanh và cách chọn vang trắng hoàn hảo để đi kèm.', chiefId: createdChiefs[5].id, authorImage: 'images/team/12.jpg' }
+    { title: 'Làm bánh ngọt & Pastry', slug: 'baking-and-pastry', price: 55000, students: 18, reviews: 423, thumbnail: '/baking/images/service/01.jpg', description: 'Đắm mình trong men và bột mì. Nurture đôi tay đánh trứng và nướng bánh vàng ươm.', chiefId: createdChiefs[0].id, authorImage: '/baking/images/team/07.jpg' },
+    { title: 'Xử lý Thịt, Cá & Gia Cầm', slug: 'fish-meat-poultry', price: 48000, students: 23, reviews: 658, thumbnail: '/baking/images/service/02.jpg', description: 'Hướng dẫn tách xương cá nghệ thuật, ướp thịt bò bít tết đúng chuẩn và cách quay da ngỗng giòn rụm.', chiefId: createdChiefs[1].id, authorImage: '/baking/images/team/08.jpg' },
+    { title: 'Ẩm thực Ngoại m', slug: 'exotic-cuisines', price: 66000, students: 12, reviews: 359, thumbnail: '/baking/images/service/03.jpg', description: 'Du hành hương vị qua các quốc gia với những món ăn đầy sắc mầu gia vị từ vùng Caribbean đến Trung Đông.', chiefId: createdChiefs[2].id, authorImage: '/baking/images/team/09.jpg' },
+    { title: 'Tráng Miệng Kiểu Pháp', slug: 'french-desserts', price: 35900, students: 24, reviews: 259, thumbnail: '/baking/images/service/04.jpg', description: 'Làm chủ nghệ thuật bánh Macaron, kĩ thuật đánh choux và cách tạo ra bánh opera tầng quyến rũ.', chiefId: createdChiefs[3].id, authorImage: '/baking/images/team/10.jpg' },
+    { title: 'Ẩm thực Quốc tế Á Âu', slug: 'international-cuisine', price: 35000, students: 30, reviews: 751, thumbnail: '/baking/images/service/05.jpg', description: 'Từ món mì Ý cổ điển tới đĩa Sushi tinh tế. Các kĩ thuật đan xen Âu - Á đỉnh cao nhất hiện nay.', chiefId: createdChiefs[4].id, authorImage: '/baking/images/team/11.jpg' },
+    { title: 'Hải sản Cao cấp & Rượu vang', slug: 'seafood-and-wine', price: 79900, students: 16, reviews: 469, thumbnail: '/baking/images/service/06.jpg', description: 'Pha chế nước sốt hảo hạng, xử lý tôm hùm, vẹm xanh và cách chọn vang trắng hoàn hảo để đi kèm.', chiefId: createdChiefs[5].id, authorImage: '/baking/images/team/12.jpg' }
   ];
 
   const createdPrograms = {}; // slug -> id
@@ -152,9 +152,9 @@ async function main() {
   // 4. Testimonials
   console.log('Seeding Testimonials...');
   const tests = [
-    { name: 'Nguyễn Lê', role: 'Cựu học viên / Đầu bếp', text: 'Chương trình cực kỳ chất lượng, giảng viên Alexander hướng dẫn nhiệt tình. Lớp học mang tính chất thực hành cao và giúp tôi kiếm được việc làm mơ ước.', signature: 'images/signature.png', excerpt: 'Điều tuyệt vời nhất là thái độ của thầy cô rất ân cần.' },
-    { name: 'Thanh Trúc', role: 'Doanh nhân mở quán', text: 'Tôi mở một tiệm bánh nhỏ và kiến thức từ khoá Tráng miệng Pháp thực sự đã cứu rỗi menu của tôi. Doanh số tăng vọt nhờ vào bánh Macaron chuẩn vị.', signature: 'images/signature.png', excerpt: 'Tôi rất biết ơn khóa học này.' },
-    { name: 'Hoàng Kiên', role: 'Học viên đam mê', text: 'Từ một người chưa từng đứng bếp, giờ đây tôi tự tin đãi cả nhà những món hải sản sang trọng không kém nhà hàng. Chi phí khóa học vô cùng xứng đáng!', signature: 'images/signature.png', excerpt: 'Khuyên mọi người nên đăng ký.' },
+    { name: 'Nguyễn Lê', role: 'Cựu học viên / Đầu bếp', text: 'Chương trình cực kỳ chất lượng, giảng viên Alexander hướng dẫn nhiệt tình. Lớp học mang tính chất thực hành cao và giúp tôi kiếm được việc làm mơ ước.', signature: '/baking/images/signature.png', excerpt: 'Điều tuyệt vời nhất là thái độ của thầy cô rất ân cần.' },
+    { name: 'Thanh Trúc', role: 'Doanh nhân mở quán', text: 'Tôi mở một tiệm bánh nhỏ và kiến thức từ khoá Tráng miệng Pháp thực sự đã cứu rỗi menu của tôi. Doanh số tăng vọt nhờ vào bánh Macaron chuẩn vị.', signature: '/baking/images/signature.png', excerpt: 'Tôi rất biết ơn khóa học này.' },
+    { name: 'Hoàng Kiên', role: 'Học viên đam mê', text: 'Từ một người chưa từng đứng bếp, giờ đây tôi tự tin đãi cả nhà những món hải sản sang trọng không kém nhà hàng. Chi phí khóa học vô cùng xứng đáng!', signature: '/baking/images/signature.png', excerpt: 'Khuyên mọi người nên đăng ký.' },
   ];
   for(const t of tests) {
     await prisma.testimonial.create({ data: t });
@@ -166,11 +166,11 @@ async function main() {
 
   const categories = ['Công thức', 'Lớp học', 'Nấu ăn', 'Mẹo vặt', 'Nhà bếp'];
   const thumbnails = [
-    'images/img-01.jpg', 'images/img-02.jpg', 'images/img-03.jpg', 
-    'images/gallery/01.jpg', 'images/gallery/02.jpg', 'images/gallery/03.jpg',
-    'images/gallery/04.jpg', 'images/gallery/05.jpg', 'images/gallery/06.jpg',
-    'images/gallery/07.jpg', 'images/gallery/08.jpg', 'images/gallery/09.jpg',
-    'images/gallery/10.jpg', 'images/gallery/11.jpg', 'images/gallery/12.jpg'
+    '/baking/images/img-01.jpg', '/baking/images/img-02.jpg', '/baking/images/img-03.jpg', 
+    '/baking/images/gallery/01.jpg', '/baking/images/gallery/02.jpg', '/baking/images/gallery/03.jpg',
+    '/baking/images/gallery/04.jpg', '/baking/images/gallery/05.jpg', '/baking/images/gallery/06.jpg',
+    '/baking/images/gallery/07.jpg', '/baking/images/gallery/08.jpg', '/baking/images/gallery/09.jpg',
+    '/baking/images/gallery/10.jpg', '/baking/images/gallery/11.jpg', '/baking/images/gallery/12.jpg'
   ];
 
   const posts = [
