@@ -1,34 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { getTimetables, submitEnrollment } from '../../services/api';
-import { useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { submitContact } from '../../services/api';
 import { useTranslation } from '../../i18n/LanguageContext';
 
 const HomeContacts = () => {
   const { t } = useTranslation();
-  const [sessions, setSessions] = useState([]);
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const explicitSession = searchParams.get('session');
 
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     phone: '',
-    classSessionId: explicitSession || '',
     message: ''
   });
   const [status, setStatus] = useState({ loading: false, error: null, success: false });
-
-  useEffect(() => {
-    getTimetables()
-      .then(data => {
-        setSessions(data);
-        if (data.length > 0 && !formData.classSessionId) {
-          setFormData(prev => ({ ...prev, classSessionId: data[0].id }));
-        }
-      })
-      .catch(err => console.error("Failed to load timetables for enrollment dropdown", err));
-  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -38,13 +21,17 @@ const HomeContacts = () => {
     e.preventDefault();
     setStatus({ loading: true, error: null, success: false });
     try {
-      await submitEnrollment(formData);
+      await submitContact({
+        fullName: formData.fullName,
+        email: formData.email,
+        subject: `Yêu cầu tư vấn - SĐT: ${formData.phone}`,
+        message: formData.message
+      });
       setStatus({ loading: false, error: null, success: true });
       setFormData({
         fullName: '',
         email: '',
         phone: '',
-        classSessionId: sessions.length > 0 ? sessions[0].id : '',
         message: ''
       });
       setTimeout(() => {
@@ -132,22 +119,17 @@ const HomeContacts = () => {
             </div>
             <div className="col-12 col-md-3">
               <div className="form-group has-placeholder">
-                <label htmlFor="classSessionId">{t('form.cookingClass')} <span className="required">*</span></label>
-                <select
+                <label htmlFor="message">{t('form.message')} <span className="required">*</span></label>
+                <input
+                  type="text"
+                  name="message"
+                  id="message"
                   className="form-control"
-                  name="classSessionId"
-                  id="classSessionId"
-                  value={formData.classSessionId}
+                  placeholder={t('form.message') || 'Nội dung tư vấn...'}
+                  value={formData.message}
                   onChange={handleChange}
                   required
-                >
-                  {sessions.length === 0 && <option value="">{t('form.loadingClasses')}</option>}
-                  {sessions.map(sess => (
-                    <option key={sess.id} value={sess.id}>
-                      {sess.program?.title} ({sess.dayOfWeek} • {sess.startDate ? new Date(sess.startDate).toLocaleDateString() : 'TBA'})
-                    </option>
-                  ))}
-                </select>
+                />
               </div>
             </div>
           </div>
