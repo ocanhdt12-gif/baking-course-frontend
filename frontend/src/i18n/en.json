@@ -130,6 +130,12 @@
   "chiefDetail": {
     "loading": "Loading Instructor Profile...",
     "notFound": "Instructor Not Found.",
+    "pageTitle": "Instructor Profile",
+    "tabs": {
+      "biography": "Biography",
+      "skills": "Skills",
+      "sendMessage": "Send Message"
+    },
     "tabBio": "Biography",
     "tabSkills": "Skills",
     "tabMessage": "Send Message",

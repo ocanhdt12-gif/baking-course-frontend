@@ -130,6 +130,12 @@
   "chiefDetail": {
     "loading": "Đang tải hồ sơ giảng viên...",
     "notFound": "Không tìm thấy giảng viên.",
+    "pageTitle": "Thông Tin Giảng Viên",
+    "tabs": {
+      "biography": "Tiểu sử",
+      "skills": "Kỹ năng",
+      "sendMessage": "Gửi tin nhắn"
+    },
     "tabBio": "Tiểu sử",
     "tabSkills": "Kỹ năng",
     "tabMessage": "Gửi tin nhắn",
