@@ -72,7 +72,7 @@ const Home = () => {
       <HomeClasses classes={data.programs} />
       <HomeAbout />
       <TestimonialsSlider testimonials={data.testimonials} />
-      <HomeTimetables schedules={data.timetables} />
+      {/* <HomeTimetables schedules={data.timetables} /> */}
       <HomeFaq />
       <HomeChiefs chiefs={data.chiefs} />
       <HomeContacts />

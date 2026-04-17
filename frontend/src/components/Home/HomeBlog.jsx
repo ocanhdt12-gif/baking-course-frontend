@@ -3,7 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes';
 import { useTranslation } from '../../i18n/LanguageContext';
 
-const HomeBlog = ({ posts }) => {
+const imgSrc = (path) => {
+	if (!path) return `${import.meta.env.BASE_URL}images/gallery/09.jpg`;
+	if (path.startsWith('http') || path.startsWith(import.meta.env.BASE_URL)) return path;
+	return `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
+};
+
+const HomeBlog = ({ posts = [] }) => {
 	const { t } = useTranslation();
 	const [activeFilter, setActiveFilter] = useState('*');
 	const carouselContainerRef = useRef(null);
@@ -131,7 +137,7 @@ const HomeBlog = ({ posts }) => {
 									return (
 										<article key={post.id} className={`vertical-item text-center content-padding padding-small bordered post type-post status-publish format-standard has-post-thumbnail ${catClass}`}>
 											<div className="item-media post-thumbnail">
-												<img src={post.thumbnail ? (post.thumbnail.startsWith('http') ? post.thumbnail : `${import.meta.env.BASE_URL}${post.thumbnail.replace(/^\//, '')}`) : `${import.meta.env.BASE_URL}images/gallery/09.jpg`} alt={post.title} />
+												<img src={imgSrc(post.thumbnail)} alt={post.title} />
 												<div className="media-links">
 													<Link className="abs-link" to={ROUTES.POST_DETAIL(post.slug)}></Link>
 												</div>
