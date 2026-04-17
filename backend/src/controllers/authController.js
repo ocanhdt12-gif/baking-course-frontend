@@ -9,7 +9,7 @@ exports.login = async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(400).json({ error: 'Please provide email and password.' });
+      return res.status(400).json({ error: 'Vui lòng cung cấp email và mật khẩu.' });
     }
 
     const user = await prisma.user.findUnique({
@@ -17,13 +17,13 @@ exports.login = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(401).json({ error: 'Invalid credentials.' });
+      return res.status(401).json({ error: 'Thông tin đăng nhập không hợp lệ.' });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      return res.status(401).json({ error: 'Invalid credentials.' });
+      return res.status(401).json({ error: 'Thông tin đăng nhập không hợp lệ.' });
     }
 
     const payload = {
@@ -53,12 +53,12 @@ exports.register = async (req, res) => {
     const { fullName, email, password } = req.body;
 
     if (!fullName || !email || !password) {
-      return res.status(400).json({ error: 'Please provide name, email and password.' });
+      return res.status(400).json({ error: 'Vui lòng cung cấp tên, email và mật khẩu.' });
     }
 
     let user = await prisma.user.findUnique({ where: { email } });
     if (user) {
-      return res.status(400).json({ error: 'This email is already in use.' });
+      return res.status(400).json({ error: 'Email này đã được sử dụng.' });
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -101,18 +101,25 @@ exports.getMe = async (req, res) => {
         fullName: true,
         email: true,
         role: true,
+        createdAt: true,
         enrollments: {
           include: { 
             classSession: {
               include: { program: true }
             }
           }
+        },
+        orders: {
+          orderBy: { createdAt: 'desc' },
+          include: {
+            program: { select: { id: true, title: true, slug: true, thumbnail: true, price: true } }
+          }
         }
       }
     });
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found.' });
+      return res.status(404).json({ error: 'Không tìm thấy người dùng.' });
     }
 
     res.json(user);

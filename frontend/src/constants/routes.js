@@ -12,6 +12,8 @@ export const ROUTES = {
   PROGRAM_DETAIL_PATTERN: '/program/:slug',
   POST_DETAIL: (slug) => `/post/${slug}`,
   POST_DETAIL_PATTERN: '/post/:slug',
+  CHECKOUT: (slug) => `/checkout/${slug}`,
+  CHECKOUT_PATTERN: '/checkout/:slug',
   MY_ACCOUNT: '/my-account',
   ADMIN: '/admin',
   ADMIN_POST_NEW: '/admin/post/new',
@@ -20,4 +22,5 @@ export const ROUTES = {
   ADMIN_PROGRAM_NEW: '/admin/program/new',
   ADMIN_PROGRAM_EDIT: (id) => `/admin/program/edit/${id}`,
   ADMIN_PROGRAM_EDIT_PATTERN: '/admin/program/edit/:id',
+  PAYMENT_RESULT: '/payment/vnpay-return',
 };

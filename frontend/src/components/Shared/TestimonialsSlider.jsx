@@ -24,10 +24,10 @@ const TestimonialsSlider = ({ testimonials }) => {
 											<img src={`${import.meta.env.BASE_URL}images/icon-4.png`} alt="" />
 										</div>
 										<h6 className="small-text color-main2">
-											Testimonials
+											Đánh giá
 										</h6>
 										<h3>
-											Reviews of Our Students
+											Cảm nhận học viên
 										</h3>
 									</header>
 									<p className="excerpt">

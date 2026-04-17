@@ -24,6 +24,10 @@ const authRoutes = require('./routes/authRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 const enrollmentRoutes = require('./routes/enrollmentRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+const paymentConfigRoutes = require('./routes/paymentConfigRoutes');
+const webhookRoutes = require('./routes/webhookRoutes');
+const vnpayRoutes = require('./routes/vnpayRoutes');
 
 app.use('/api/programs', programRoutes);
 app.use('/api/posts', postRoutes);
@@ -34,6 +38,10 @@ app.use('/api/auth', authRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/contacts', contactRoutes);
 app.use('/api/enrollments', enrollmentRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/payment-config', paymentConfigRoutes);
+app.use('/api/webhook', webhookRoutes);
+app.use('/api/vnpay', vnpayRoutes);
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

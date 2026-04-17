@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import ProgramCard from '../Shared/ProgramCard';
+import { useTranslation } from '../../i18n/LanguageContext';
 
 const HomeClasses = ({ classes }) => {
+  const { t } = useTranslation();
   const carouselRef = useRef(null);
 
 
@@ -12,8 +14,8 @@ const HomeClasses = ({ classes }) => {
 				<div className="row">
 					<div className="col-sm-12 text-center">
 						<div className="section-heading">
-							<h6 className="small-text color-main2">Round the Globe</h6>
-							<h3>Our Cooking Classes</h3>
+							<h6 className="small-text color-main2">{t('home.classes.subtitle')}</h6>
+							<h3>{t('home.classes.title')}</h3>
 							<img className="image-wrap" src={`${import.meta.env.BASE_URL}images/icon-main.png`} alt="" />
 						</div>
 						<div className="d-none d-lg-block divider-60"></div>

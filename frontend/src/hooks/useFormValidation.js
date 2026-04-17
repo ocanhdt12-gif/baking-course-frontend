@@ -25,7 +25,7 @@ function runRule(value, rules) {
 
   if (rules.required) {
     if (!val || val === '') {
-      return typeof rules.required === 'string' ? rules.required : 'Vui lòng không bỏ trống trường này.';
+      return typeof rules.required === 'string' ? rules.required : 'This field is required.';
     }
   }
 
@@ -33,32 +33,32 @@ function runRule(value, rules) {
 
   if (rules.email) {
     if (!EMAIL_REGEX.test(val)) {
-      return typeof rules.email === 'string' ? rules.email : 'Địa chỉ email không hợp lệ.';
+      return typeof rules.email === 'string' ? rules.email : 'Invalid email address.';
     }
   }
 
   if (rules.phone) {
     const cleaned = val.replace(/\s/g, '');
     if (!PHONE_REGEX.test(cleaned)) {
-      return typeof rules.phone === 'string' ? rules.phone : 'Số điện thoại không hợp lệ (VD: 0912345678).';
+      return typeof rules.phone === 'string' ? rules.phone : 'Invalid phone number (e.g., 0912345678).';
     }
   }
 
   if (rules.url) {
     if (!URL_REGEX.test(val)) {
-      return typeof rules.url === 'string' ? rules.url : 'Đường dẫn URL không hợp lệ (phải bắt đầu bằng http/https).';
+      return typeof rules.url === 'string' ? rules.url : 'Invalid URL (must start with http/https).';
     }
   }
 
   if (rules.minLength !== undefined) {
     const min = typeof rules.minLength === 'object' ? rules.minLength.value : rules.minLength;
-    const msg = typeof rules.minLength === 'object' ? rules.minLength.message : `Tối thiểu ${min} ký tự.`;
+    const msg = typeof rules.minLength === 'object' ? rules.minLength.message : `Minimum ${min} characters.`;
     if (val.length < min) return msg;
   }
 
   if (rules.maxLength !== undefined) {
     const max = typeof rules.maxLength === 'object' ? rules.maxLength.value : rules.maxLength;
-    const msg = typeof rules.maxLength === 'object' ? rules.maxLength.message : `Tối đa ${max} ký tự.`;
+    const msg = typeof rules.maxLength === 'object' ? rules.maxLength.message : `Maximum ${max} characters.`;
     if (val.length > max) return msg;
   }
 
@@ -82,7 +82,7 @@ export function validateSessions(sessions, sessionRules) {
       // Special cross-field: endDate must be after startDate
       if (field === 'endDate' && session.startDate && session.endDate) {
         if (new Date(session.endDate) <= new Date(session.startDate)) {
-          errs.endDate = 'Ngày kết thúc phải sau ngày bắt đầu.';
+          errs.endDate = 'End date must be after start date.';
           continue;
         }
       }

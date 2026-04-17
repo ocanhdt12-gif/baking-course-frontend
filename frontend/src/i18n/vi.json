@@ -1,0 +1,386 @@
+{
+  "header": {
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "programs": "Khóa học",
+    "instructors": "Giảng viên",
+    "recipes": "Công thức",
+    "contacts": "Liên hệ",
+    "cta": "Tham quan xưởng",
+    "langToggle": "Ngôn ngữ"
+  },
+  "footer": {
+    "discountTitle": "Bạn muốn nhận ưu đãi 30%?",
+    "discountSub": "Điền vào biểu mẫu đăng ký ngay để nhận ưu đãi",
+    "discountCta": "điền biểu mẫu ngay",
+    "recentPosts": "Bài viết gần đây",
+    "subscribe": "Đăng ký",
+    "emailPlaceholder": "Nhập địa chỉ email",
+    "copyright": "© Bản quyền {year} Đã đăng ký bản quyền"
+  },
+  "home": {
+    "loading": "Đang tải dữ liệu...",
+    "slider": {
+      "enrollNow": "đăng ký ngay",
+      "ourFeedback": "phản hồi"
+    },
+    "classes": {
+      "subtitle": "Khắp mọi nơi",
+      "title": "Các lớp nấu ăn"
+    },
+    "about": {
+      "watch": "Xem",
+      "video": "Video",
+      "subtitle": "thành tựu của chúng tôi",
+      "title": "Xin chào, Chào mừng đến Muka!"
+    },
+    "timetable": {
+      "subtitle": "lịch cập nhật",
+      "title": "Thời khóa biểu",
+      "aboutClass": "Xem lớp"
+    },
+    "faq": {
+      "subtitle": "Khắp mọi nơi",
+      "title": "FAQ / Vị trí"
+    },
+    "chiefs": {
+      "subtitle": "Đội ngũ chuyên gia",
+      "title": "Đầu bếp hàng đầu",
+      "viewProfile": "xem hồ sơ"
+    },
+    "contacts": {
+      "subtitle": "hãy đăng ký ngay!",
+      "title": "Biểu mẫu đăng ký"
+    },
+    "blog": {
+      "subtitle": "Tin tức mới nhất",
+      "title": "Bài viết mới",
+      "allCategories": "Tất cả"
+    }
+  },
+  "about": {
+    "title": "Giới thiệu",
+    "subtitle": "Về chúng tôi",
+    "heading": "Lịch sử Muka",
+    "video": {
+      "subtitle": "Thành tựu của chúng tôi",
+      "title": "Xin chào, Chào mừng bạn đến với Muka!"
+    },
+    "historyTitle": "Lịch sử Muka",
+    "achievementsSubtitle": "thành tựu của chúng tôi",
+    "welcomeTitle": "Xin chào, Chào mừng đến Muka!"
+  },
+  "auth": {
+    "checking": "Đang kiểm tra phiên...",
+    "loginTitle": "Đăng nhập tài khoản",
+    "login": "Đăng nhập",
+    "registerTitle": "Tạo tài khoản mới",
+    "register": "Đăng ký ngay"
+  },
+  "contact": {
+    "title": "Liên Hệ",
+    "mainLocation": "ĐỊA ĐIỂM CHÍNH",
+    "formTitle": "Biểu mẫu liên hệ",
+    "infoTitle": "Thông tin liên hệ",
+    "hours": "Ngày trong tuần: 9h - 19h",
+    "sendMessage": "Gửi tin nhắn",
+    "fullName": "Họ và tên",
+    "email": "Địa chỉ email",
+    "phone": "Số điện thoại",
+    "subject": "Chủ đề",
+    "message": "Nội dung",
+    "messagePlaceholder": "Tin nhắn của bạn...",
+    "success": "Tin nhắn đã được gửi thành công. Chúng tôi sẽ phản hồi sớm nhất!"
+  },
+  "common": {
+    "optional": "Tùy chọn",
+    "sending": "Đang gửi...",
+    "sendNow": "Gửi Ngay"
+  },
+  "form": {
+    "fullName": "Họ và tên",
+    "email": "Địa chỉ email",
+    "password": "Mật khẩu",
+    "phone": "Số điện thoại",
+    "subject": "Tiêu đề",
+    "message": "Nội dung",
+    "optional": "(Tùy chọn)",
+    "cookingClass": "Lớp nấu ăn",
+    "loadingClasses": "Đang tải lớp học...",
+    "submit": "Gửi",
+    "selectOption": "-- Chọn --"
+  },
+  "chiefs": {
+    "loading": "Đang tải giảng viên...",
+    "title": "Đội Ngũ Giảng Viên",
+    "viewClasses": "Xem Khóa Học"
+  },
+  "programType": {
+    "videoCourse": "Khóa học Video",
+    "liveClass": "Lớp học trực tiếp",
+    "videoBadge": "🎬 Video — Xem mọi lúc",
+    "liveBadge": "👨‍🍳 Trực tiếp — Có lịch cụ thể",
+    "buyVideo": "MUA KHÓA HỌC",
+    "enrollLive": "ĐĂNG KÝ LỚP HỌC",
+    "selectRequired": "Vui lòng chọn lịch học trước khi đăng ký."
+  },
+  "chiefDetail": {
+    "loading": "Đang tải hồ sơ giảng viên...",
+    "notFound": "Không tìm thấy giảng viên.",
+    "tabBio": "Tiểu sử",
+    "tabSkills": "Kỹ năng",
+    "tabMessage": "Gửi tin nhắn",
+    "viewClasses": "Xem lớp của tôi",
+    "skillsEmpty": "Thông tin kỹ năng sẽ được cập nhật sớm.",
+    "formerStudent": "cựu học viên"
+  },
+  "program": {
+    "loading": "Đang tải chương trình...",
+    "empty": "Không tìm thấy chương trình nào."
+  },
+  "programDetail": {
+    "title": "Chi Tiết Khóa Học",
+    "loading": "Đang tải chi tiết khóa học...",
+    "notFound": "Không tìm thấy chương trình.",
+    "owned": "Bạn đã sở hữu khóa học này",
+    "continuePay": "Tiếp tục thanh toán",
+    "buy": "Mua khóa học này",
+    "enrollFree": "Đăng ký — Miễn phí",
+    "willLearn": "Bạn sẽ học được:",
+    "classIncludes": "Lớp bao gồm:",
+    "curriculum": "Tổng quan chương trình",
+    "lockedContent": "Mua khóa học để xem nội dung chi tiết",
+    "search": "Tìm kiếm",
+    "searchDesc": "Tìm kiếm thêm tin tức và ưu đãi hấp dẫn",
+    "searchPlaceholder": "Nhập từ khóa...",
+    "getCourse": "Đăng ký khóa học",
+    "courseOwned": "Đã sở hữu",
+    "joinStudents": "Cùng {count} học viên đã đăng ký trải nghiệm tuyệt vời này.",
+    "selectCohort": "Chọn lớp:",
+    "instructor": "Giảng viên",
+    "viewProfile": "Xem hồ sơ",
+    "learningGoalsEmpty": "Mục tiêu học tập sẽ được cập nhật sớm.",
+    "classIncludesEmpty": "Nội dung lớp sẽ được cập nhật sớm.",
+    "curriculumEmpty": "Chương trình sẽ được cập nhật sớm.",
+    "rejectedMsg": "Thanh toán trước đó bị từ chối.",
+    "tryAgain": "Thử lại"
+  },
+  "premium": {
+    "badge": "Nội dung Premium",
+    "subtitle": "Nội dung độc quyền dành riêng cho học viên đã đăng ký",
+    "tabs": {
+      "videos": "Video bài giảng",
+      "resources": "Tài liệu",
+      "guides": "Hướng dẫn"
+    },
+    "lessonNum": "Bài {num}",
+    "lessonFallback": "Bài giảng {num}",
+    "downloadHint": "Bấm để tải xuống",
+    "lock": {
+      "previewVideos": "Video bài giảng (3 bài)",
+      "previewResources": "Tài liệu PDF & Công thức",
+      "previewGuides": "Hướng dẫn chi tiết từng bước",
+      "title": "Nội dung Premium",
+      "description": "Mở khóa video bài giảng, tài liệu PDF và hướng dẫn chi tiết khi đăng ký khóa học này.",
+      "unlock": "Mở khóa — {price}"
+    }
+  },
+  "checkout": {
+    "loading": "Đang tải thanh toán...",
+    "notFound": "Không tìm thấy chương trình.",
+    "steps": {
+      "summary": "Tóm tắt đơn",
+      "method": "Phương thức",
+      "payment": "Thanh toán",
+      "status": "Trạng thái"
+    },
+    "orderSummary": "Tóm tắt đơn hàng",
+    "course": "Khóa học",
+    "price": "Giá",
+    "total": "Tổng cộng",
+    "proceedToPayment": "Tiến hành thanh toán",
+    "cancelOrder": "Hủy đơn",
+    "selectMethod": "Chọn phương thức thanh toán",
+    "vnpay": {
+      "title": "Thanh toán qua VNPay",
+      "description": "Thanh toán trực tuyến an toàn qua cổng VNPay. Hỗ trợ thẻ ATM, thẻ tín dụng và QR Pay.",
+      "badge": "Khuyến nghị",
+      "processing": "Đang chuyển đến VNPay..."
+    },
+    "manual": {
+      "title": "Chuyển khoản ngân hàng",
+      "description": "Chuyển khoản trực tiếp đến tài khoản ngân hàng. Đơn hàng sẽ được xác nhận sau khi admin kiểm tra."
+    },
+    "continueWith": "Tiếp tục với {method}",
+    "backToMethods": "← Quay lại",
+    "transfer": {
+      "title": "Thông tin chuyển khoản",
+      "bankName": "Tên ngân hàng",
+      "accountNumber": "Số tài khoản",
+      "accountHolder": "Chủ tài khoản",
+      "amount": "Số tiền",
+      "memo": "Nội dung chuyển khoản",
+      "copyMemo": "Sao chép",
+      "copied": "Đã sao chép!",
+      "important": "Quan trọng",
+      "memoWarning": "Vui lòng nhập đúng nội dung chuyển khoản ở trên. Điều này giúp chúng tôi xác nhận thanh toán nhanh chóng.",
+      "proofTitle": "Tải ảnh chứng minh thanh toán",
+      "proofLabel": "Ảnh chụp màn hình",
+      "proofUpload": "Tải ảnh lên",
+      "proofUploading": "Đang tải...",
+      "transactionRef": "Mã giao dịch (Tùy chọn)",
+      "transactionRefPlaceholder": "VD: Mã giao dịch ngân hàng",
+      "submitProof": "Gửi chứng minh thanh toán",
+      "submitting": "Đang gửi..."
+    },
+    "status": {
+      "title": "Trạng thái đơn hàng",
+      "orderCode": "Mã đơn hàng",
+      "currentStatus": "Trạng thái",
+      "refreshStatus": "Làm mới",
+      "awaitingMsg": "Chứng minh thanh toán đã được gửi. Vui lòng đợi admin xác nhận.",
+      "confirmedMsg": "Thanh toán đã được xác nhận! Bạn có thể truy cập nội dung premium ngay.",
+      "rejectedMsg": "Thanh toán bị từ chối. Vui lòng tải lại ảnh chứng minh đúng.",
+      "viewCourse": "Xem khóa học",
+      "reupload": "Tải lại ảnh"
+    },
+    "toast": {
+      "orderCreated": "Đã tạo đơn hàng! Vui lòng chọn phương thức thanh toán.",
+      "orderCreateFailed": "Không thể tạo đơn hàng.",
+      "vnpayFailed": "Không thể tạo thanh toán VNPay. Vui lòng thử chuyển khoản.",
+      "proofSubmitted": "Đã gửi chứng minh thanh toán! Đang chờ admin xác nhận.",
+      "proofFailed": "Không thể gửi chứng minh.",
+      "orderCancelled": "Đã hủy đơn hàng.",
+      "cancelFailed": "Không thể hủy đơn hàng.",
+      "paymentConfirmed": "🎉 Thanh toán đã được xác nhận! Bạn có thể truy cập nội dung premium ngay.",
+      "paymentRejected": "Thanh toán bị từ chối. Bạn có thể tải lại ảnh chứng minh."
+    }
+  },
+  "payment": {
+    "success": {
+      "title": "🎉 Thanh toán thành công!",
+      "courseActivated": "Khóa học {title} đã được kích hoạt.",
+      "accessNow": "Bạn có thể truy cập nội dung premium ngay bây giờ.",
+      "viewCourse": "Xem khóa học"
+    },
+    "pending": {
+      "title": "Đang xác nhận thanh toán...",
+      "processing": "Hệ thống đang xử lý giao dịch. Vui lòng chờ trong giây lát.",
+      "autoCheck": "Tự động kiểm tra... ({current}/{max})",
+      "timeoutMsg": "Nếu bạn đã thanh toán thành công, hệ thống sẽ xác nhận trong vài phút.",
+      "checkAccount": "Vui lòng kiểm tra lại tại {link} hoặc liên hệ hỗ trợ.",
+      "myAccount": "Tài khoản của tôi",
+      "backToCourse": "Quay lại khóa học"
+    },
+    "cancelled": {
+      "title": "Bạn đã hủy thanh toán",
+      "description": "Giao dịch đã bị hủy. Đơn hàng vẫn ở trạng thái chờ — bạn có thể thử lại bất cứ lúc nào.",
+      "retry": "Thử lại",
+      "goBack": "Quay lại"
+    },
+    "failed": {
+      "title": "Thanh toán thất bại",
+      "description": "Giao dịch không thành công. Vui lòng thử lại hoặc chọn phương thức thanh toán khác.",
+      "retry": "Thử lại",
+      "goBack": "Quay lại"
+    },
+    "notFound": {
+      "title": "Không tìm thấy đơn hàng",
+      "description": "Không có thông tin giao dịch nào được tìm thấy.",
+      "viewCourses": "Xem các khóa học"
+    },
+    "pendingOrder": {
+      "title": "Đơn hàng đang chờ",
+      "description": "Đơn hàng đang chờ thanh toán.",
+      "continuePay": "Tiếp tục thanh toán"
+    },
+    "orderInfo": {
+      "code": "Mã đơn",
+      "amount": "Số tiền",
+      "paidAt": "Thanh toán lúc"
+    }
+  },
+  "userDash": {
+    "title": "Tài khoản",
+    "breadcrumb": "Tài khoản",
+    "student": "Học viên",
+    "admin": "Admin",
+    "memberSince": "Thành viên từ {date}",
+    "logout": "Đăng xuất",
+    "stats": {
+      "coursesPurchased": "Khóa đã mua",
+      "totalOrders": "Tổng đơn hàng",
+      "totalSpent": "Đã chi",
+      "enrollments": "Lớp đăng ký"
+    },
+    "tabs": {
+      "courses": "Khóa học của tôi",
+      "orders": "Đơn hàng"
+    },
+    "courses": {
+      "empty": "Chưa có khóa học nào",
+      "emptyDesc": "Bạn chưa mua khóa học nào. Hãy khám phá các khóa học hấp dẫn!",
+      "explore": "Khám phá khóa học",
+      "purchased": "Đã mua",
+      "studyNow": "Học ngay",
+      "vnpay": "💳 VNPay",
+      "bankTransfer": "🏦 Chuyển khoản"
+    },
+    "orders": {
+      "empty": "Chưa có đơn hàng",
+      "emptyDesc": "Đơn hàng sẽ xuất hiện ở đây sau khi thanh toán.",
+      "viewCourses": "Xem khóa học"
+    }
+  },
+  "receipt": {
+    "loading": "Đang tải bài viết...",
+    "title": "Cẩm Nang Vị Giác",
+    "topPosts": "Bài viết nổi bật"
+  },
+  "postDetail": {
+    "loading": "Đang tải bài viết...",
+    "notFound": "Không tìm thấy bài viết.",
+    "prev": "Trước",
+    "next": "Sau",
+    "chefWriter": "Đầu bếp & Tác giả",
+    "relatedPosts": "Bài viết liên quan"
+  },
+  "notFound": {
+    "title": "Rất tiếc, không tìm thấy trang!",
+    "code": "404",
+    "description": "Có vẻ như không tìm thấy nội dung tại địa chỉ này. Hãy thử tìm kiếm hoặc quay về trang chủ.",
+    "backHome": "Về trang chủ"
+  },
+  "common": {
+    "viewMore": "xem thêm",
+    "readMore": "Đọc thêm",
+    "loading": "Đang tải...",
+    "free": "Miễn phí",
+    "postedOn": "Ngày đăng",
+    "categories": "Danh mục",
+    "tags": "Thẻ",
+    "allNews": "Tất cả tin",
+    "postsNavigation": "Điều hướng bài viết",
+    "prevPage": "Trang trước",
+    "nextPage": "Trang sau",
+    "page": "Trang",
+    "authenticating": "Đang xác thực..."
+  },
+  "status": {
+    "pending": "Chờ thanh toán",
+    "awaitingConfirm": "Chờ xác nhận",
+    "confirmed": "Đã xác nhận",
+    "rejected": "Bị từ chối",
+    "cancelled": "Đã hủy",
+    "unknown": "Không rõ"
+  },
+  "validation": {
+    "required": "Vui lòng không bỏ trống trường này.",
+    "email": "Địa chỉ email không hợp lệ.",
+    "phone": "Số điện thoại không hợp lệ (VD: 0912345678).",
+    "url": "Đường dẫn URL không hợp lệ (phải bắt đầu bằng http/https).",
+    "minLength": "Tối thiểu {min} ký tự.",
+    "maxLength": "Tối đa {max} ký tự.",
+    "endDateAfterStart": "Ngày kết thúc phải sau ngày bắt đầu."
+  }
+}

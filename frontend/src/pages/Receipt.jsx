@@ -8,10 +8,12 @@ import Pagination from '../components/Shared/Pagination';
 import { getPosts } from '../services/api';
 import { siteConfig } from '../config/siteConfig';
 import { ROUTES } from '../constants/routes';
+import { useTranslation } from '../i18n/LanguageContext';
 
 const ITEMS_PER_PAGE = 3;
 
 const Receipt = () => {
+  const { t } = useTranslation();
   const [posts, setPosts] = useState([]);
   const [featuredPosts, setFeaturedPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -48,7 +50,7 @@ const Receipt = () => {
   if (loading) {
     return (
       <div className="text-center" style={{ padding: '150px 0' }}>
-        <h2>Loading Posts...</h2>
+        <h2>{t('receipt.loading') || 'Đang tải bài viết...'}</h2>
         <div className="spinner-border" role="status"></div>
       </div>
     );
@@ -59,8 +61,8 @@ const Receipt = () => {
   return (
     <>
       <PageTitle 
-        title="Recipes"
-        breadcrumbs={[{ label: 'Home', link: '/' }, { label: 'Recipes' }]}
+        title={t('receipt.title') || 'Cẩm Nang Vị Giác'}
+        breadcrumbs={[{ label: t('header.home'), link: '/' }, { label: t('receipt.title') || 'Cẩm Nang' }]}
       />
 
 			<section className="ls s-pt-60 s-pb-20 s-pt-md-75 s-py-lg-100 blog">
@@ -68,7 +70,7 @@ const Receipt = () => {
 					<div className="d-none d-lg-block divider-60"></div>
 					<div className="row c-mb-60 c-mb-lg-30">
 						<div className="col-lg-12 blog-featured-posts">
-							<h3 className="text-center featured-title">Top Posts</h3>
+							<h3 className="text-center featured-title">{t('receipt.topPosts') || 'Bài viết nổi bật'}</h3>
               <div className="row justify-content-center">
                 {featuredPosts.map((post) => (
                   <div key={post.id} className="col-xl-4 col-md-6">
@@ -83,20 +85,20 @@ const Receipt = () => {
                               <span className="screen-reader-text">Posted on</span>
                               <Link to={ROUTES.POST_DETAIL(post.slug)} rel="bookmark">
                                 <i className="fa fa-calendar color-main2"></i>
-                                <time dateTime={post.dateIso} className="entry-date published updated">{post.dateString}</time>
+                                <time dateTime={post.dateIso || post.createdAt} className="entry-date published updated">{new Date(post.createdAt || post.dateIso || new Date()).toLocaleDateString('vi-VN')}</time>
                               </Link>
                             </span>
                             <span className="category-links links-maincolor">
                               <span className="screen-reader-text">Categories</span>
                               <Link to={ROUTES.RECEIPT} rel="category tag">
                                 <i className="fa fa-tags color-main2"></i>
-                                {post.category || 'Recipes'}
+                                {post.category || (t('receipt.title') || 'Cẩm Nang')}
                               </Link>
                             </span>
                             <span className="author vcard">
                               <Link className="url fn n" to={ROUTES.RECEIPT}>
                                 <i className="fa fa-user color-main2"></i>
-                                {post.authorName}
+                                {post.author?.name || post.authorName || 'Admin'}
                               </Link>
                             </span>
                           </span>

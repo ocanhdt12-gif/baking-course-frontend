@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes';
+import { useTranslation } from '../../i18n/LanguageContext';
 
 const HomeChiefs = ({ chiefs }) => {
+  const { t } = useTranslation();
   const carouselRef = useRef(null);
 
 
@@ -13,8 +15,8 @@ const HomeChiefs = ({ chiefs }) => {
 				<div className="row">
 					<div className="col-sm-12 text-center">
 						<div className="section-heading">
-							<h6 className="small-text color-main">Our team of proffesionals</h6>
-							<h3>Best Chefs of America</h3>
+							<h6 className="small-text color-main">{t('home.chiefs.subtitle')}</h6>
+							<h3>{t('home.chiefs.title')}</h3>
 							<img className="image-wrap" src={`${import.meta.env.BASE_URL}images/icon-main2.png`} alt="" />
 						</div>
 						<div className="d-none d-lg-block divider-60"></div>
@@ -38,7 +40,7 @@ const HomeChiefs = ({ chiefs }) => {
 										{chief.socialIn && <a href={chief.socialIn} className="fa fa-google-plus color-light" title="google" target="_blank" rel="noopener noreferrer"></a>}
 									</p>
 									<div className="team-button">
-										<Link to={ROUTES.CHIEF_DETAIL(chief.id)} className="btn btn-team">view profile</Link>
+										<Link to={ROUTES.CHIEF_DETAIL(chief.id)} className="btn btn-team">{t('home.chiefs.viewProfile')}</Link>
 									</div>
 								</div>
 							</div>

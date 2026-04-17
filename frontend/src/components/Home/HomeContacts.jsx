@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { getTimetables, submitEnrollment } from '../../services/api';
 import { useLocation } from 'react-router-dom';
+import { useTranslation } from '../../i18n/LanguageContext';
 
 const HomeContacts = () => {
+  const { t } = useTranslation();
   const [sessions, setSessions] = useState([]);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -50,7 +52,7 @@ const HomeContacts = () => {
       }, 5000);
     } catch (err) {
       console.error(err);
-      setStatus({ loading: false, error: 'Registration failed. Please try again.', success: false });
+      setStatus({ loading: false, error: 'Đăng ký thất bại. Vui lòng thử lại.', success: false });
     }
   };
 
@@ -61,8 +63,8 @@ const HomeContacts = () => {
         <div className="row">
           <div className="col-12 text-center">
             <div className="section-heading">
-              <h6 className="small-text color-main2">please register now!</h6>
-              <h3>Our Form for Enrollment</h3>
+              <h6 className="small-text color-main2">{t('home.contacts.subtitle')}</h6>
+              <h3>{t('home.contacts.title')}</h3>
               <img className="image-wrap" src={`${import.meta.env.BASE_URL}images/icon-main.png`} alt=""/>
             </div>
             <div className="d-none d-lg-block divider-60"></div>
@@ -71,7 +73,7 @@ const HomeContacts = () => {
         
         {status.success && (
           <div className="alert alert-success text-center mb-4" role="alert">
-            Thank you! Your enrollment request has been submitted. We will contact you soon.
+            Cảm ơn bạn! Đăng ký đã được ghi nhận. Chúng tôi sẽ liên hệ sớm.
           </div>
         )}
         
@@ -85,13 +87,13 @@ const HomeContacts = () => {
           <div className="row">
             <div className="col-12 col-md-3">
               <div className="form-group has-placeholder">
-                <label htmlFor="fullName">Full Name <span className="required">*</span></label>
+                <label htmlFor="fullName">{t('form.fullName')} <span className="required">*</span></label>
                 <input
                   type="text"
                   name="fullName"
                   id="fullName"
                   className="form-control"
-                  placeholder="Full Name"
+                  placeholder={t('form.fullName') || 'Họ và tên'}
                   value={formData.fullName}
                   onChange={handleChange}
                   required
@@ -100,13 +102,13 @@ const HomeContacts = () => {
             </div>
             <div className="col-12 col-md-3">
               <div className="form-group has-placeholder">
-                <label htmlFor="email">Email address <span className="required">*</span></label>
+                <label htmlFor="email">{t('form.email')} <span className="required">*</span></label>
                 <input
                   type="email"
                   name="email"
                   id="email"
                   className="form-control"
-                  placeholder="Email Address"
+                  placeholder={t('form.email') || 'Email'}
                   value={formData.email}
                   onChange={handleChange}
                   required
@@ -115,13 +117,13 @@ const HomeContacts = () => {
             </div>
             <div className="col-12 col-md-3">
               <div className="form-group has-placeholder">
-                <label htmlFor="phone">Phone <span className="required">*</span></label>
+                <label htmlFor="phone">{t('form.phone')} <span className="required">*</span></label>
                 <input
                   type="text"
                   name="phone"
                   id="phone"
                   className="form-control"
-                  placeholder="Phone Number (e.g. 0912345678)"
+                  placeholder={t('form.phone') || 'Số điện thoại'}
                   value={formData.phone}
                   onChange={handleChange}
                   required
@@ -130,7 +132,7 @@ const HomeContacts = () => {
             </div>
             <div className="col-12 col-md-3">
               <div className="form-group has-placeholder">
-                <label htmlFor="classSessionId">Cooking Class <span className="required">*</span></label>
+                <label htmlFor="classSessionId">{t('form.cookingClass')} <span className="required">*</span></label>
                 <select
                   className="form-control"
                   name="classSessionId"
@@ -139,7 +141,7 @@ const HomeContacts = () => {
                   onChange={handleChange}
                   required
                 >
-                  {sessions.length === 0 && <option value="">Loading classes...</option>}
+                  {sessions.length === 0 && <option value="">{t('form.loadingClasses')}</option>}
                   {sessions.map(sess => (
                     <option key={sess.id} value={sess.id}>
                       {sess.program?.title} ({sess.dayOfWeek} • {sess.startDate ? new Date(sess.startDate).toLocaleDateString() : 'TBA'})
@@ -153,7 +155,7 @@ const HomeContacts = () => {
             <div className="col-sm-12">
               <div className="form-group text-center mt-3">
                 <button type="submit" className="btn btn-maincolor2" disabled={status.loading}>
-                  {status.loading ? 'Submitting...' : 'Enroll Now'}
+                  {status.loading ? (t('common.loading') || 'Đang xử lý...') : (t('common.enrollNow') || 'Đăng ký ngay')}
                 </button>
               </div>
             </div>

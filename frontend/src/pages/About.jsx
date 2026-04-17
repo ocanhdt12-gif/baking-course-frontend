@@ -2,12 +2,14 @@ import { useInitOnLoaded } from '../hooks/useInitOnLoaded';
 import React, { useState, useEffect } from 'react';
 import PageTitle from '../components/Shared/PageTitle';
 import AboutHistory from '../components/About/AboutHistory';
+import { useTranslation } from '../i18n/LanguageContext';
 import AboutVideo from '../components/About/AboutVideo';
 import TestimonialsSlider from '../components/Shared/TestimonialsSlider';
 import { getTestimonials } from '../services/api';
 import { siteConfig } from '../config/siteConfig';
 
 const About = () => {
+  const { t } = useTranslation();
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -28,7 +30,7 @@ const About = () => {
   if (loading) {
     return (
       <div className="text-center" style={{ padding: '150px 0' }}>
-        <h2>Loading About Us...</h2>
+        <h2>{t('common.loading') || 'Đang tải dữ liệu...'}</h2>
         <div className="spinner-border" role="status"></div>
       </div>
     );
@@ -37,8 +39,8 @@ const About = () => {
   return (
     <>
       <PageTitle 
-        title="About Us"
-        breadcrumbs={[{ label: 'Home', link: '/' }, { label: 'About Us' }]}
+        title={t('about.title') || 'Về Chúng Tôi'}
+        breadcrumbs={[{ label: t('header.home'), link: '/' }, { label: t('about.title') || 'Về Chúng Tôi' }]}
       />
 
 			<AboutHistory history={siteConfig.about} />

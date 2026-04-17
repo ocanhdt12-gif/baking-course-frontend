@@ -1,10 +1,12 @@
 import { Link, useLocation } from 'react-router-dom';
 import { siteConfig } from '../../config/siteConfig';
 import { ROUTES } from '../../constants/routes';
+import { useTranslation } from '../../i18n/LanguageContext';
 
 const Header = () => {
   const location = useLocation();
   const isHome = location.pathname === '/';
+  const { t, language, setLanguage } = useTranslation();
 
   return (
     <div className={isHome ? 'header_absolute' : ''} key={isHome ? 'home-header' : 'inner-header'}>
@@ -23,29 +25,29 @@ const Header = () => {
               <nav className="top-nav">
                 <ul className="nav sf-menu">
                   <li className={isHome ? "active" : ""}>
-                    <Link to={ROUTES.HOME}>Homepage</Link>
+                    <Link to={ROUTES.HOME}>{t('header.home')}</Link>
                   </li>
                   <li className={location.pathname === "/about" ? "active" : ""}>
-                    <Link to={ROUTES.ABOUT}>About Us</Link>
+                    <Link to={ROUTES.ABOUT}>{t('header.about')}</Link>
                   </li>
                   <li className={location.pathname.startsWith("/program") ? "active" : ""}>
-                    <Link to={ROUTES.PROGRAM}>Programs</Link>
+                    <Link to={ROUTES.PROGRAM}>{t('header.programs')}</Link>
                   </li>
                   <li className={location.pathname === "/chiefs" ? "active" : ""}>
-                    <Link to={ROUTES.CHIEFS}>Instructors</Link>
+                    <Link to={ROUTES.CHIEFS}>{t('header.instructors')}</Link>
                   </li>
                   <li className={location.pathname === "/receipt" || location.pathname.startsWith("/post") ? "active" : ""}>
-                    <Link to={ROUTES.RECEIPT}>Recipes</Link>
+                    <Link to={ROUTES.RECEIPT}>{t('header.recipes')}</Link>
                   </li>
                   <li className={location.pathname === "/contact" ? "active" : ""}>
-                    <Link to={ROUTES.CONTACT}>Contacts</Link>
+                    <Link to={ROUTES.CONTACT}>{t('header.contacts')}</Link>
                   </li>
                 </ul>
               </nav>
             </div>
             <div className="col-xl-2 col-lg-3 text-left text-xl-right d-none d-lg-block">
-              <span>
-                <Link to={ROUTES.AUTH} className="btn btn-maincolor2">{siteConfig.header.ctaButtonText}</Link>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
+                <Link to={ROUTES.AUTH} className="btn btn-maincolor2">{t('header.cta')}</Link>
               </span>
             </div>
           </div>

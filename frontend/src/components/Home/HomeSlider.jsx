@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from '../../i18n/LanguageContext';
 
 const HomeSlider = ({ slides }) => {
+  const { t } = useTranslation();
   const sliderRef = useRef(null);
 
   useEffect(() => {
@@ -23,7 +25,12 @@ const HomeSlider = ({ slides }) => {
           const countdownId = index === 0 ? '#flex-countdown' : `#flex-countdown${index + 1}`;
           const $counter = $(countdownId);
           if ($counter.length) {
-            $counter.countdown({until: new Date(targetDate)});
+            $counter.countdown('destroy');
+            $counter.countdown({
+              until: new Date(targetDate),
+              labels: ['Năm', 'Tháng', 'Tuần', 'Ngày', 'Giờ', 'Phút', 'Giây'],
+              labels1: ['Năm', 'Tháng', 'Tuần', 'Ngày', 'Giờ', 'Phút', 'Giây'],
+            });
           }
         }
       });
@@ -95,7 +102,7 @@ const HomeSlider = ({ slides }) => {
                       <div className="intro_layers">
                         <div className="intro_layer" data-animation="fadeInUp">
                           <h6 className="text-uppercase intro_after_featured_word color-main">
-                            {slide.authorName || 'Upcoming Class'}
+                            {slide.authorName || 'Lớp học sắp tới'}
                           </h6>
                         </div>
                         <div className="intro_layer" data-animation="fadeInUp">
@@ -117,8 +124,8 @@ const HomeSlider = ({ slides }) => {
                         </div>
                         <div className="intro_layer flex-btn" data-animation="fadeInUp">
                           <div className="d-inline-block">
-                            <Link to={`/program/${slide.slug}`} className="btn btn-maincolor">enroll now</Link>
-                            <a href="#chiefs" className="btn btn-light">our feedback</a>
+                            <Link to={`/program/${slide.slug}`} className="btn btn-maincolor">{t('home.slider.enrollNow')}</Link>
+                            <a href="#chiefs" className="btn btn-light">{t('home.slider.ourFeedback')}</a>
                           </div>
                         </div>
                       </div>

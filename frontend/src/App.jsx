@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { LanguageProvider } from './i18n/LanguageContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PublicLayout from './layouts/PublicLayout';
@@ -18,13 +19,15 @@ import ProtectedRoute from './components/Auth/ProtectedRoute';
 import ChiefDetail from './pages/ChiefDetail';
 import ProgramDetail from './pages/ProgramDetail';
 import PostDetail from './pages/PostDetail';
+import Checkout from './pages/Checkout';
+import PaymentResult from './pages/PaymentResult';
 import NotFound from './pages/NotFound';
 import { ROUTES } from './constants/routes';
 import ScrollToTop from './components/Shared/ScrollToTop';
 
 function App() {
   return (
-    <>
+    <LanguageProvider>
     <Router basename={import.meta.env.BASE_URL}>
       <ScrollToTop />
       <Routes>
@@ -42,6 +45,12 @@ function App() {
           <Route path={ROUTES.CHIEF_DETAIL_PATTERN} element={<ChiefDetail />} />
           <Route path={ROUTES.PROGRAM_DETAIL_PATTERN} element={<ProgramDetail />} />
           <Route path={ROUTES.POST_DETAIL_PATTERN} element={<PostDetail />} />
+          <Route path={ROUTES.CHECKOUT_PATTERN} element={
+            <ProtectedRoute>
+              <Checkout />
+            </ProtectedRoute>
+          } />
+          <Route path={ROUTES.PAYMENT_RESULT} element={<PaymentResult />} />
 
           {/* Protected Routes */}
           <Route path={ROUTES.MY_ACCOUNT} element={
@@ -91,7 +100,7 @@ function App() {
       pauseOnHover
       theme="colored"
     />
-    </>
+    </LanguageProvider>
   );
 }
 

@@ -1,6 +1,8 @@
 import React from 'react';
+import { useTranslation } from '../../i18n/LanguageContext';
 
 const AboutVideo = ({ achievements }) => {
+  const { t } = useTranslation();
   return (
     <section className="ls ms s-pt-lg-100 s-pb-lg-75 c-my-0 video-part right-part-bg text-center text-md-left" id="about">
       <div className="cover-image s-cover-left"></div>
@@ -13,8 +15,8 @@ const AboutVideo = ({ achievements }) => {
         <div className="col-12 col-lg-5 order-lg-2 animate" data-animation="slideInRight">
           <div className="d-none d-lg-block divider-55"></div>
           <div className="item-content">
-            <h6 className="fs-14 color-main text-uppercase">our achievements</h6>
-            <h3>Hello, Welcome to Muka!</h3>
+            <h6 className="fs-14 color-main text-uppercase">{t('about.video.subtitle') || 'Thành tựu của chúng tôi'}</h6>
+            <h3>{t('about.video.title') || 'Xin chào, Chào mừng bạn đến với Muka!'}</h3>
             <div className="d-none d-lg-block divider-50"></div>
             {achievements.map((item, index) => (
               <div key={index} className="media">

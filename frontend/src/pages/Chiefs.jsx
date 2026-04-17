@@ -4,11 +4,13 @@ import { Link } from 'react-router-dom';
 import PageTitle from '../components/Shared/PageTitle';
 import Pagination from '../components/Shared/Pagination';
 import { getChiefs } from '../services/api';
+import { useTranslation } from '../i18n/LanguageContext';
 import { ROUTES } from '../constants/routes';
 
 const ITEMS_PER_PAGE = 6;
 
 const Chiefs = () => {
+  const { t } = useTranslation();
   const [chiefs, setChiefs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,7 +36,7 @@ const Chiefs = () => {
   if (loading) {
     return (
       <div className="text-center" style={{ padding: '150px 0' }}>
-        <h2>Loading Instructors...</h2>
+        <h2>{t('chiefs.loading') || 'Đang tải danh sách giảng viên...'}</h2>
         <div className="spinner-border" role="status"></div>
       </div>
     );
@@ -50,8 +52,8 @@ const Chiefs = () => {
   return (
     <>
       <PageTitle 
-        title="Our Chefs" 
-        breadcrumbs={[{ label: 'Home', link: '/' }, { label: 'Instructors' }]} 
+        title={t('chiefs.title') || 'Đội Ngũ Giảng Viên'} 
+        breadcrumbs={[{ label: t('header.home'), link: '/' }, { label: t('chiefs.title') || 'Giảng Viên' }]} 
       />
 
       <section className="ls s-pt-90 s-pb-50 s-py-lg-100 c-mb-50 c-mb-md-30 chiefs">
@@ -75,7 +77,7 @@ const Chiefs = () => {
                     <h6 className="small-text">{chief.role}</h6>
                     <div className="mt-3">
                       <Link to={`${ROUTES.PROGRAM}?chiefId=${chief.id}`} className="btn btn-sm btn-outline-maincolor bg-transparent text-white border-white">
-                        View Classes
+                        {t('chiefs.viewClasses') || 'Xem Khóa Học'}
                       </Link>
                     </div>
                   </div>

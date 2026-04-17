@@ -1,7 +1,8 @@
 import React from 'react';
-
+import { useTranslation } from '../../i18n/LanguageContext';
 
 const HomeAbout = () => {
+  const { t } = useTranslation();
 	return (
 		<section className="ls ms s-pt-lg-100 s-pb-lg-75 c-my-0 video-part right-part-bg text-center text-md-left" id="about">
 			<div className="cover-image s-cover-left"></div>
@@ -11,9 +12,9 @@ const HomeAbout = () => {
 						<img src={`${import.meta.env.BASE_URL}images/video-image.jpg`} alt="" />
 						<div className="video-text">
 							<h5>
-								<span>Watch</span>
+								<span>{t('home.about.watch')}</span>
 								<span className=" iframe-link"></span>
-								<span>Video</span>
+								<span>{t('home.about.video')}</span>
 							</h5>
 						</div>
 					</a>
@@ -21,8 +22,8 @@ const HomeAbout = () => {
 				<div className="col-12 col-lg-6 order-lg-2  animate" data-animation="slideInRight">
 					<div className="d-none d-lg-block divider-90"></div>
 					<div className="item-content">
-						<h6 className="fs-14 color-main text-uppercase">our achievements</h6>
-						<h3>Hello, Welcome to Muka!</h3>
+						<h6 className="fs-14 color-main text-uppercase">{t('home.about.subtitle')}</h6>
+						<h3>{t('home.about.title')}</h3>
 						<div className="icon-image">
 							<img src={`${import.meta.env.BASE_URL}images/icon-3.png`} alt="" />
 						</div>
@@ -33,10 +34,10 @@ const HomeAbout = () => {
 							</div>
 							<div className="media-body">
 								<h5>
-									We Are Winners of 50 Competitions
+									Đạt Hơn 50 Giải Thưởng Nấu Ăn
 								</h5>
 								<p>
-									Salami corned beef short loin sausage meatloaf fatback andouille kielbasa frankfurter sirloin alcatra beef ribs.
+									Chứng nhận chất lượng xuất sắc, mang về các giải thưởng lớn nhỏ tại các cuộc thi làm bánh và nấu ăn trong nước cũng như quốc tế.
 								</p>
 							</div>
 						</div>
@@ -46,10 +47,10 @@ const HomeAbout = () => {
 							</div>
 							<div className="media-body">
 								<h5>
-									27 Professional Chefs-Trainers
+									27 Đầu Bếp - Chuyên Gia Đào Tạo
 								</h5>
 								<p>
-									Ham hock jerky tail kevin, buffalo shoulder doner venison leberkas pig beef burgdoggen flank ribeye picanha burgdoggen.
+									Đội ngũ giảng viên giàu kinh nghiệm, tận tâm hướng dẫn và đồng hành cùng học viên từ những bước cơ bản nhất.
 								</p>
 							</div>
 						</div>
@@ -59,10 +60,10 @@ const HomeAbout = () => {
 							</div>
 							<div className="media-body">
 								<h5>
-									Guaranteed Fast Employment
+									Cam Kết Việc Làm Nhanh Chóng
 								</h5>
 								<p>
-									Ball tip landjaeger pork chop, kielbasa shank filet mignon cow burgdoggen cupim buffalo porchetta. Ribeye beef ribs flank.
+									Hỗ trợ định hướng nghề nghiệp, giới thiệu học viên đến các môi trường làm việc chuyên nghiệp ngay sau khi tốt nghiệp.
 								</p>
 							</div>
 						</div>

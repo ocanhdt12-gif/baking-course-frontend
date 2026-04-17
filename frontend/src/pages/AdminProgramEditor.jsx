@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import AdminImageUpload from '../components/Admin/AdminImageUpload';
 import { AdminInput, AdminSelect, AdminTextarea } from '../components/Admin/Shared/AdminFormControls';
 import { ROUTES } from '../constants/routes';
+import { priceToDollars, dollarsToCents } from '../utils/formatters';
 
 const AdminProgramEditor = () => {
   const { id } = useParams();
@@ -15,8 +16,10 @@ const AdminProgramEditor = () => {
   const [loading, setLoading] = useState(isEditing);
   
   const [formData, setFormData] = useState({
+    programType: 'LIVE_CLASS',
     authorName: '', authorImage: '', chiefId: '',
-    learningGoals: [], classIncludes: [], curriculum: [], classSessions: []
+    learningGoals: [], classIncludes: [], curriculum: [], classSessions: [],
+    premiumContent: { videos: [], resources: [], guides: '' }
   });
 
   const [chiefsList, setChiefsList] = useState([]);
@@ -33,10 +36,11 @@ const AdminProgramEditor = () => {
       getProgramBySlug(id)
         .then(prog => {
           setFormData({
+            programType: prog.programType || 'LIVE_CLASS',
             title: prog.title || '',
             slug: prog.slug || '',
             description: prog.description || '',
-            price: prog.price || '',
+            price: prog.price != null ? priceToDollars(prog.price) : '',
             thumbnail: prog.thumbnail || '',
             chiefId: prog.chiefId || '',
             authorName: prog.authorName || '',
@@ -49,7 +53,8 @@ const AdminProgramEditor = () => {
               startDate: cs.startDate ? new Date(cs.startDate).toISOString().slice(0, 16) : '',
               endDate: cs.endDate ? new Date(cs.endDate).toISOString().slice(0, 16) : '',
               enrollmentDeadline: cs.enrollmentDeadline ? new Date(cs.enrollmentDeadline).toISOString().slice(0, 16) : ''
-            })) : []
+            })) : [],
+            premiumContent: prog.premiumContent || { videos: [], resources: [], guides: '' }
           });
           setLoading(false);
         })
@@ -69,11 +74,15 @@ const AdminProgramEditor = () => {
   const handleSave = async (e) => {
     e.preventDefault();
     try {
+      const payload = {
+        ...formData,
+        price: formData.price ? dollarsToCents(formData.price) : null
+      };
       if (isEditing) {
-        await updateProgram(id, formData);
+        await updateProgram(id, payload);
         toast.success("Program updated successfully!");
       } else {
-        await createProgram(formData);
+        await createProgram(payload);
         toast.success("Program created successfully!");
       }
       navigate(ROUTES.ADMIN + "#programs");
@@ -150,7 +159,7 @@ const AdminProgramEditor = () => {
 
           <div className="row mt-3">
             <div className="col-md-6">
-              <AdminInput label={<>Price <span className="text-danger">*</span></>} name="price" value={formData.price} onChange={handleChange} placeholder="$550" required />
+              <AdminInput label={<>Price ($) <span className="text-danger">*</span></>} name="price" type="number" step="0.01" min="0" value={formData.price} onChange={handleChange} placeholder="550.00" required />
             </div>
             <div className="col-md-6">
               <AdminSelect 
@@ -161,6 +170,21 @@ const AdminProgramEditor = () => {
                 options={[
                   { value: '', label: '-- Select Instructor --' },
                   ...chiefsList.map(c => ({ value: c.id, label: c.name }))
+                ]}
+              />
+            </div>
+          </div>
+
+          <div className="row mt-3">
+            <div className="col-md-12">
+              <AdminSelect 
+                label={<>Loại sản phẩm <span className="text-danger">*</span></>} 
+                name="programType" 
+                value={formData.programType} 
+                onChange={handleChange}
+                options={[
+                  { value: 'LIVE_CLASS', label: '👨‍🍳 Lớp học trực tiếp (Có lịch, Zoom/Offline)' },
+                  { value: 'VIDEO_COURSE', label: '🎬 Khóa học Video (Xem mọi lúc, mọi nơi)' }
                 ]}
               />
             </div>
@@ -183,6 +207,7 @@ const AdminProgramEditor = () => {
           />
         </div>
 
+        {formData.programType === 'LIVE_CLASS' && (
         <div className="admin-paper p-4 mb-4">
           <h5 className="mb-4" style={{borderBottom: '1px solid var(--admin-border-light)', paddingBottom: '10px'}}>Class Cohorts & Schedules</h5>
           <p className="text-muted"><small>Add specific class sessions (cohorts) for this program. These will appear in the main timetable and students will select them when enrolling.</small></p>
@@ -241,6 +266,7 @@ const AdminProgramEditor = () => {
             <i className="fa fa-plus mr-2"></i> Add Class Session
           </button>
         </div>
+        )}
 
         {/* JSON ARRAY: Learning Goals */}
         <div className="admin-paper p-4 mb-4">
@@ -291,6 +317,85 @@ const AdminProgramEditor = () => {
             </div>
           ))}
           <button type="button" className="btn btn-outline-info btn-sm mt-3" onClick={addCurriculum}>+ Add Module</button>
+        </div>
+
+        {/* Premium Content Section */}
+        <div className="admin-paper p-4 mb-4">
+          <h5 className="mb-4" style={{borderBottom: '1px solid var(--admin-border-light)', paddingBottom: '10px'}}>
+            <i className="fa fa-star mr-2" style={{color: '#c19a5b'}}></i> Premium Content
+            <small className="text-muted ml-2">(visible only to purchasers)</small>
+          </h5>
+
+          {/* Videos */}
+          <h6 className="mb-2">Video Lessons</h6>
+          {(formData.premiumContent?.videos || []).map((video, i) => (
+            <div key={i} className="row mt-2 align-items-center">
+              <div className="col-5">
+                <AdminInput value={video.title || ''} onChange={e => {
+                  const updated = [...(formData.premiumContent?.videos || [])];
+                  updated[i] = { ...updated[i], title: e.target.value };
+                  setFormData({ ...formData, premiumContent: { ...formData.premiumContent, videos: updated } });
+                }} placeholder="Video title" />
+              </div>
+              <div className="col-5">
+                <AdminInput value={video.url || ''} onChange={e => {
+                  const updated = [...(formData.premiumContent?.videos || [])];
+                  updated[i] = { ...updated[i], url: e.target.value };
+                  setFormData({ ...formData, premiumContent: { ...formData.premiumContent, videos: updated } });
+                }} placeholder="YouTube/Vimeo embed URL" />
+              </div>
+              <div className="col-2">
+                <button type="button" className="btn btn-sm btn-danger w-100" onClick={() => {
+                  const updated = [...(formData.premiumContent?.videos || [])];
+                  updated.splice(i, 1);
+                  setFormData({ ...formData, premiumContent: { ...formData.premiumContent, videos: updated } });
+                }}><i className="fa fa-trash"></i></button>
+              </div>
+            </div>
+          ))}
+          <button type="button" className="btn btn-outline-info btn-sm mt-2" onClick={() => {
+            setFormData({ ...formData, premiumContent: { ...formData.premiumContent, videos: [...(formData.premiumContent?.videos || []), { title: '', url: '' }] } });
+          }}>+ Add Video</button>
+
+          {/* Resources */}
+          <h6 className="mt-4 mb-2">Downloadable Resources</h6>
+          {(formData.premiumContent?.resources || []).map((res, i) => (
+            <div key={i} className="row mt-2 align-items-center">
+              <div className="col-5">
+                <AdminInput value={res.title || ''} onChange={e => {
+                  const updated = [...(formData.premiumContent?.resources || [])];
+                  updated[i] = { ...updated[i], title: e.target.value };
+                  setFormData({ ...formData, premiumContent: { ...formData.premiumContent, resources: updated } });
+                }} placeholder="Resource title" />
+              </div>
+              <div className="col-5">
+                <AdminInput value={res.url || ''} onChange={e => {
+                  const updated = [...(formData.premiumContent?.resources || [])];
+                  updated[i] = { ...updated[i], url: e.target.value };
+                  setFormData({ ...formData, premiumContent: { ...formData.premiumContent, resources: updated } });
+                }} placeholder="Download URL" />
+              </div>
+              <div className="col-2">
+                <button type="button" className="btn btn-sm btn-danger w-100" onClick={() => {
+                  const updated = [...(formData.premiumContent?.resources || [])];
+                  updated.splice(i, 1);
+                  setFormData({ ...formData, premiumContent: { ...formData.premiumContent, resources: updated } });
+                }}><i className="fa fa-trash"></i></button>
+              </div>
+            </div>
+          ))}
+          <button type="button" className="btn btn-outline-info btn-sm mt-2" onClick={() => {
+            setFormData({ ...formData, premiumContent: { ...formData.premiumContent, resources: [...(formData.premiumContent?.resources || []), { title: '', url: '' }] } });
+          }}>+ Add Resource</button>
+
+          {/* Guides */}
+          <h6 className="mt-4 mb-2">Detailed Guide</h6>
+          <AdminTextarea 
+            value={formData.premiumContent?.guides || ''} 
+            onChange={e => setFormData({ ...formData, premiumContent: { ...formData.premiumContent, guides: e.target.value } })}
+            rows="4"
+            placeholder="Step-by-step guide content (supports HTML)..."
+          />
         </div>
       </form>
     </div>

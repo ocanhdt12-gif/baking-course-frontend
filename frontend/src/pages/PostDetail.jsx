@@ -6,8 +6,10 @@ import BlogSidebar from '../components/Blog/BlogSidebar';
 import { getPostBySlug, getPosts } from '../services/api';
 import { ROUTES } from '../constants/routes';
 import { siteConfig } from '../config/siteConfig';
+import { useTranslation } from '../i18n/LanguageContext';
 
 const PostDetail = () => {
+  const { t } = useTranslation();
   const { slug } = useParams();
   const [post, setPost] = useState(null);
   const [allPosts, setAllPosts] = useState([]);
@@ -31,7 +33,7 @@ const PostDetail = () => {
   if (loading) {
     return (
       <div className="text-center" style={{ padding: '150px 0' }}>
-        <h2>Loading Article...</h2>
+        <h2>{t('postDetail.loading') || 'Đang tải bài viết...'}</h2>
         <div className="spinner-border" role="status"></div>
       </div>
     );
@@ -40,7 +42,7 @@ const PostDetail = () => {
   if (!post) {
     return (
       <div className="text-center" style={{ padding: '150px 0' }}>
-        <h2>Post Not Found.</h2>
+        <h2>{t('postDetail.notFound') || 'Không tìm thấy bài viết.'}</h2>
       </div>
     );
   }
@@ -66,8 +68,8 @@ const PostDetail = () => {
   return (
     <>
       <PageTitle 
-        title="Blog Post"
-        breadcrumbs={[{ label: 'Home', link: '/' }, { label: 'Recipes', link: ROUTES.RECEIPT }, { label: post.title }]}
+        title={post.title}
+        breadcrumbs={[{ label: t('header.home'), link: '/' }, { label: t('receipt.title') || 'Cẩm Nang', link: ROUTES.RECEIPT }, { label: post.title }]}
       />
       
       <section className="ls s-pt-75 s-pb-0 s-py-lg-100 c-gutter-60">
@@ -90,14 +92,14 @@ const PostDetail = () => {
                         <span className="screen-reader-text">Posted on</span>
                         <Link to={ROUTES.POST_DETAIL(post.slug)} rel="bookmark">
                           <i className="fa fa-calendar color-main2"></i>
-                          <time dateTime={post.dateIso} className="entry-date published updated">{post.dateString || 'Recent'}</time>
+                          <time dateTime={post.dateIso} className="entry-date published updated">{post.dateString || t('common.recent') || 'Gần đây'}</time>
                         </Link>
                       </span>
                       <span className="category-links links-maincolor">
                         <span className="screen-reader-text">Categories</span>
                         <Link to={ROUTES.RECEIPT} rel="category tag">
                           <i className="fa fa-tags color-main2"></i>
-                          {post.category || 'Recipes'}
+                          {post.category || t('receipt.title') || 'Cẩm Nang'}
                         </Link>
                       </span>
                       <span className="author vcard">
@@ -133,7 +135,7 @@ const PostDetail = () => {
                         <img src={imgSrc(prevPost.thumbnail)} alt="" />
                       </div>
                       <div className="post-nav-text-wrap">
-                        <span aria-hidden="true" className="nav-subtitle color-main2 small-text">Prev</span>
+                        <span aria-hidden="true" className="nav-subtitle color-main2 small-text">{t('postDetail.prev') || 'Bài trước'}</span>
                         <h5 className="nav-title">{prevPost.title}</h5>
                       </div>
                       <Link to={ROUTES.POST_DETAIL(prevPost.slug)}></Link>
@@ -147,7 +149,7 @@ const PostDetail = () => {
                         <img src={imgSrc(nextPost.thumbnail)} alt="" />
                       </div>
                       <div className="post-nav-text-wrap">
-                        <span aria-hidden="true" className="nav-subtitle color-main2 small-text">Next</span>
+                        <span aria-hidden="true" className="nav-subtitle color-main2 small-text">{t('postDetail.next') || 'Bài sau'}</span>
                         <h5 className="nav-title">{nextPost.title}</h5>
                       </div>
                       <Link to={ROUTES.POST_DETAIL(nextPost.slug)}></Link>
@@ -187,8 +189,12 @@ const PostDetail = () => {
 
               {/* ===== RELATED POSTS ===== */}
               {relatedPosts.length > 0 && (
+                <div className="row mt-5">
+                <div className="col-12">
+                  <h4 className="title">{t('postDetail.relatedPosts') || 'Bài Cùng Chuyên Mục'}</h4>
+                  <div className="divider-20"></div>
+                </div>
                 <div className="widget widget_posts_2cols related-post bordered">
-                  <h4>Related Posts</h4>
                   <ul className="list-unstyled">
                     {relatedPosts.map(rp => (
                       <li key={rp.id}>
@@ -205,6 +211,7 @@ const PostDetail = () => {
                       </li>
                     ))}
                   </ul>
+                </div>
                 </div>
               )}
 

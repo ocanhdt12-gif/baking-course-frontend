@@ -4,6 +4,7 @@ import AdminTable from './AdminTable';
 import { toast } from 'react-toastify';
 import { getPrograms, deleteProgram } from '../../services/api';
 import { ROUTES } from '../../constants/routes';
+import { formatPrice } from '../../utils/formatters';
 
 const AdminPrograms = () => {
   const [programs, setPrograms] = useState([]);
@@ -38,7 +39,7 @@ const AdminPrograms = () => {
   const columns = [
     { label: 'Thumb', render: (row) => <img src={row.thumbnail} alt="" width="50" style={{borderRadius: '4px'}}/> },
     { label: 'Title', key: 'title' },
-    { label: 'Price', key: 'price' },
+    { label: 'Price', render: (row) => formatPrice(row.price) },
     { label: 'Author', key: 'authorName' },
     { label: 'Stats', render: (row) => {
       const studentCount = row.classSessions ? row.classSessions.reduce((acc, s) => acc + (s.enrollments?.length || 0), 0) : 0;

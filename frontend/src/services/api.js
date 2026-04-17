@@ -202,4 +202,67 @@ export const getMe = async () => {
   return data;
 };
 
+// ---------------- ORDERS ----------------
+export const createOrder = async (payload) => {
+  const { data } = await api.post('/orders', payload);
+  return data;
+};
+
+export const getMyOrders = async () => {
+  const { data } = await api.get('/orders/my');
+  return data;
+};
+
+export const getOrderById = async (id) => {
+  const { data } = await api.get(`/orders/${id}`);
+  return data;
+};
+
+export const submitOrderProof = async (id, payload) => {
+  const { data } = await api.patch(`/orders/${id}/proof`, payload);
+  return data;
+};
+
+export const cancelOrder = async (id) => {
+  const { data } = await api.patch(`/orders/${id}/cancel`);
+  return data;
+};
+
+export const getAllOrders = async () => {
+  const { data } = await api.get('/orders');
+  return data;
+};
+
+export const confirmOrder = async (id, adminNote) => {
+  const { data } = await api.patch(`/orders/${id}/confirm`, { adminNote });
+  return data;
+};
+
+export const rejectOrder = async (id, adminNote) => {
+  const { data } = await api.patch(`/orders/${id}/reject`, { adminNote });
+  return data;
+};
+
+// ---------------- PAYMENT CONFIG ----------------
+export const getPaymentConfig = async () => {
+  const { data } = await api.get('/payment-config');
+  return data;
+};
+
+export const getPaymentConfigAdmin = async () => {
+  const { data } = await api.get('/payment-config/admin');
+  return data;
+};
+
+export const updatePaymentConfig = async (payload) => {
+  const { data } = await api.put('/payment-config', payload);
+  return data;
+};
+
+// ---------------- VNPAY ----------------
+export const createVnpayPaymentUrl = async (orderId, bankCode) => {
+  const { data } = await api.post('/vnpay/create-payment-url', { orderId, bankCode });
+  return data; // { paymentUrl }
+};
+
 export default api;

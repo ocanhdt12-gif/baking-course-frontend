@@ -4,12 +4,12 @@ export const siteConfig = {
   name: "Muka",
   logoText: "Muka",
   logoDot: ".",
-  description: "Our Cooking School features a long and proud history of more than 100 years. Founded at the end of the XIXth century.",
+  description: "Trường Dạy Nấu Ăn Muka có lịch sử tự hào với hơn 10 năm kinh nghiệm. Nơi khởi nguồn của những thợ bánh chuyên nghiệp thế hệ mới.",
   contact: {
-    address: "828 Curtis Ferry, New York, USA",
-    phone: "+8 (800) 238 3597 (admin)",
-    email: "muka_office@example.com",
-    website: "www.muka_cooking.com"
+    address: "66 Tôn Thất Thuyết, Dịch Vọng Hậu, Hà Nội",
+    phone: "0912 345 678",
+    email: "lienhe@muka.vn",
+    website: "www.muka.vn"
   },
   socials: {
     facebook: "#",
@@ -24,35 +24,35 @@ export const siteConfig = {
     ctaButtonLink: "#classes"
   },
   footer: {
-    newsletterTitle: "Subscribe Now",
-    newsletterDescription: "Enter Email here to be updated. We promise not to send you spam!"
+    newsletterTitle: "Đăng ký nhận bản tin",
+    newsletterDescription: "Nhập Email của bạn để nhận những mẹo làm bánh và công thức mới nhất. Chúng tôi cam kết không gửi thư rác!"
   },
   about: {
     historyParagraphs: [
-      'Fatback kevin pig, buffalo tenderloin alcatra ground round tongue tail biltong bacon ham hock. Biltong flank burgdoggen pork chop, ham hock meatloaf tenderloin swine capicola filet mignon. Shoulder pancetta buffalo shank strip steak t-bone pastrami jerky shankle.',
-      'Pork belly turkey chicken pastrami shoulder andouille swine pig. Corned beef pork belly ribeye turducken tongue venison. Brisket rump ribeye leberkas chicken meatball sausage pork loin bresaola. Short loin ribeye hamburger chicken bresaola porchetta cupim.'
+      'Trường Dạy Nấu Ăn Muka được thành lập với mục tiêu mang nghệ thuật ẩm thực đến gần hơn với mọi người. Ban đầu, chúng tôi chỉ là một phòng lab nhỏ dành cho những người yêu thích bánh kem và bánh mì nghệ thuật.',
+      'Trải qua hơn 10 năm phát triển, Muka đã đào tạo hơn hàng ngàn học viên. Đội ngũ tự tin khẳng định chất lượng qua các giải thưởng trong nước và quốc tế, và hơn hết là ngọn lửa đam mê truyền lửa cho thế hệ tương lai.'
     ],
     historyFeatures: [
-      'Filet mignon tri-tip pig meatloaf jerky',
-      'Frankfurter turkey pork belly brisket kevin',
-      'Tail turducken beef short ribs porchetta',
-      'Pork loin landjaeger t-bone shoulder'
+      'Cơ sở vật chất hiện đại chuẩn 5 sao',
+      'Giáo trình thực hành theo chuẩn Châu Âu',
+      'Công thức độc quyền từ nghệ nhân làm bánh',
+      'Môi trường rèn luyện thực tế nghề nghiệp'
     ],
     achievements: [
       {
         icon: 'fa-trophy',
-        title: 'We Are Winners of 50 Competitions',
-        desc: 'Salami corned beef short loin sausage meatloaf fatback andouille kielbasa frankfurter sirloin alcatra beef ribs.'
+        title: 'Hơn 50 Giải Thưởng Nấu Ăn',
+        desc: 'Được công nhận về chất lượng xuất sắc, mang về các giải thưởng danh giá tại nhiều đấu trường ẩm thực lớn.'
       },
       {
         icon: 'fa-group',
-        title: '27 Professional Chefs-Trainers',
-        desc: 'Ham hock jerky tail kevin, buffalo shoulder doner venison leberkas pig beef burgdoggen flank ribeye picanha burgdoggen.'
+        title: '27 Đầu Bếp Chuyên Gia',
+        desc: 'Đội ngũ giáo viên giàu kinh nghiệm thực chiến từ các nhà hàng, khách sạn lớn trong và ngoài nước.'
       },
       {
         icon: 'fa-hourglass-half',
-        title: 'Guaranteed Fast Employment',
-        desc: 'Ball tip landjaeger pork chop, kielbasa shank filet mignon cow burgdoggen cupim buffalo porchetta. Ribeye beef ribs flank.'
+        title: 'Cam Kết Việc Làm',
+        desc: 'Định hướng lộ trình sự nghiệp vững chắc, hỗ trợ giới thiệu tận tay cho các đơn vị liên kết uy tín.'
       }
     ]
   },

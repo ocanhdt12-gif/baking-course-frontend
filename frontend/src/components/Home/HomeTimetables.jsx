@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from '../../i18n/LanguageContext';
 
 const DAYS_OF_WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const VI_DAYS = ['Chủ nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'];
 
 const HomeTimetables = ({ schedules = [] }) => {
+  const { t } = useTranslation();
   useEffect(() => {
     if (window.jQuery && schedules.length > 0) {
       const currentDayName = DAYS_OF_WEEK[new Date().getDay()];
@@ -22,8 +25,8 @@ const HomeTimetables = ({ schedules = [] }) => {
 				<div className="row">
 					<div className="col-12 text-center">
 						<div className="section-heading">
-							<h6 className="small-text color-main">updated schedule</h6>
-							<h3>Timetable of Classes</h3>
+							<h6 className="small-text color-main">{t('home.timetable.subtitle')}</h6>
+							<h3>{t('home.timetable.title')}</h3>
 							<img className="image-wrap" src={`${import.meta.env.BASE_URL}images/icon-main2.png`} alt="" />
 						</div>
 						<div className="d-none d-lg-block divider-60"></div>
@@ -38,7 +41,7 @@ const HomeTimetables = ({ schedules = [] }) => {
 								return (
 									<li key={day} className={`tab-selector nav-item ${isDefault ? 'active' : ''}`}>
 										<a className={`nav-link ${index === 0 ? 'first' : ''} ${index === 6 ? 'last' : ''}`} href={`#tab${index + 1}`} data-toggle="tab">
-											{day}
+											{VI_DAYS[index]}
 										</a>
 									</li>
 								);
@@ -48,7 +51,7 @@ const HomeTimetables = ({ schedules = [] }) => {
 						{/* Mobile Select */}
 						<select className="form-control hidden-md hidden-lg hidden-xl" id="tab_selector">
 							{DAYS_OF_WEEK.map((day, index) => (
-								<option key={day} value={index}>{day}</option>
+								<option key={day} value={index}>{VI_DAYS[index]}</option>
 							))}
 						</select>
 
@@ -72,7 +75,7 @@ const HomeTimetables = ({ schedules = [] }) => {
 															<Link to={`/program/${session.program.slug}`}>{session.program.title}</Link>
 														</h5>
 														<div className="btn-timetable">
-															<Link to={`/program/${session.program.slug}`} className="btn btn-outline-maincolor">About Class</Link>
+															<Link to={`/program/${session.program.slug}`} className="btn btn-outline-maincolor">{t('home.timetable.aboutClass')}</Link>
 														</div>
 														<div className="item-meta">
 															<i className="fa fa-calendar color-main2"></i>
@@ -94,7 +97,7 @@ const HomeTimetables = ({ schedules = [] }) => {
 												</div>
 											))
 										) : (
-											<p className="text-center pt-4 pb-4">No classes scheduled for {day}.</p>
+											<p className="text-center pt-4 pb-4">Không có lớp nào được lên lịch vào {VI_DAYS[index]}.</p>
 										)}
 									</div>
 								);

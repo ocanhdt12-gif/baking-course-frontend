@@ -1,6 +1,8 @@
 import React from 'react';
+import { useTranslation } from '../../i18n/LanguageContext';
 
 const AboutHistory = ({ history }) => {
+  const { t } = useTranslation();
   return (
     <section className="ls s-py-75 s-py-lg-130 about">
       <div className="container">
@@ -9,8 +11,8 @@ const AboutHistory = ({ history }) => {
           <div className="col-lg-6">
             <div className="item-content">
               <div className="section-heading">
-                <h6 className="small-text color-main2">About us</h6>
-                <h3>Muka History</h3>
+                <h6 className="small-text color-main2">{t('about.subtitle') || 'Về chúng tôi'}</h6>
+                <h3>{t('about.heading') || 'Lịch sử Muka'}</h3>
               </div>
             </div>
             {history.historyParagraphs.map((p, i) => (

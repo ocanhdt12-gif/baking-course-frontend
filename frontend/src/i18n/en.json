@@ -1,0 +1,386 @@
+{
+  "header": {
+    "home": "Homepage",
+    "about": "About Us",
+    "programs": "Programs",
+    "instructors": "Instructors",
+    "recipes": "Recipes",
+    "contacts": "Contacts",
+    "cta": "Visit Workshop",
+    "langToggle": "Language"
+  },
+  "footer": {
+    "discountTitle": "Do You Want to Get a 30% Discount?",
+    "discountSub": "Fill in the registration form for the course now and get a discount",
+    "discountCta": "fill out the form now",
+    "recentPosts": "Recent Posts",
+    "subscribe": "Subscribe",
+    "emailPlaceholder": "Enter Email address",
+    "copyright": "© Copyright {year} All Rights Reserved"
+  },
+  "home": {
+    "loading": "Loading Bakery Data...",
+    "slider": {
+      "enrollNow": "enroll now",
+      "ourFeedback": "our feedback"
+    },
+    "classes": {
+      "subtitle": "Round the Globe",
+      "title": "Our Cooking Classes"
+    },
+    "about": {
+      "watch": "Watch",
+      "video": "Video",
+      "subtitle": "our achievements",
+      "title": "Hello, Welcome to Muka!"
+    },
+    "timetable": {
+      "subtitle": "updated schedule",
+      "title": "Timetable of Classes",
+      "aboutClass": "About Class"
+    },
+    "faq": {
+      "subtitle": "Round the Globe",
+      "title": "FAQ / Our Location"
+    },
+    "chiefs": {
+      "subtitle": "Our team of professionals",
+      "title": "Best Chefs of America",
+      "viewProfile": "view profile"
+    },
+    "contacts": {
+      "subtitle": "please register now!",
+      "title": "Our Form for Enrollment"
+    },
+    "blog": {
+      "subtitle": "Latest news Muka",
+      "title": "Our Fresh Blog Posts",
+      "allCategories": "All Categories"
+    }
+  },
+  "about": {
+    "title": "About Us",
+    "subtitle": "About us",
+    "heading": "Muka History",
+    "video": {
+      "subtitle": "our achievements",
+      "title": "Hello, Welcome to Muka!"
+    },
+    "historyTitle": "Muka History",
+    "achievementsSubtitle": "our achievements",
+    "welcomeTitle": "Hello, Welcome to Muka!"
+  },
+  "auth": {
+    "checking": "Checking session...",
+    "loginTitle": "Login to your account",
+    "login": "Login",
+    "registerTitle": "Create a new account",
+    "register": "Register Now"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "mainLocation": "MAIN LOCATION",
+    "formTitle": "Contact Form",
+    "infoTitle": "Contact Info",
+    "hours": "Weekdays: 9 am - 7 pm",
+    "sendMessage": "Send Message",
+    "fullName": "Full Name",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "subject": "Subject",
+    "message": "Message",
+    "messagePlaceholder": "Your Message...",
+    "success": "Your message has been sent successfully. We will get back to you soon!"
+  },
+  "common": {
+    "optional": "Optional",
+    "sending": "Sending...",
+    "sendNow": "Send Now"
+  },
+  "form": {
+    "fullName": "Full Name",
+    "email": "Email address",
+    "password": "Password",
+    "phone": "Phone",
+    "subject": "Subject",
+    "message": "Message",
+    "optional": "(Optional)",
+    "cookingClass": "Cooking Class",
+    "loadingClasses": "Loading classes...",
+    "submit": "Submit",
+    "selectOption": "-- Select an option --"
+  },
+  "chiefs": {
+    "loading": "Loading Instructors...",
+    "title": "Our Chefs",
+    "viewClasses": "View Classes"
+  },
+  "programType": {
+    "videoCourse": "Video Course",
+    "liveClass": "Live Class",
+    "videoBadge": "🎬 Video — Watch Anytime",
+    "liveBadge": "👨‍🍳 Live — Scheduled Class",
+    "buyVideo": "BUY COURSE",
+    "enrollLive": "ENROLL IN CLASS",
+    "selectRequired": "Please select a class schedule before enrolling."
+  },
+  "chiefDetail": {
+    "loading": "Loading Instructor Profile...",
+    "notFound": "Instructor Not Found.",
+    "tabBio": "Biography",
+    "tabSkills": "Skills",
+    "tabMessage": "Send Message",
+    "viewClasses": "View My Classes",
+    "skillsEmpty": "Skill details will be updated soon.",
+    "formerStudent": "former student"
+  },
+  "program": {
+    "loading": "Loading Programs...",
+    "empty": "No programs found for this instructor."
+  },
+  "programDetail": {
+    "title": "Program Detail",
+    "loading": "Loading Program Details...",
+    "notFound": "Program not found.",
+    "owned": "You Own This Course",
+    "continuePay": "Continue Payment",
+    "buy": "Buy This Course",
+    "enrollFree": "Enroll Now — Free",
+    "willLearn": "You Will Learn:",
+    "classIncludes": "Class Includes:",
+    "curriculum": "Curriculum Overview",
+    "lockedContent": "Purchase this course to view detailed content",
+    "search": "Search On Website",
+    "searchDesc": "Find more exciting news and offers",
+    "searchPlaceholder": "Type Keyword Here...",
+    "getCourse": "Get This Course",
+    "courseOwned": "Course Owned",
+    "joinStudents": "Join {count} students who have already registered for this amazing experience.",
+    "selectCohort": "Select Cohort/Session:",
+    "instructor": "Your Instructor",
+    "viewProfile": "View Profile",
+    "learningGoalsEmpty": "Learning goals will be updated soon.",
+    "classIncludesEmpty": "Included activities will be updated soon.",
+    "curriculumEmpty": "Curriculum will be updated soon.",
+    "rejectedMsg": "Your previous payment was rejected.",
+    "tryAgain": "Try again"
+  },
+  "premium": {
+    "badge": "Premium Content",
+    "subtitle": "Exclusive content for enrolled students",
+    "tabs": {
+      "videos": "Video Lessons",
+      "resources": "Resources",
+      "guides": "Guide"
+    },
+    "lessonNum": "Lesson {num}",
+    "lessonFallback": "Lesson {num}",
+    "downloadHint": "Click to download",
+    "lock": {
+      "previewVideos": "Video Lessons (3 lessons)",
+      "previewResources": "PDF Resources & Recipes",
+      "previewGuides": "Step-by-Step Detailed Guide",
+      "title": "Premium Content",
+      "description": "Unlock video lessons, PDF resources and detailed guides when you enroll in this course.",
+      "unlock": "Unlock — {price}"
+    }
+  },
+  "checkout": {
+    "loading": "Loading Checkout...",
+    "notFound": "Program Not Found.",
+    "steps": {
+      "summary": "Order Summary",
+      "method": "Payment Method",
+      "payment": "Payment",
+      "status": "Status"
+    },
+    "orderSummary": "Order Summary",
+    "course": "Course",
+    "price": "Price",
+    "total": "Total",
+    "proceedToPayment": "Proceed to Payment",
+    "cancelOrder": "Cancel Order",
+    "selectMethod": "Select Payment Method",
+    "vnpay": {
+      "title": "Pay with VNPay",
+      "description": "Secure online payment via VNPay gateway. Supports ATM cards, credit cards, and QR Pay.",
+      "badge": "Recommended",
+      "processing": "Redirecting to VNPay..."
+    },
+    "manual": {
+      "title": "Bank Transfer",
+      "description": "Transfer directly to our bank account. Order will be confirmed after admin verification."
+    },
+    "continueWith": "Continue with {method}",
+    "backToMethods": "← Back to methods",
+    "transfer": {
+      "title": "Bank Transfer Details",
+      "bankName": "Bank Name",
+      "accountNumber": "Account Number",
+      "accountHolder": "Account Holder",
+      "amount": "Transfer Amount",
+      "memo": "Transfer Content (Memo)",
+      "copyMemo": "Copy",
+      "copied": "Copied!",
+      "important": "Important",
+      "memoWarning": "Please include the exact memo content above when making your transfer. This helps us identify your payment quickly.",
+      "proofTitle": "Upload Payment Proof",
+      "proofLabel": "Proof Screenshot",
+      "proofUpload": "Upload Image",
+      "proofUploading": "Uploading...",
+      "transactionRef": "Transaction Reference (Optional)",
+      "transactionRefPlaceholder": "e.g., Bank transaction ID",
+      "submitProof": "Submit Payment Proof",
+      "submitting": "Submitting..."
+    },
+    "status": {
+      "title": "Order Status",
+      "orderCode": "Order Code",
+      "currentStatus": "Current Status",
+      "refreshStatus": "Refresh Status",
+      "awaitingMsg": "Your payment proof has been submitted. Please wait for admin confirmation.",
+      "confirmedMsg": "Your payment has been confirmed! You can now access premium content.",
+      "rejectedMsg": "Your payment was rejected. Please re-upload correct proof.",
+      "viewCourse": "View Course",
+      "reupload": "Re-upload Proof"
+    },
+    "toast": {
+      "orderCreated": "Order created! Please select payment method.",
+      "orderCreateFailed": "Failed to create order.",
+      "vnpayFailed": "Failed to create VNPay payment. Please try manual transfer.",
+      "proofSubmitted": "Payment proof submitted! Awaiting admin confirmation.",
+      "proofFailed": "Failed to submit proof.",
+      "orderCancelled": "Order cancelled.",
+      "cancelFailed": "Failed to cancel order.",
+      "paymentConfirmed": "🎉 Payment confirmed! You can now access premium content.",
+      "paymentRejected": "Payment was rejected. You can re-upload proof."
+    }
+  },
+  "payment": {
+    "success": {
+      "title": "🎉 Payment Successful!",
+      "courseActivated": "Course {title} has been activated.",
+      "accessNow": "You can access premium content now.",
+      "viewCourse": "View Course"
+    },
+    "pending": {
+      "title": "Confirming Payment...",
+      "processing": "The system is processing your transaction. Please wait a moment.",
+      "autoCheck": "Auto-checking... ({current}/{max})",
+      "timeoutMsg": "If you have paid successfully, the system will confirm within a few minutes.",
+      "checkAccount": "Please check again at {link} or contact support.",
+      "myAccount": "My Account",
+      "backToCourse": "Back to Course"
+    },
+    "cancelled": {
+      "title": "Payment Cancelled",
+      "description": "The transaction was cancelled. Your order is still pending — you can try again anytime.",
+      "retry": "Retry",
+      "goBack": "Go Back"
+    },
+    "failed": {
+      "title": "Payment Failed",
+      "description": "The transaction was unsuccessful. Please try again or choose a different payment method.",
+      "retry": "Retry",
+      "goBack": "Go Back"
+    },
+    "notFound": {
+      "title": "Order Not Found",
+      "description": "No transaction information was found.",
+      "viewCourses": "View Courses"
+    },
+    "pendingOrder": {
+      "title": "Order Pending",
+      "description": "Your order is awaiting payment.",
+      "continuePay": "Continue Payment"
+    },
+    "orderInfo": {
+      "code": "Order Code",
+      "amount": "Amount",
+      "paidAt": "Paid at"
+    }
+  },
+  "userDash": {
+    "title": "My Account",
+    "breadcrumb": "My Account",
+    "student": "Student",
+    "admin": "Admin",
+    "memberSince": "Member since {date}",
+    "logout": "Logout",
+    "stats": {
+      "coursesPurchased": "Courses Purchased",
+      "totalOrders": "Total Orders",
+      "totalSpent": "Total Spent",
+      "enrollments": "Enrollments"
+    },
+    "tabs": {
+      "courses": "My Courses",
+      "orders": "Orders"
+    },
+    "courses": {
+      "empty": "No courses yet",
+      "emptyDesc": "You haven't purchased any courses yet. Explore our exciting courses!",
+      "explore": "Explore Courses",
+      "purchased": "Purchased",
+      "studyNow": "Study Now",
+      "vnpay": "💳 VNPay",
+      "bankTransfer": "🏦 Bank Transfer"
+    },
+    "orders": {
+      "empty": "No orders yet",
+      "emptyDesc": "Your orders will appear here after payment.",
+      "viewCourses": "View Courses"
+    }
+  },
+  "receipt": {
+    "loading": "Loading Posts...",
+    "title": "Recipes",
+    "topPosts": "Top Posts"
+  },
+  "postDetail": {
+    "loading": "Loading Article...",
+    "notFound": "Post Not Found.",
+    "prev": "Prev",
+    "next": "Next",
+    "chefWriter": "Chef & Writer",
+    "relatedPosts": "Related Posts"
+  },
+  "notFound": {
+    "title": "Oops, page not found!",
+    "code": "404",
+    "description": "It looks like nothing was found at this location. Maybe try a search or navigate back to the homepage?",
+    "backHome": "back to Home"
+  },
+  "common": {
+    "viewMore": "view more",
+    "readMore": "Read more",
+    "loading": "Loading...",
+    "free": "Free",
+    "postedOn": "Posted on",
+    "categories": "Categories",
+    "tags": "Tags",
+    "allNews": "All news",
+    "postsNavigation": "Posts navigation",
+    "prevPage": "Previous page",
+    "nextPage": "Next page",
+    "page": "Page",
+    "authenticating": "Authenticating..."
+  },
+  "status": {
+    "pending": "Pending Payment",
+    "awaitingConfirm": "Awaiting Confirmation",
+    "confirmed": "Confirmed",
+    "rejected": "Rejected",
+    "cancelled": "Cancelled",
+    "unknown": "Unknown"
+  },
+  "validation": {
+    "required": "This field is required.",
+    "email": "Invalid email address.",
+    "phone": "Invalid phone number (e.g., 0912345678).",
+    "url": "Invalid URL (must start with http/https).",
+    "minLength": "Minimum {min} characters.",
+    "maxLength": "Maximum {max} characters.",
+    "endDateAfterStart": "End date must be after start date."
+  }
+}

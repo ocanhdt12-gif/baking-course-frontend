@@ -3,19 +3,21 @@ import PageTitle from '../components/Shared/PageTitle';
 import ContactForm from '../components/Contact/ContactForm';
 import ContactInfo from '../components/Contact/ContactInfo';
 import { siteConfig } from '../config/siteConfig';
+import { useTranslation } from '../i18n/LanguageContext';
 
 const Contact = () => {
+  const { t } = useTranslation();
   return (
     <>
       <PageTitle 
-        title="Contact Us"
-        breadcrumbs={[{ label: 'Home', link: '/' }, { label: 'Contact' }]}
+        title={t('contact.title') || 'Liên Hệ'}
+        breadcrumbs={[{ label: t('header.home'), link: '/' }, { label: t('contact.title') || 'Liên Hệ' }]}
       />
 
 			<section className="ls ms page_map" data-draggable="true" data-scrollwheel="true">
 				<div className="marker">
 					<div className="marker-address">{siteConfig.contact.address}</div>
-					<div className="marker-title">Main Location</div>
+					<div className="marker-title">{t('contact.mainLocation') || 'ĐỊA ĐIỂM CHÍNH'}</div>
 					<div className="marker-description">
 						<img src={`${import.meta.env.BASE_URL}images/logo.png`} alt=""/>
 						<ul className="list-unstyled">

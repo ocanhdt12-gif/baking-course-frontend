@@ -24,6 +24,19 @@ enum EnrollmentStatus {
   CANCELLED
 }
 
+enum OrderStatus {
+  PENDING
+  AWAITING_CONFIRM
+  CONFIRMED
+  REJECTED
+  CANCELLED
+}
+
+enum ProgramType {
+  VIDEO_COURSE
+  LIVE_CLASS
+}
+
 model User {
   id        String   @id @default(uuid())
   email     String   @unique
@@ -34,14 +47,15 @@ model User {
   updatedAt   DateTime     @updatedAt
   posts       Post[]
   enrollments Enrollment[]
+  orders      Order[]
 }
-
 model Program {
   id          String   @id @default(uuid())
   slug        String   @unique
   title       String
+  programType ProgramType @default(LIVE_CLASS)
   description String?
-  price       String?
+  price       Int?
   reviews     Int      @default(0)
   students    Int      @default(0)
   thumbnail     String?
@@ -50,6 +64,7 @@ model Program {
   learningGoals Json?
   classIncludes Json?
   curriculum    Json?
+  premiumContent Json?
   isFeatured    Boolean  @default(false)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
@@ -57,6 +72,8 @@ model Program {
   chiefId       String?
   chief         Chief?   @relation(fields: [chiefId], references: [id])
   classSessions ClassSession[]
+  orders        Order[]
+  enrollments   Enrollment[]
 }
 
 model ClassSession {
@@ -123,8 +140,9 @@ model Testimonial {
 
 model Enrollment {
   id             String           @id @default(uuid())
-  classSessionId String
+  classSessionId String?
   userId         String?
+  programId      String
   fullName       String
   email          String
   phone          String?
@@ -132,8 +150,9 @@ model Enrollment {
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
   
-  classSession   ClassSession     @relation(fields: [classSessionId], references: [id])
-  user      User?            @relation(fields: [userId], references: [id])
+  classSession   ClassSession?    @relation(fields: [classSessionId], references: [id])
+  user           User?            @relation(fields: [userId], references: [id])
+  program        Program          @relation(fields: [programId], references: [id])
 }
 
 model Contact {
@@ -145,4 +164,53 @@ model Contact {
   createdAt DateTime @default(now())
 }
 
+model Order {
+  id              String      @id @default(uuid())
+  orderCode       String      @unique
+  userId          String
+  programId       String
+  classSessionId  String?
 
+  amount          Int
+  transferContent String?
+
+  proofImage      String?
+  transactionRef  String?
+
+  // Payment gateway fields (VNPay integration)
+  paymentMethod          String?   // "MANUAL_BANK" | "VNPAY"
+  paymentProvider        String?   // "VNPAY"
+  paymentUrl             String?   // VNPay redirect URL (debug/audit)
+  paymentInitiatedAt     DateTime?
+  paymentExpiresAt       DateTime?
+  gatewayTxnRef          String?   // maps to vnp_TxnRef (unique per payment attempt)
+  gatewayTransactionNo   String?   // VNPay transaction number
+  gatewayResponseCode    String?   // vnp_ResponseCode
+  gatewayTransactionStatus String? // vnp_TransactionStatus
+  paidAt                 DateTime?
+  rawGatewayPayload      Json?     // verified callback payload
+
+  status          OrderStatus @default(PENDING)
+  adminNote       String?
+  confirmedAt     DateTime?
+  paidViaWebhook  Boolean     @default(false)
+
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  user            User        @relation(fields: [userId], references: [id])
+  program         Program     @relation(fields: [programId], references: [id])
+}
+
+model PaymentConfig {
+  id              String   @id @default(uuid())
+  bankName        String
+  accountNumber   String
+  accountHolder   String
+  qrImage         String?
+  transferNote    String?
+  webhookSecret   String?
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}

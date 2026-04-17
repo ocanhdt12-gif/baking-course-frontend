@@ -5,10 +5,12 @@ import ProgramCard from '../components/Shared/ProgramCard';
 import Pagination from '../components/Shared/Pagination';
 import { useSearchParams } from 'react-router-dom';
 import { getPrograms } from '../services/api';
+import { useTranslation } from '../i18n/LanguageContext';
 
 const ITEMS_PER_PAGE = 6;
 
 const Program = () => {
+  const { t } = useTranslation();
   const [programs, setPrograms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
@@ -39,7 +41,7 @@ const Program = () => {
   if (loading) {
     return (
       <div className="text-center" style={{ padding: '150px 0' }}>
-        <h2>Loading Programs...</h2>
+        <h2>{t('program.loading') || 'Đang tải danh sách khóa học...'}</h2>
         <div className="spinner-border" role="status"></div>
       </div>
     );
@@ -51,8 +53,8 @@ const Program = () => {
   return (
     <>
       <PageTitle 
-        title="Programs" 
-        breadcrumbs={[{ label: 'Home', link: '/' }, { label: 'Programs' }]} 
+        title={t('program.title') || 'Tham Khảo Khóa Học'} 
+        breadcrumbs={[{ label: t('header.home'), link: '/' }, { label: t('header.programs') || 'Khóa Học' }]} 
       />
 
 			<section className="ls s-pt-90 s-pb-40 s-py-lg-100 c-gutter-30 c-mb-50 c-mb-md-30 program">
@@ -64,7 +66,7 @@ const Program = () => {
             
             {paginatedPrograms.length === 0 && !loading && (
               <div className="col-12 text-center">
-                <h4>No programs found for this instructor.</h4>
+                <h4>{t('program.notFound') || 'Không tìm thấy khóa học nào.'}</h4>
               </div>
             )}
 

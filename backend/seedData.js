@@ -92,7 +92,7 @@ async function main() {
         <p>Whether you're an ambitious home baker or an aspiring professional, our hands-on approach guarantees you will master the temperamental nature of French desserts under the personal guidance of elite chefs.</p>
         <blockquote>"The foundation of all great desserts lies in French technique."</blockquote>
       `,
-      price: '$450.00',
+      price: 45000,
       reviews: 124,
       students: 856,
       thumbnail: 'images/service/01.jpg',
@@ -128,7 +128,7 @@ async function main() {
         </ul>
         <p>Perfect for intermediate bakers looking to transition from commercial yeast to true artisanal methods.</p>
       `,
-      price: '$299.00',
+      price: 29900,
       reviews: 89,
       students: 412,
       thumbnail: 'images/service/02.jpg',
@@ -166,7 +166,7 @@ async function main() {
             </div>
         </div>
       `,
-      price: '$350.00',
+      price: 35000,
       reviews: 215,
       students: 980,
       thumbnail: 'images/service/03.jpg',

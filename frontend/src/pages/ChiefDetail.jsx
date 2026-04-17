@@ -5,8 +5,10 @@ import PageTitle from '../components/Shared/PageTitle';
 import { getChiefById, submitContact } from '../services/api';
 import { ROUTES } from '../constants/routes';
 import { toast } from 'react-toastify';
+import { useTranslation } from '../i18n/LanguageContext';
 
 const ChiefDetail = () => {
+  const { t } = useTranslation();
   const { id } = useParams();
   const [chief, setChief] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -40,13 +42,13 @@ const ChiefDetail = () => {
       await submitContact({
         name: formData.name,
         email: formData.email,
-        subject: `Regarding Instructor: ${chief.name}`,
+        subject: `${t('chiefDetail.emailSubject') || 'Regarding Instructor:'} ${chief.name}`,
         message: formData.message
       });
-      toast.success("Message sent successfully!");
+      toast.success(t('chiefDetail.successMessage') || "Message sent successfully!");
       setFormData({ name: '', email: '', message: '' });
     } catch {
-      toast.error("Failed to send message. Please try again later.");
+      toast.error(t('chiefDetail.errorMessage') || "Failed to send message. Please try again later.");
     }
     setSubmitting(false);
   };
@@ -56,7 +58,7 @@ const ChiefDetail = () => {
   if (loading) {
     return (
       <div className="text-center" style={{ padding: '150px 0' }}>
-        <h2>Loading Instructor Profile...</h2>
+        <h2>{t('chiefDetail.loading') || 'Loading Instructor Profile...'}</h2>
         <div className="spinner-border" role="status"></div>
       </div>
     );
@@ -65,7 +67,7 @@ const ChiefDetail = () => {
   if (!chief) {
     return (
       <div className="text-center" style={{ padding: '150px 0' }}>
-        <h2>Instructor Not Found.</h2>
+        <h2>{t('chiefDetail.notFound') || 'Instructor Not Found.'}</h2>
       </div>
     );
   }
@@ -76,8 +78,12 @@ const ChiefDetail = () => {
   return (
     <>
       <PageTitle 
-        title="Instructor Profile"
-        breadcrumbs={[{ label: 'Home', link: '/' }, { label: 'Instructors', link: ROUTES.CHIEFS }, { label: chief.name }]}
+        title={t('chiefDetail.pageTitle') || 'Thông Tin Giảng Viên'}
+        breadcrumbs={[
+          { label: t('header.home'), link: '/' }, 
+          { label: t('header.instructors') || 'Giảng Viên', link: ROUTES.CHIEFS }, 
+          { label: chief.name }
+        ]}
       />
       
       <section className="ls s-pt-75 s-pb-10 s-pt-lg-100 s-pb-lg-50 c-mb-30 chief-profile">
@@ -108,7 +114,7 @@ const ChiefDetail = () => {
                   {chief.bio && <p style={{ whiteSpace: 'pre-wrap' }}>{chief.bio}</p>}
                   {!chief.bio && (
                     <p>
-                      {chief.name} is one of our most distinguished instructors, specializing as a {chief.role}. With years of hands-on experience in the culinary arts, they bring a wealth of expertise and passion to every class.
+                      {chief.name} {t('chiefDetail.defaultBio') || 'là một chuyên gia với nhiều năm kinh nghiệm. Với kiến thức sâu rộng, giảng viên luôn mang đến niềm đam mê cho mỗi khóa học.'}
                     </p>
                   )}
 
@@ -121,13 +127,13 @@ const ChiefDetail = () => {
                   {/* tabs start */}
                   <ul className="nav nav-tabs mt-40" role="tablist">
                     <li className="nav-item">
-                      <a className="nav-link active" id="tab01" data-toggle="tab" href="#tab01_pane" role="tab" aria-controls="tab01_pane" aria-expanded="true">Biography</a>
+                      <a className="nav-link active" id="tab01" data-toggle="tab" href="#tab01_pane" role="tab" aria-controls="tab01_pane" aria-expanded="true">{t('chiefDetail.tabs.biography') || 'Tiểu sử'}</a>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link" id="tab02" data-toggle="tab" href="#tab02_pane" role="tab" aria-controls="tab02_pane">Skills</a>
+                      <a className="nav-link" id="tab02" data-toggle="tab" href="#tab02_pane" role="tab" aria-controls="tab02_pane">{t('chiefDetail.tabs.skills') || 'Kỹ năng'}</a>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link" id="tab03" data-toggle="tab" href="#tab03_pane" role="tab" aria-controls="tab03_pane">Send Message</a>
+                      <a className="nav-link" id="tab03" data-toggle="tab" href="#tab03_pane" role="tab" aria-controls="tab03_pane">{t('chiefDetail.tabs.sendMessage') || 'Gửi tin nhắn'}</a>
                     </li>
                   </ul>
 
@@ -136,20 +142,20 @@ const ChiefDetail = () => {
                       {chief.biography ? (
                         <div dangerouslySetInnerHTML={{ __html: chief.biography }} />
                       ) : (
-                        <p>Detailed biography for {chief.name} will be updated soon.</p>
+                        <p>{t('chiefDetail.biographyPlaceholder') || `Thông tin tiểu sử của ${chief.name} sẽ sớm được cập nhật.`}</p>
                       )}
                       
                       <div className="mt-5">
-                        <Link to={`${ROUTES.PROGRAM}?chiefId=${chief.id}`} className="btn btn-maincolor">View My Classes</Link>
+                        <Link to={`${ROUTES.PROGRAM}?chiefId=${chief.id}`} className="btn btn-maincolor">{t('chiefDetail.viewClasses') || 'Xem Khóa Học'}</Link>
                       </div>
                     </div>
 
                     <div className="tab-pane fade" id="tab02_pane" role="tabpanel" aria-labelledby="tab02">
                       <p>
-                        Dutem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit. Praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+                        {t('chiefDetail.skillsIntro') || 'Giảng viên đã có chứng chỉ chuyên môn và nhiều năm trực tiếp đứng lớp truyền đạt kĩ thuật làm bánh chuẩn xác nhất.'}
                       </p>
                       {(!chief.parsedSkills || chief.parsedSkills.length === 0) ? (
-                        <p>Skill details will be updated soon.</p>
+                        <p>{t('chiefDetail.skillsPlaceholder') || 'Kỹ năng sẽ được cập nhật.'}</p>
                       ) : (
                         chief.parsedSkills.map((sk, index) => (
                           <React.Fragment key={index}>
@@ -162,28 +168,44 @@ const ChiefDetail = () => {
                           </React.Fragment>
                         ))
                       )}
-                      <p>
-                        <br /> Ut wisi enim ad minim veniaquis nostrud exetation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Dutem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit.
-                      </p>
                     </div>
 
                     <div className="tab-pane fade" id="tab03_pane" role="tabpanel" aria-labelledby="tab03">
-                      <form className="contact-form" onSubmit={handleContactSubmit}>
-                        <p className="contact-form-name">
-                          <input type="text" aria-required="true" size="30" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="form-control" placeholder="Full Name" required />
-                        </p>
-                        <p className="contact-form-email">
-                          <input type="email" aria-required="true" size="30" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="form-control" placeholder="Email Address" required />
-                        </p>
-                        <p className="contact-form-message">
-                          <textarea aria-required="true" rows="6" cols="45" value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} className="form-control" placeholder="Message..." required></textarea>
-                        </p>
-                        <div className="divider-20"></div>
-                        <p className="contact-form-submit">
-                          <button type="submit" className="btn btn-maincolor" disabled={submitting}>
-                            {submitting ? 'Sending...' : 'Send Message'}
-                          </button>
-                        </p>
+                      <form className="c-mb-20 c-gutter-20" onSubmit={handleContactSubmit}>
+                        <div className="row">
+                          <div className="col-12">
+                            <h5 className="mb-4">{t('chiefDetail.contactFormTitle') || 'Bạn muốn hỏi thêm thông tin? Gửi tin nhắn ngay.'}</h5>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-md-6">
+                            <div className="form-group has-placeholder">
+                              <label htmlFor="name">{t('form.fullName') || 'Họ và tên'} <span className="required">*</span></label>
+                              <input type="text" className="form-control" placeholder={t('form.fullName') || 'Họ và tên'} value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} required/>
+                            </div>
+                          </div>
+                          <div className="col-md-6">
+                            <div className="form-group has-placeholder">
+                              <label htmlFor="email">{t('form.email') || 'Email'} <span className="required">*</span></label>
+                              <input type="email" className="form-control" placeholder={t('form.email') || 'Địa chỉ Email'} value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} required/>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-12">
+                            <div className="form-group has-placeholder">
+                              <label htmlFor="message">{t('form.message') || 'Nhắn nhủ'}</label>
+                              <textarea rows="4" className="form-control" placeholder={t('form.messagePlaceholder') || 'Nội dung...'} value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} required></textarea>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="row mt-4">
+                          <div className="col-12">
+                            <button type="submit" className="btn btn-maincolor" disabled={submitting}>
+                              {submitting ? (t('common.sending') || 'Đang gửi...') : (t('common.sendNow') || 'Gửi ngay')}
+                            </button>
+                          </div>
+                        </div>
                       </form>
                     </div>
                   </div>

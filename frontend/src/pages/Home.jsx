@@ -10,8 +10,10 @@ import HomeChiefs from '../components/Home/HomeChiefs';
 import HomeContacts from '../components/Home/HomeContacts';
 import HomeBlog from '../components/Home/HomeBlog';
 import { getUpcomingPrograms, getPrograms, getChiefs, getPosts, getTestimonials, getTimetables } from '../services/api';
+import { useTranslation } from '../i18n/LanguageContext';
 
 const Home = () => {
+  const { t } = useTranslation();
   const [data, setData] = useState({
     upcomingSlides: [],
     programs: [],
@@ -58,7 +60,7 @@ const Home = () => {
   if (loading) {
     return (
       <div className="text-center" style={{ padding: '150px 0' }}>
-        <h2>Loading Bakery Data...</h2>
+        <h2>{t('home.loading')}</h2>
         <div className="spinner-border" role="status"></div>
       </div>
     );

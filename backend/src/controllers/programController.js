@@ -52,6 +52,8 @@ exports.getAllPrograms = async (req, res) => {
 exports.getProgramByIdOrSlug = async (req, res) => {
   try {
     const { identifier } = req.params;
+    const jwt = require('jsonwebtoken');
+    
     // Try to find by slug first
     let program = await prisma.program.findUnique({ 
       where: { slug: identifier },
@@ -67,15 +69,58 @@ exports.getProgramByIdOrSlug = async (req, res) => {
     }
 
     if (!program) return res.status(404).json({ error: 'Program not found' });
-    res.json(program);
+
+    // Content gating: check if user has purchased this program
+    let hasPurchased = false;
+    let orderStatus = null;
+    
+    // Try to extract user from token (optional — don't require auth)
+    const token = req.header('x-auth-token') || 
+      (req.header('Authorization')?.startsWith('Bearer ') ? req.header('Authorization').split(' ')[1] : null);
+    
+    if (token) {
+      try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret_123');
+        const userId = decoded.user?.id;
+        
+        if (userId) {
+          const order = await prisma.order.findFirst({
+            where: { userId, programId: program.id },
+            orderBy: { createdAt: 'desc' }
+          });
+          
+          if (order) {
+            orderStatus = order.status;
+            hasPurchased = order.status === 'CONFIRMED';
+          }
+        }
+      } catch (e) {
+        // Invalid token — just treat as guest
+      }
+    }
+
+    // Build response
+    const response = {
+      ...program,
+      hasPurchased,
+      orderStatus, // null, PENDING, AWAITING_CONFIRM, CONFIRMED, REJECTED, CANCELLED
+    };
+
+    // Strip premiumContent if not purchased
+    if (!hasPurchased) {
+      response.premiumContent = null;
+    }
+
+    res.json(response);
   } catch (error) {
+    console.error('getProgramByIdOrSlug error:', error);
     res.status(500).json({ error: 'Failed to fetch program details' });
   }
 };
 
 exports.createProgram = async (req, res) => {
   try {
-    const { title, description, price, thumbnail, slug, authorName, authorImage, learningGoals, classIncludes, curriculum, classSessions, chiefId } = req.body;
+    const { title, description, price, thumbnail, slug, authorName, authorImage, learningGoals, classIncludes, curriculum, classSessions, chiefId, premiumContent, programType } = req.body;
     const finalSlug = slug || generateSlug(title);
     
     // Create nested classSessions
@@ -95,14 +140,16 @@ exports.createProgram = async (req, res) => {
         title,
         slug: finalSlug,
         description,
-        price,
+        price: price != null ? parseInt(price) : null,
         thumbnail,
         chiefId: chiefId || null,
+        programType: programType || 'LIVE_CLASS',
         authorName,
         authorImage,
         learningGoals: learningGoals || null,
         classIncludes: classIncludes || null,
         curriculum: curriculum || null,
+        premiumContent: premiumContent || null,
         isFeatured: req.body.isFeatured || false,
         classSessions: nestedSessions
       },
@@ -119,7 +166,7 @@ exports.createProgram = async (req, res) => {
 exports.updateProgram = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, description, price, thumbnail, slug, authorName, authorImage, learningGoals, classIncludes, curriculum, classSessions, chiefId } = req.body;
+    const { title, description, price, thumbnail, slug, authorName, authorImage, learningGoals, classIncludes, curriculum, classSessions, chiefId, premiumContent, programType } = req.body;
     
     const finalSlug = slug || (title ? generateSlug(title) : undefined);
 
@@ -129,7 +176,7 @@ exports.updateProgram = async (req, res) => {
         title,
         ...(finalSlug && { slug: finalSlug }),
         description,
-        price,
+        price: price != null ? parseInt(price) : undefined,
         thumbnail,
         chiefId: chiefId || null,
         authorName,
@@ -137,7 +184,9 @@ exports.updateProgram = async (req, res) => {
         ...(learningGoals !== undefined && { learningGoals }),
         ...(classIncludes !== undefined && { classIncludes }),
         ...(curriculum !== undefined && { curriculum }),
-        ...(req.body.isFeatured !== undefined && { isFeatured: req.body.isFeatured })
+        ...(premiumContent !== undefined && { premiumContent }),
+        ...(req.body.isFeatured !== undefined && { isFeatured: req.body.isFeatured }),
+        ...(programType !== undefined && { programType })
       },
       include: {
         classSessions: true

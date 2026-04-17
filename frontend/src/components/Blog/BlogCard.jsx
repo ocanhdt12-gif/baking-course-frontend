@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes';
+import { useTranslation } from '../../i18n/LanguageContext';
 
 const BlogCard = ({ post }) => {
+  const { t } = useTranslation();
   return (
     <article className="text-center text-md-left vertical-item content-padding post type-post status-publish format-standard has-post-thumbnail bordered">
       <div className="item-media post-thumbnail">
@@ -15,20 +17,20 @@ const BlogCard = ({ post }) => {
               <span className="screen-reader-text">Posted on</span>
               <Link to={ROUTES.POST_DETAIL(post.slug || 'sample-post')} rel="bookmark">
                 <i className="fa fa-calendar color-main2"></i>
-                <time dateTime={post.dateIso} className="entry-date published updated">{post.dateString}</time>
+                <time dateTime={post.dateIso || post.createdAt} className="entry-date published updated">{new Date(post.createdAt || post.dateIso || new Date()).toLocaleDateString('vi-VN')}</time>
               </Link>
             </span>
             <span className="category-links links-maincolor">
               <span className="screen-reader-text">Categories</span>
               <Link to={ROUTES.RECEIPT} rel="category tag">
                 <i className="fa fa-tags color-main2"></i>
-                {post.category || 'blog'}
+                {post.category || (t('receipt.title') || 'Cẩm Nang')}
               </Link>
             </span>
             <span className="author vcard">
               <Link className="url fn n" to={ROUTES.RECEIPT}>
                 <i className="fa fa-user color-main2"></i>
-                {post.authorName}
+                {post.author?.name || post.authorName || 'Admin'}
               </Link>
             </span>
           </span>
@@ -50,7 +52,7 @@ const BlogCard = ({ post }) => {
       </div>
       
       <div className="text-center blog-btn">
-        <Link to={ROUTES.POST_DETAIL(post.slug || 'sample-post')} className="btn btn-outline-maincolor2">Read more</Link>
+        <Link to={ROUTES.POST_DETAIL(post.slug || 'sample-post')} className="btn btn-outline-maincolor2">{t('common.readMore') || 'Đọc thêm'}</Link>
       </div>
     </article>
   );
