@@ -40,7 +40,7 @@ const AdminPrograms = () => {
     { label: 'Thumb', render: (row) => <img src={row.thumbnail} alt="" width="50" style={{borderRadius: '4px'}}/> },
     { label: 'Title', key: 'title' },
     { label: 'Price', render: (row) => formatPrice(row.price) },
-    { label: 'Author', key: 'authorName' },
+    { label: 'Author', render: (row) => row.authorName || row.chief?.name || 'Admin' },
     { label: 'Stats', render: (row) => {
       const studentCount = row.classSessions ? row.classSessions.reduce((acc, s) => acc + (s.enrollments?.length || 0), 0) : 0;
       return <small>{studentCount} stds / {row.reviews || 0} revs</small>;

@@ -72,11 +72,11 @@ const Footer = () => {
                 <ul className="list-unstyled">
                   {recentPosts.length > 0 ? recentPosts.map(post => (
                     <li key={post.slug} className="media">
-                      <Link className="media-image" to={`/blog/${post.slug}`}>
+                      <Link className="media-image" to={ROUTES.POST_DETAIL(post.slug)}>
                         <img src={post.thumbnail ? (post.thumbnail.startsWith('http') ? post.thumbnail : `${import.meta.env.BASE_URL}${post.thumbnail.replace(/^\//, '')}`) : `${import.meta.env.BASE_URL}images/gallery/09.jpg`} alt={post.title} />
                       </Link>
                       <div className="media-body">
-                        <p><Link to={`/blog/${post.slug}`}>{post.title}</Link></p>
+                        <p><Link to={ROUTES.POST_DETAIL(post.slug)}>{post.title}</Link></p>
                         <h6 className="item-meta"><i className="fa fa-calendar color-main"></i>{post.createdAt ? new Date(post.createdAt).toLocaleDateString() : 'N/A'}</h6>
                       </div>
                     </li>

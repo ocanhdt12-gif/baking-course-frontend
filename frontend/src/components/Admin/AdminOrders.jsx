@@ -166,7 +166,7 @@ const AdminOrders = () => {
       {/* Order Detail Modal */}
       {selectedOrder && (
         <div className="admin-modal-overlay" onClick={() => setSelectedOrder(null)}>
-          <div className="admin-modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '650px' }}>
+          <div className="admin-modal" onClick={e => e.stopPropagation()} style={{ maxWidth: '650px' }}>
             <div className="admin-modal-header">
               <h5>Order Details — {selectedOrder.orderCode}</h5>
               <button onClick={() => setSelectedOrder(null)} className="admin-modal-close">&times;</button>

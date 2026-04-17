@@ -42,8 +42,8 @@ const AdminPosts = () => {
     { label: 'Thumb', render: (row) => <img src={row.thumbnail} alt="" width="50" style={{borderRadius: '4px'}}/> },
     { label: 'Title', key: 'title' },
     { label: 'Category', render: (row) => <span className="badge badge-info bg-info">{row.category}</span> },
-    { label: 'Author', key: 'authorName' },
-    { label: 'Date', key: 'dateString' }
+    { label: 'Author', render: (row) => row.authorName || 'Admin' },
+    { label: 'Date', render: (row) => row.dateString || new Date(row.createdAt).toLocaleDateString() }
   ];
 
   return (

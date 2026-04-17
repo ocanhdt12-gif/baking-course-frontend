@@ -83,7 +83,7 @@ const AdminPostEditor = () => {
     <div className="admin-layout" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       
       {/* Top Navbar */}
-      <div className="admin-paper-header" style={{ position: 'sticky', top: 0, zIndex: 100, borderRadius: 0, padding: '15px 30px', backgroundColor: '#1e293b', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+      <div className="admin-paper-header" style={{ position: 'sticky', top: 0, zIndex: 100, borderRadius: 0, padding: '15px 30px', backgroundColor: 'var(--admin-paper-bg)', borderBottom: '1px solid var(--admin-border-light)', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
         <div className="d-flex align-items-center">
           <button className="btn btn-dark mr-3" onClick={() => navigate(ROUTES.ADMIN + "#posts")}>
             <i className="fa fa-arrow-left"></i> Back
@@ -192,7 +192,7 @@ const AdminPostEditor = () => {
               <div className="preview-container p-4" style={{ backgroundColor: '#fff', color: '#333', flexGrow: 1, overflowY: 'auto' }}>
                 {/* Simulated Blog Post View */}
                 {formData.thumbnail && (
-                  <img src={formData.thumbnail} alt="" style={{ width: '100%', height: '300px', objectFit: 'cover', borderRadius: '4px', marginBottom: '20px' }} />
+                  <img src={formData.thumbnail.startsWith('http') ? formData.thumbnail : `${import.meta.env.BASE_URL}${formData.thumbnail.replace(/^\//, '')}`} alt="" style={{ width: '100%', height: '300px', objectFit: 'cover', borderRadius: '4px', marginBottom: '20px' }} />
                 )}
                 
                 <div style={{ color: '#eb5e43', fontWeight: '600', textTransform: 'uppercase', fontSize: '12px', marginBottom: '10px' }}>
