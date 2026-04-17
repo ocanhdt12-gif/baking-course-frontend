@@ -16,9 +16,9 @@ const NotFound = () => {
             </header>
 
             <div className="page-content mt-5">
-              <p className="mb-4">{t('notFound.message') || 'It looks like nothing was found at this location. Maybe try a search or navigate back to the homepage?'}</p>
+              <p className="mb-4">{t('notFound.description') || 'It looks like nothing was found at this location. Maybe try a search or navigate back to the homepage?'}</p>
               <div>
-                <Link to="/" className="btn btn-maincolor2">{t('notFound.backToHome') || 'back to Home'}</Link>
+                <Link to="/" className="btn btn-maincolor2">{t('notFound.backHome') || 'back to Home'}</Link>
               </div>
             </div>
           </div>
