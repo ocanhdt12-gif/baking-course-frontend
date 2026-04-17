@@ -7,6 +7,7 @@ const Header = () => {
   const location = useLocation();
   const isHome = location.pathname === '/';
   const { t, language, setLanguage } = useTranslation();
+  const hasToken = !!localStorage.getItem('token');
 
   return (
     <div className={isHome ? 'header_absolute' : ''} key={isHome ? 'home-header' : 'inner-header'}>
@@ -47,7 +48,11 @@ const Header = () => {
             </div>
             <div className="col-xl-2 col-lg-3 text-left text-xl-right d-none d-lg-block">
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
-                <Link to={ROUTES.AUTH} className="btn btn-maincolor2">{t('header.cta')}</Link>
+                {hasToken ? (
+                  <Link to={ROUTES.MY_ACCOUNT} className="btn btn-maincolor2">{t('userDash.title') || 'Dashboard'}</Link>
+                ) : (
+                  <Link to={ROUTES.AUTH} className="btn btn-maincolor2">{t('header.cta')}</Link>
+                )}
               </span>
             </div>
           </div>
