@@ -152,66 +152,68 @@ const ProgramDetail = () => {
                 <h4>{program.title}</h4>
                 <div className="content-preview mt-4" dangerouslySetInnerHTML={{ __html: program.description?.replace(/\n/g, '<br/>') || t('common.noDescription') || 'Chưa có thông tin mô tả.' }} />
 
-                <div className="row c-mb-5 c-mb-lg-25 mt-4">
-                  <div className="col-md-6">
-                    <h5>{t('programDetail.willLearn')}</h5>
+                <div style={{ display: 'none' }}>
+                  <div className="row c-mb-5 c-mb-lg-25 mt-4">
+                    <div className="col-md-6">
+                      <h5>{t('programDetail.willLearn')}</h5>
+                      
+                      {program.learningGoals && program.learningGoals.map((g, i) => (
+                        <React.Fragment key={i}>
+                          <span className="small-text fs-14">{g.skill}</span>
+                          <div className="progress">
+                            <div className={`progress-bar ${i % 2 === 0 ? 'bg-maincolor' : 'bg-maincolor2'}`} role="progressbar" style={{ width: `${g.percent}%` }} aria-valuenow={g.percent} aria-valuemin="0" aria-valuemax="100">
+                              <span>{g.percent}%</span>
+                            </div>
+                          </div>
+                        </React.Fragment>
+                      ))}
+                      
+                      {(!program.learningGoals || program.learningGoals.length === 0) && (
+                        <p className="text-muted">{t('programDetail.learningGoalsEmpty')}</p>
+                      )}
+                    </div>
                     
-                    {program.learningGoals && program.learningGoals.map((g, i) => (
-                      <React.Fragment key={i}>
-                        <span className="small-text fs-14">{g.skill}</span>
-                        <div className="progress">
-                          <div className={`progress-bar ${i % 2 === 0 ? 'bg-maincolor' : 'bg-maincolor2'}`} role="progressbar" style={{ width: `${g.percent}%` }} aria-valuenow={g.percent} aria-valuemin="0" aria-valuemax="100">
-                            <span>{g.percent}%</span>
+                    <div className="col-md-6">
+                      <h5>{t('programDetail.classIncludes')}</h5>
+                      <ul className="list-styled">
+                        {program.classIncludes && program.classIncludes.map((item, i) => (
+                          <li key={i}>{item}</li>
+                        ))}
+                      </ul>
+                      {(!program.classIncludes || program.classIncludes.length === 0) && (
+                        <p className="text-muted">{t('programDetail.classIncludesEmpty')}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <h4 className="mt-5 mb-4">{t('programDetail.curriculum')}</h4>
+                  <div id="accordion01" role="tablist">
+                    {program.curriculum && program.curriculum.map((mod, i) => (
+                      <div className="card" key={i}>
+                        <div className="card-header" role="tab" id={`collapse${i}_header`}>
+                          <h5>
+                            <a data-toggle="collapse" href={`#collapse${i}`} aria-expanded={i === 0 ? "true" : "false"} aria-controls={`collapse${i}`} className={i === 0 ? "" : "collapsed"}>
+                              {mod.title}
+                            </a>
+                          </h5>
+                        </div>
+                        <div id={`collapse${i}`} className={`collapse ${i === 0 ? 'show' : ''}`} role="tabpanel" aria-labelledby={`collapse${i}_header`} data-parent="#accordion01">
+                          <div className="card-body">
+                            {hasPurchased ? (
+                              mod.content
+                            ) : (
+                              <div className="text-muted">
+                                <i className="fa fa-lock mr-1"></i> {t('programDetail.lockedContent')}
+                              </div>
+                            )}
                           </div>
                         </div>
-                      </React.Fragment>
+                      </div>
                     ))}
-                    
-                    {(!program.learningGoals || program.learningGoals.length === 0) && (
-                      <p className="text-muted">{t('programDetail.learningGoalsEmpty')}</p>
+                    {(!program.curriculum || program.curriculum.length === 0) && (
+                      <p className="text-muted">{t('programDetail.curriculumEmpty')}</p>
                     )}
                   </div>
-                  
-                  <div className="col-md-6">
-                    <h5>{t('programDetail.classIncludes')}</h5>
-                    <ul className="list-styled">
-                      {program.classIncludes && program.classIncludes.map((item, i) => (
-                        <li key={i}>{item}</li>
-                      ))}
-                    </ul>
-                    {(!program.classIncludes || program.classIncludes.length === 0) && (
-                      <p className="text-muted">{t('programDetail.classIncludesEmpty')}</p>
-                    )}
-                  </div>
-                </div>
-
-                <h4 className="mt-5 mb-4">{t('programDetail.curriculum')}</h4>
-                <div id="accordion01" role="tablist">
-                  {program.curriculum && program.curriculum.map((mod, i) => (
-                    <div className="card" key={i}>
-                      <div className="card-header" role="tab" id={`collapse${i}_header`}>
-                        <h5>
-                          <a data-toggle="collapse" href={`#collapse${i}`} aria-expanded={i === 0 ? "true" : "false"} aria-controls={`collapse${i}`} className={i === 0 ? "" : "collapsed"}>
-                            {mod.title}
-                          </a>
-                        </h5>
-                      </div>
-                      <div id={`collapse${i}`} className={`collapse ${i === 0 ? 'show' : ''}`} role="tabpanel" aria-labelledby={`collapse${i}_header`} data-parent="#accordion01">
-                        <div className="card-body">
-                          {hasPurchased ? (
-                            mod.content
-                          ) : (
-                            <div className="text-muted">
-                              <i className="fa fa-lock mr-1"></i> {t('programDetail.lockedContent')}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                  {(!program.curriculum || program.curriculum.length === 0) && (
-                    <p className="text-muted">{t('programDetail.curriculumEmpty')}</p>
-                  )}
                 </div>
 
                 {/* Premium Content Section */}

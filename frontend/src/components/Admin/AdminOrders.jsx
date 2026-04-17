@@ -172,8 +172,8 @@ const AdminOrders = () => {
               <h5 style={{ margin: 0 }}>Chi tiết đơn hàng — {selectedOrder.orderCode}</h5>
               <button 
                 onClick={() => setSelectedOrder(null)} 
-                className="admin-modal-close"
-                style={{ background: '#f1f5f9', border: 'none', borderRadius: '50%', width: '32px', height: '32px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                className="admin-modal-close-icon-only"
+                style={{ background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', fontSize: '20px' }}
               >
                 <i className="fa fa-times text-muted"></i>
               </button>

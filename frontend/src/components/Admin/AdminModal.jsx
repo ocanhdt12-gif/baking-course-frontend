@@ -12,22 +12,18 @@ const AdminModal = ({ isOpen, onClose, title, children }) => {
           <button 
             type="button"
             onClick={onClose} 
-            className="admin-modal-close"
+            className="admin-modal-close-icon-only"
             style={{ 
-              background: '#f1f5f9', 
+              background: 'transparent', 
               border: 'none', 
-              borderRadius: '50%', 
-              width: '32px', 
-              height: '32px', 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'center', 
+              padding: 0,
               cursor: 'pointer',
               color: '#64748b',
-              transition: 'all 0.2s'
+              fontSize: '20px',
+              transition: 'color 0.2s'
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = '#e2e8f0'; e.currentTarget.style.color = '#0f172a'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = '#f1f5f9'; e.currentTarget.style.color = '#64748b'; }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = '#0f172a'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = '#64748b'; }}
             title="Đóng (Close)"
           >
             <i className="fa fa-times"></i>
