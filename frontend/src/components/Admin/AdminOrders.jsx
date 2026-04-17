@@ -82,7 +82,7 @@ const AdminOrders = () => {
     <div>
       <div className="admin-content-header">
         <h2>Quản Lý Đơn Hàng</h2>
-        <p style={{ color: '#88929e' }}>Kiểm tra và quản lý thanh toán ghi danh</p>
+        <p style={{ color: '#88929e' }}>Kiểm tra và quản lý thanh toán Premium Content</p>
       </div>
 
       {/* Filter Tabs */}
@@ -102,7 +102,7 @@ const AdminOrders = () => {
       {/* Orders Table */}
       <div className="admin-paper">
         <div className="table-responsive">
-          <table className="table admin-table">
+          <table className="admin-table">
             <thead>
               <tr>
                 <th>Order Code</th>
