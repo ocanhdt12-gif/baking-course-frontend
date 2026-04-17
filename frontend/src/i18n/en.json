@@ -71,11 +71,14 @@
     "welcomeTitle": "Hello, Welcome to Muka!"
   },
   "auth": {
-    "checking": "Checking session...",
+    "checkingSession": "Checking session...",
+    "title": "Account",
     "loginTitle": "Login to your account",
-    "login": "Login",
+    "loginBtn": "Login",
+    "loginFailed": "Login failed. Please try again.",
     "registerTitle": "Create a new account",
-    "register": "Register Now"
+    "registerBtn": "Register Now",
+    "regFailed": "Registration failed. Please check your info."
   },
   "contact": {
     "title": "Contact Us",

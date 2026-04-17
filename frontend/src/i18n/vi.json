@@ -71,11 +71,14 @@
     "welcomeTitle": "Xin chào, Chào mừng đến Muka!"
   },
   "auth": {
-    "checking": "Đang kiểm tra phiên...",
+    "checkingSession": "Đang kiểm tra phiên...",
+    "title": "Tài Khoản",
     "loginTitle": "Đăng nhập tài khoản",
-    "login": "Đăng nhập",
+    "loginBtn": "Đăng nhập",
+    "loginFailed": "Đăng nhập thất bại. Vui lòng thử lại.",
     "registerTitle": "Tạo tài khoản mới",
-    "register": "Đăng ký ngay"
+    "registerBtn": "Đăng ký ngay",
+    "regFailed": "Đăng ký thất bại. Vui lòng kiểm tra lại thông tin."
   },
   "contact": {
     "title": "Liên Hệ",
