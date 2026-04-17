@@ -8,8 +8,15 @@ const AboutVideo = ({ achievements }) => {
       <div className="cover-image s-cover-left"></div>
       <div className="row align-items-center">
         <div className="col-12 col-lg-6 order-lg-1">
-          <a href="images/video-image.jpg" className="photoswipe-link iframe-link" data-iframe="https://www.youtube.com/embed/mcixldqDIEQ">
+          <a href="images/video-image.jpg" className="photoswipe-link" data-iframe="https://www.youtube.com/embed/mcixldqDIEQ">
             <img src={`${import.meta.env.BASE_URL}images/video-image.jpg`} alt="" />
+            <div className="video-text">
+              <h5>
+                <span>{t('home.about.watch') || 'Watch'}</span>
+                <span className=" iframe-link"></span>
+                <span>{t('home.about.video') || 'Video'}</span>
+              </h5>
+            </div>
           </a>
         </div>
         <div className="col-12 col-lg-5 order-lg-2 animate" data-animation="slideInRight">
