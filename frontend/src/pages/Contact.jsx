@@ -14,8 +14,18 @@ const Contact = () => {
         breadcrumbs={[{ label: t('header.home'), link: '/' }, { label: t('contact.title') || 'Liên Hệ' }]}
       />
 
-			<section className="ls ms page_map" data-draggable="true" data-scrollwheel="true">
-				<div className="marker">
+			<section className="ls ms page_map" data-draggable="true" data-scrollwheel="true" style={{ position: 'relative' }}>
+				<iframe 
+					src="https://maps.google.com/maps?q=66%20Ton%20That%20Thuyet,%20Hanoi&t=&z=14&ie=UTF8&iwloc=&output=embed" 
+					width="100%" 
+					height="100%" 
+					style={{position: 'absolute', top: 0, left: 0, border: 0, zIndex: 0}} 
+					allowFullScreen="" 
+					aria-hidden="false" 
+					tabIndex="0"
+					title="Muka Location"
+				></iframe>
+				<div className="marker" style={{ zIndex: 1 }}>
 					<div className="marker-address">{siteConfig.contact.address}</div>
 					<div className="marker-title">{t('contact.mainLocation') || 'ĐỊA ĐIỂM CHÍNH'}</div>
 					<div className="marker-description">
