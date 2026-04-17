@@ -136,7 +136,8 @@
   },
   "program": {
     "loading": "Đang tải chương trình...",
-    "empty": "Không tìm thấy chương trình nào."
+    "empty": "Không tìm thấy chương trình nào.",
+    "title": "Danh Sách Khóa Học"
   },
   "programDetail": {
     "title": "Chi Tiết Khóa Học",

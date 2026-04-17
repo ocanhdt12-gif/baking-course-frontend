@@ -136,7 +136,8 @@
   },
   "program": {
     "loading": "Loading Programs...",
-    "empty": "No programs found for this instructor."
+    "empty": "No programs found for this instructor.",
+    "title": "Programs List"
   },
   "programDetail": {
     "title": "Program Detail",
