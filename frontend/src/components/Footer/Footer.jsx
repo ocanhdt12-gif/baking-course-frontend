@@ -1,10 +1,21 @@
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { siteConfig } from '../../config/siteConfig';
 import { ROUTES } from '../../constants/routes';
 import { useTranslation } from '../../i18n/LanguageContext';
+import { getPosts } from '../../services/api';
 
 const Footer = () => {
   const { t } = useTranslation();
+  const [recentPosts, setRecentPosts] = useState([]);
+
+  useEffect(() => {
+    getPosts().then(res => {
+      const posts = res?.data || res || [];
+      setRecentPosts(posts.slice(0, 3));
+    }).catch(console.error);
+  }, []);
+
   return (
     <>
       <footer className="page_footer ds s-pt-90 s-pb-15 s-pt-lg-130 s-pb-lg-75 c-gutter-60 s-parallax">
@@ -59,27 +70,19 @@ const Footer = () => {
               <div className="widget widget_recent_posts">
                 <h3 className="widget-title">{t('footer.recentPosts')}</h3>
                 <ul className="list-unstyled">
-                  <li className="media">
-                    <Link className="media-image" to={ROUTES.RECEIPT}><img src={`${import.meta.env.BASE_URL}images/events/01.jpg`} alt="" /></Link>
-                    <div className="media-body">
-                      <p><Link to={ROUTES.RECEIPT}>Bí Kíp Làm Bánh Mì Cực Ngon Cho Bữa Sáng</Link></p>
-                      <h6 className="item-meta"><i className="fa fa-calendar color-main"></i>20 Thg 1, 2026</h6>
-                    </div>
-                  </li>
-                  <li className="media">
-                    <Link className="media-image" to={ROUTES.RECEIPT}><img src={`${import.meta.env.BASE_URL}images/events/02.jpg`} alt="" /></Link>
-                    <div className="media-body">
-                      <p><Link to={ROUTES.RECEIPT}>Cách Trang Trí Bánh Kem Sinh Nhật Đẹp Mắt</Link></p>
-                      <h6 className="item-meta"><i className="fa fa-calendar color-main"></i>23 Thg 1, 2026</h6>
-                    </div>
-                  </li>
-                  <li className="media">
-                    <Link className="media-image" to={ROUTES.RECEIPT}><img src={`${import.meta.env.BASE_URL}images/events/03.jpg`} alt="" /></Link>
-                    <div className="media-body">
-                      <p><Link to={ROUTES.RECEIPT}>Mẹo Nướng Bánh Macaron Chuẩn Pháp</Link></p>
-                      <h6 className="item-meta"><i className="fa fa-calendar color-main"></i>25 Thg 1, 2026</h6>
-                    </div>
-                  </li>
+                  {recentPosts.length > 0 ? recentPosts.map(post => (
+                    <li key={post.slug} className="media">
+                      <Link className="media-image" to={`/blog/${post.slug}`}>
+                        <img src={post.thumbnail ? (post.thumbnail.startsWith('http') ? post.thumbnail : `${import.meta.env.BASE_URL}${post.thumbnail.replace(/^\//, '')}`) : `${import.meta.env.BASE_URL}images/gallery/09.jpg`} alt={post.title} />
+                      </Link>
+                      <div className="media-body">
+                        <p><Link to={`/blog/${post.slug}`}>{post.title}</Link></p>
+                        <h6 className="item-meta"><i className="fa fa-calendar color-main"></i>{post.createdAt ? new Date(post.createdAt).toLocaleDateString() : 'N/A'}</h6>
+                      </div>
+                    </li>
+                  )) : (
+                    <li>Đang tải...</li>
+                  )}
                 </ul>
               </div>
             </div>
