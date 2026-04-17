@@ -48,10 +48,10 @@ const AdminTable = ({ columns, data, onEdit, onDelete, title, onCreate, itemsPer
                     </td>
                   ))}
                   <td className="text-center">
-                    <button onClick={() => onEdit(row)} className="admin-btn-icon edit" title="Edit">
+                    <button onClick={() => onEdit(row)} className="admin-btn-icon edit" title="Sửa">
                       <i className="fa fa-pencil"></i>
                     </button>
-                    <button onClick={() => setDeleteTarget(row)} className="admin-btn-icon delete" title="Delete">
+                    <button onClick={() => setDeleteTarget(row)} className="admin-btn-icon delete" title="Xóa">
                       <i className="fa fa-trash"></i>
                     </button>
                   </td>
@@ -62,7 +62,7 @@ const AdminTable = ({ columns, data, onEdit, onDelete, title, onCreate, itemsPer
         </table>
       </div>
 
-      <div className="admin-pagination-wrapper pt-4 pb-2" style={{ borderTop: '1px solid #334155' }}>
+      <div className="admin-pagination-wrapper pt-4 pb-2" style={{ borderTop: '1px solid var(--admin-border-subtle)' }}>
         <Pagination 
           currentPage={safePage} 
           totalPages={totalPages} 
