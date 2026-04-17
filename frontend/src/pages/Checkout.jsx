@@ -20,7 +20,6 @@ const Checkout = () => {
   const { t } = useTranslation();
 
   const [program, setProgram] = useState(null);
-  const [paymentConfig, setPaymentConfig] = useState(null);
   const [order, setOrder] = useState(null);
   const [step, setStep] = useState(STEPS.SUMMARY);
   const [loading, setLoading] = useState(true);
@@ -30,12 +29,8 @@ const Checkout = () => {
   useEffect(() => {
     const init = async () => {
       try {
-        const [prog, config] = await Promise.all([
-          getProgramBySlug(slug),
-          getPaymentConfig().catch(() => null)
-        ]);
+        const prog = await getProgramBySlug(slug);
         setProgram(prog);
-        setPaymentConfig(config);
 
         // If already purchased, redirect to program detail
         if (prog.hasPurchased) {
