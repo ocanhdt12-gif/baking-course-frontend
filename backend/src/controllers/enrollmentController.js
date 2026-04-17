@@ -28,18 +28,28 @@ exports.submitEnrollment = async (req, res) => {
       return res.status(400).json({ error: 'Full name, email, and class session selection are required.' });
     }
 
+    const session = await prisma.classSession.findUnique({
+      where: { id: classSessionId }
+    });
+    
+    if (!session) {
+      return res.status(404).json({ error: 'Class session not found.' });
+    }
+
     const enrollment = await prisma.enrollment.create({
       data: {
         fullName,
         email,
         phone,
         classSessionId,
+        programId: session.programId,
         userId: userId || null
       }
     });
 
     res.status(201).json({ message: 'Enrollment successful! We will contact you shortly to confirm your booking.', enrollment });
   } catch (error) {
+    console.error("Enrollment error:", error);
     res.status(500).json({ error: 'An error occurred while processing your enrollment.' });
   }
 };
