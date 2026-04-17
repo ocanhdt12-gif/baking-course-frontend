@@ -103,7 +103,7 @@ const AdminPostEditor = () => {
           {/* LEFT: EDITOR FORM */}
           <div className="col-lg-6 mb-4">
             <div className="admin-paper h-100 w-100 p-4">
-              <h5 className="mb-4" style={{borderBottom: '1px solid #334155', paddingBottom: '10px'}}>Trình Soạn Thảo</h5>
+              <h5 className="mb-4" style={{borderBottom: '1px solid var(--admin-border-subtle)', paddingBottom: '10px'}}>Trình Soạn Thảo</h5>
               
               <div className="admin-form-group">
                 <label>Tiêu đề <span className="text-danger">*</span></label>
@@ -185,8 +185,8 @@ const AdminPostEditor = () => {
           {/* RIGHT: LIVE PREVIEW */}
           <div className="col-lg-6 mb-4">
             <div className="admin-paper h-100 w-100 p-0 overflow-hidden" style={{ display: 'flex', flexDirection: 'column' }}>
-              <div className="p-3" style={{ borderBottom: '1px solid #334155', backgroundColor: '#1e293b' }}>
-                <h5 className="m-0"><i className="fa fa-eye mr-2"></i> Xem Trước</h5>
+              <div className="p-3" style={{ borderBottom: '1px solid var(--admin-border-subtle)', backgroundColor: 'var(--admin-paper-bg)' }}>
+                <h5 className="m-0" style={{ color: 'var(--admin-heading)' }}><i className="fa fa-eye mr-2"></i> Xem Trước</h5>
               </div>
               
               <div className="preview-container p-4" style={{ backgroundColor: '#fff', color: '#333', flexGrow: 1, overflowY: 'auto' }}>

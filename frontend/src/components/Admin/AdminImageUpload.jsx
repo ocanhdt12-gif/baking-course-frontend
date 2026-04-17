@@ -119,7 +119,7 @@ const AdminImageUpload = ({ label, value, onChange, name }) => {
               <img src={imgSrc} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <div style={{ textAlign: 'left', flex: 1 }}>
-              <div style={{ color: '#1e293b', fontWeight: 600, fontSize: '15px', marginBottom: '6px' }}>Image Selected</div>
+              <div style={{ color: 'var(--admin-heading)', fontWeight: 600, fontSize: '15px', marginBottom: '6px' }}>Image Selected</div>
               <div style={{ color: '#64748b', fontSize: '13px', wordBreak: 'break-all', maxWidth: '300px' }}>
                 {imgSrc.length > 45 ? '...' + imgSrc.slice(-42) : imgSrc}
               </div>
@@ -142,7 +142,7 @@ const AdminImageUpload = ({ label, value, onChange, name }) => {
             }}>
               <i className="fa fa-cloud-upload" style={{ fontSize: '28px', color: '#3b82f6' }}></i>
             </div>
-            <h5 style={{ color: '#1e293b', margin: '0 0 8px 0', fontSize: '16px', fontWeight: 600 }}>Click to upload or drag and drop</h5>
+            <h5 style={{ color: 'var(--admin-heading)', margin: '0 0 8px 0', fontSize: '16px', fontWeight: 600 }}>Click to upload or drag and drop</h5>
             <span style={{ color: '#64748b', fontSize: '13px' }}>SVG, PNG, JPG or WEBP (max. 5MB)</span>
           </div>
         )}

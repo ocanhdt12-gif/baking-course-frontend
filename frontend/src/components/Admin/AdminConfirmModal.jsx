@@ -32,7 +32,7 @@ const AdminConfirmModal = ({ isOpen, onClose, onConfirm, title, message }) => {
       <div 
         onClick={(e) => e.stopPropagation()}
         style={{
-          background: '#fff',
+          background: 'var(--admin-paper-bg)',
           borderRadius: '12px',
           padding: '32px',
           width: '100%',
@@ -60,14 +60,14 @@ const AdminConfirmModal = ({ isOpen, onClose, onConfirm, title, message }) => {
           margin: '0 0 8px 0', 
           fontSize: '20px', 
           fontWeight: 700, 
-          color: '#1e293b' 
+          color: 'var(--admin-heading)' 
         }}>
           {title || 'Confirm Delete'}
         </h4>
         
         <p style={{ 
           margin: '0 0 28px 0', 
-          color: '#64748b', 
+          color: 'var(--admin-text-muted)', 
           fontSize: '15px', 
           lineHeight: 1.6 
         }}>
