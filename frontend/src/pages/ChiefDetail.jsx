@@ -211,21 +211,6 @@ const ChiefDetail = () => {
                   </div>
                   {/* tabs end */}
 
-                  <p>
-                    Andouille meatball pork doner pork loin jerky capicola sirloin picanha. Spare ribs burgdoggen beef ribs, ground round chuck kevin meatball jerky t-bone. Sausage buffalo beef ribs, chuck pork belly t-bone turkey swine filet mignon short loin. Bresaola chicken salami pork. Chicken t-bone short ribs, short loin porchetta flank rump shankle ball tip ham.
-                  </p>
-
-                  <blockquote className="bordered layout-2">
-                    <div>
-                      <h6 className="small-text color-main2 margin-0">former student</h6>
-                      <h5>Michael Delgado</h5>
-                    </div>
-                    <p>«Sirloin porchetta tenderloin flank. Prosciutto doner kielbasa andouille, turkey jowl ham cupim flank sirloin tenderloin. Picanha ball tip meatball shank. Buffalo pork belly cow boudin corned.»</p>
-                  </blockquote>
-
-                  <p>
-                    Biltong sausage ham hock burgdoggen leberkas short ribs pork loin alcatra meatball. Salami doner tongue spare ribs chuck turkey burgdoggen biltong meatball jowl porchetta beef ribs shank brisket ball tip. Porchetta turkey pastrami.
-                  </p>
 
                 </div>
               </div>
