@@ -151,6 +151,9 @@
     "empty": "No programs found for this instructor.",
     "title": "Programs List"
   },
+  "checkout": {
+    "pageTitle": "Checkout"
+  },
   "programDetail": {
     "title": "Program Detail",
     "loading": "Loading Program Details...",

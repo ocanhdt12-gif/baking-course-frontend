@@ -151,6 +151,9 @@
     "empty": "Không tìm thấy chương trình nào.",
     "title": "Danh Sách Khóa Học"
   },
+  "checkout": {
+    "pageTitle": "Thanh Toán"
+  },
   "programDetail": {
     "title": "Chi Tiết Khóa Học",
     "loading": "Đang tải chi tiết khóa học...",

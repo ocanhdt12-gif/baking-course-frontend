@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import PageTitle from '../components/Shared/PageTitle';
-import { getProgramBySlug, getPaymentConfig, createOrder, getOrderById, submitOrderProof, cancelOrder, uploadImage, createVnpayPaymentUrl } from '../services/api';
+import { getProgramBySlug, getPaymentConfig, createOrder, getOrderById, submitOrderProof, cancelOrder, uploadImage, createVnpayPaymentUrl, getMyOrders } from '../services/api';
 import { formatPrice, getOrderStatusBadge } from '../utils/formatters';
 import { ROUTES } from '../constants/routes';
 import { useTranslation } from '../i18n/LanguageContext';
@@ -46,11 +46,17 @@ const Checkout = () => {
 
         // Check if there's an existing active order
         if (prog.orderStatus === 'PENDING' || prog.orderStatus === 'AWAITING_CONFIRM' || prog.orderStatus === 'REJECTED') {
-          // Re-create order to get full details
-          const orderRes = await createOrder({ programId: prog.id, classSessionId: sessionId });
-          setOrder(orderRes.order);
-          // With VNPay only, any pending order means we just wait at Status summary, or let them click pay again
-          setStep(STEPS.STATUS);
+          try {
+            const userOrders = await getMyOrders();
+            const existingOrder = userOrders.find(o => o.programId === prog.id && ['PENDING', 'AWAITING_CONFIRM', 'REJECTED'].includes(o.status));
+            
+            if (existingOrder) {
+              setOrder(existingOrder);
+              setStep(STEPS.STATUS);
+            }
+          } catch (err) {
+            console.error('Failed to fetch existing order', err);
+          }
         }
       } catch (err) {
         console.error('Checkout init error:', err);
