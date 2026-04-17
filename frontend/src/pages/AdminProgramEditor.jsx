@@ -16,7 +16,7 @@ const AdminProgramEditor = () => {
   const [loading, setLoading] = useState(isEditing);
   
   const [formData, setFormData] = useState({
-    programType: 'LIVE_CLASS',
+    programType: 'VIDEO_COURSE', // [TEMPORARILY HIDDEN] Was 'LIVE_CLASS' — đổi mặc định sang Video khi ẩn tính năng lớp trực tiếp
     authorName: '', authorImage: '', chiefId: '',
     learningGoals: [], classIncludes: [], curriculum: [], classSessions: [],
     premiumContent: { videos: [], resources: [], guides: '' }
@@ -36,7 +36,7 @@ const AdminProgramEditor = () => {
       getProgramBySlug(id)
         .then(prog => {
           setFormData({
-            programType: prog.programType || 'LIVE_CLASS',
+            programType: prog.programType || 'VIDEO_COURSE', // [TEMPORARILY HIDDEN] Was 'LIVE_CLASS'
             title: prog.title || '',
             slug: prog.slug || '',
             description: prog.description || '',
@@ -175,6 +175,7 @@ const AdminProgramEditor = () => {
             </div>
           </div>
 
+          {/* [TEMPORARILY HIDDEN] Ẩn dropdown loại sản phẩm — chỉ bán Premium Content
           <div className="row mt-3">
             <div className="col-md-12">
               <AdminSelect 
@@ -189,6 +190,7 @@ const AdminProgramEditor = () => {
               />
             </div>
           </div>
+          */}
 
           <div className="row mt-3">
             <div className="col-sm-12">
@@ -207,7 +209,8 @@ const AdminProgramEditor = () => {
           />
         </div>
 
-        {formData.programType === 'LIVE_CLASS' && (
+        {/* [TEMPORARILY HIDDEN] Ẩn phần Lịch học & Ngày khai giảng */}
+        {false && formData.programType === 'LIVE_CLASS' && (
         <div className="admin-paper p-4 mb-4">
           <h5 className="mb-4" style={{borderBottom: '1px solid var(--admin-border-light)', paddingBottom: '10px'}}>Lịch học & Ngày khai giảng</h5>
           <p className="text-muted"><small>Thêm các lịch học cụ thể. Học viên sẽ chọn lịch này khi đăng ký ghi danh.</small></p>

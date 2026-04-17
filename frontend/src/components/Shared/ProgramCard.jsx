@@ -11,9 +11,10 @@ const ProgramCard = ({ cls }) => {
         <div className="media-links">
           <Link className="abs-link" to={ROUTES.PROGRAM_DETAIL(cls.slug)}></Link>
         </div>
+        {/* [TEMPORARILY HIDDEN] Ẩn phân loại Live/Video — mặc định Premium Content */}
         {cls.programType && (
-          <span className={`program-type-badge ${cls.programType === 'VIDEO_COURSE' ? 'video' : 'live'}`}>
-            {cls.programType === 'VIDEO_COURSE' ? '🎬 Video' : '👨‍🍳 Trực tiếp'}
+          <span className="program-type-badge video">
+            🎬 Premium Content
           </span>
         )}
         <div className="content-absolute bg-maincolor2-transparent text-left ds">

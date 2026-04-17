@@ -365,17 +365,15 @@ const ProgramDetail = () => {
                 </h3>
                 <p>{t('programDetail.joinStudents', { count: program.students || 0 }) || `Cùng ${program.students || 0} học viên đã đăng ký trải nghiệm tuyệt vời này.`}</p>
                 
-                {/* Program Type Badge */}
+                {/* [TEMPORARILY HIDDEN] Ẩn badge phân loại Live/Video — mặc định Premium Content */}
                 <div className="mb-3">
-                  <span className={`program-type-badge-inline ${program.programType === 'VIDEO_COURSE' ? 'video' : 'live'}`}>
-                    {program.programType === 'VIDEO_COURSE' 
-                      ? (t('programType.videoBadge') || '🎬 Video — Xem mọi lúc') 
-                      : (t('programType.liveBadge') || '👨‍🍳 Trực tiếp — Có lịch cụ thể')}
+                  <span className="program-type-badge-inline video">
+                    {t('programType.videoBadge') || '🎬 Premium Content'}
                   </span>
                 </div>
 
-                {/* Class Session Selector - Only for LIVE_CLASS */}
-                {program.programType === 'LIVE_CLASS' && program.classSessions && program.classSessions.length > 0 && (
+                {/* [TEMPORARILY HIDDEN] Ẩn phần chọn lịch học */}
+                {false && program.programType === 'LIVE_CLASS' && program.classSessions && program.classSessions.length > 0 && (
                   <div className="mt-3">
                     <label>{t('programDetail.selectCohort') || 'Chọn Lớp:'}</label>
                     <select 
