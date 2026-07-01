@@ -258,8 +258,25 @@ const Checkout = ({ user }) => {
     if (!order) return;
     setSubmitting(true);
     try {
-      const res = await createPayosPaymentUrl(order.id);
-      // Redirect to PayOS payment page
+      let targetOrderId = order.id;
+
+      // If current order was cancelled (e.g. user came back from PayOS cancel page),
+      // create a fresh order before generating a new payment link.
+      if (order.status === 'CANCELLED') {
+        const res = await createOrder({
+          programId: program.id,
+          classSessionId: sessionId,
+          requiresInvoice,
+          ...invoiceData,
+          appliedDiscounts,
+          promoCode: appliedDiscounts.includes('PROMO') ? promoCode : null,
+          pointsToUse: appliedDiscounts.includes('POINTS') ? pointsToUse : 0,
+        });
+        setOrder(res.order);
+        targetOrderId = res.order.id;
+      }
+
+      const res = await createPayosPaymentUrl(targetOrderId);
       window.location.href = res.paymentUrl;
     } catch (err) {
       toast.error(err.response?.data?.error || 'Không thể tạo thanh toán PayOS. Vui lòng thử lại.');
@@ -718,6 +735,21 @@ const Checkout = ({ user }) => {
                       </p>
                       <button className="btn btn-maincolor mt-3" onClick={handlePayosPayment} disabled={submitting}>
                         {submitting ? '...' : <><i className="fa fa-refresh mr-1"></i> Thử lại (Pay over PayOS)</>}
+                      </button>
+                    </>
+                  )}
+
+                  {order.status === 'CANCELLED' && (
+                    <>
+                      <div className="mb-4">
+                        <i className="fa fa-ban" style={{ fontSize: '60px', color: '#6c757d' }}></i>
+                      </div>
+                      <h4 className="mb-3" style={{ color: '#6c757d' }}>Đơn hàng đã hủy</h4>
+                      <p className="text-muted mb-2">
+                        Bạn đã hủy thanh toán trước đó. Bấm bên dưới để tiếp tục đăng ký khóa học.
+                      </p>
+                      <button className="btn btn-maincolor mt-3" onClick={handlePayosPayment} disabled={submitting}>
+                        {submitting ? '...' : <><i className="fa fa-refresh mr-1"></i> Thanh toán lại qua PayOS</>}
                       </button>
                     </>
                   )}

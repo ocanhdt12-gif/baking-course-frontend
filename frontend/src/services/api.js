@@ -399,9 +399,16 @@ export const cancelOrder = async (id) => {
   return data;
 };
 
-export const getAllOrders = async () => {
-  const { data } = await api.get('/orders');
-  return data;
+export const getOrderStats = async () => {
+  const { data } = await api.get('/orders/stats');
+  return data; // { ALL, PENDING, AWAITING_CONFIRM, CONFIRMED, REJECTED, CANCELLED }
+};
+
+export const getAllOrders = async ({ page = 1, limit = 10, status } = {}) => {
+  const params = { page, limit };
+  if (status && status !== 'ALL') params.status = status;
+  const { data } = await api.get('/orders', { params });
+  return data; // { data: [], total, page, limit, totalPages }
 };
 
 export const confirmOrder = async (id, adminNote) => {
@@ -440,6 +447,11 @@ export const createVnpayPaymentUrl = async (orderId, bankCode) => {
 export const createPayosPaymentUrl = async (orderId) => {
   const { data } = await api.post('/payos/create-payment-url', { orderId });
   return data; // { paymentUrl }
+};
+
+export const cancelPayosOrder = async (orderId) => {
+  const { data } = await api.post('/payos/cancel', { orderId });
+  return data;
 };
 
 // ---------------- DASHBOARD STATS ----------------

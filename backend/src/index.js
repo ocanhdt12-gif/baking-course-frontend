@@ -4,10 +4,38 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
+// Fail fast if critical secrets are missing
+if (!process.env.JWT_SECRET) {
+  console.error('FATAL: JWT_SECRET environment variable is not set. Server will not start.');
+  process.exit(1);
+}
+
 const app = express();
-app.use(cors());
-app.use(express.json());
-app.use('/uploads', express.static('uploads'));
+
+// --- Security Middleware ---
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+
+app.use(helmet());
+
+const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:5173').split(',').map(s => s.trim());
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true,
+}));
+
+// Rate limiting: strict for payment endpoints
+const paymentLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 30, // 30 requests per window
+  message: { error: 'Quá nhiều yêu cầu thanh toán. Vui lòng thử lại sau.' },
+});
+
+app.use(express.json({ limit: '1mb' }));
+
+// Serve uploads only to authenticated users (prevents PII file enumeration)
+const auth = require('./middleware/authMiddleware');
+app.use('/uploads', auth, express.static('uploads'));
 
 // Basic route to test the server
 app.get('/api', (req, res) => {
@@ -28,8 +56,8 @@ const enrollmentRoutes = require('./routes/enrollmentRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const paymentConfigRoutes = require('./routes/paymentConfigRoutes');
 const webhookRoutes = require('./routes/webhookRoutes');
-const vnpayRoutes = require('./routes/vnpayRoutes');
-const payosRoutes = require('./routes/payosRoutes');
+// VNPay removed — no longer used
+const payosRoutes = require('./routes/payosRoutes'); // rate-limit handled inside route file
 const statsRoutes = require('./routes/statsRoutes');
 const settingRoutes = require('./routes/settingRoutes');
 const studentWorkRoutes = require('./routes/studentWorkRoutes');
@@ -48,10 +76,10 @@ app.use('/api/auth', authRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/contacts', contactRoutes);
 app.use('/api/enrollments', enrollmentRoutes);
-app.use('/api/orders', orderRoutes);
+app.use('/api/orders', paymentLimiter, orderRoutes);
 app.use('/api/payment-config', paymentConfigRoutes);
-app.use('/api/webhook', webhookRoutes);
-app.use('/api/vnpay', vnpayRoutes);
+app.use('/api/webhook', paymentLimiter, webhookRoutes);
+// PayOS: rate-limit chỉ cho create-payment-url, KHÔNG cho webhook (PayOS retry)
 app.use('/api/payos', payosRoutes);
 app.use('/api/stats', statsRoutes);
 app.use('/api/settings', settingRoutes);
@@ -64,6 +92,10 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+
+  // Start PENDING order expiry cleanup job (runs every hour)
+  const { startCleanupJob } = require('./jobs/cleanupPendingOrders');
+  startCleanupJob();
 
   // Schedule daily cleanup of orphan uploaded files at 3:00 AM
   const cron = require('node-cron');

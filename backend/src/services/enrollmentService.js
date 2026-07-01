@@ -26,23 +26,17 @@ exports.createEnrollmentForOrder = async (orderId, tx = null) => {
       return null;
     }
 
-    // Check if already enrolled to avoid duplicates
-    const existing = await client.enrollment.findFirst({
+    // Atomic upsert: avoids TOCTOU race condition between findFirst + create
+    const enrollment = await client.enrollment.upsert({
       where: {
-        userId: order.userId,
-        programId: order.programId
-      }
-    });
-
-    if (existing) {
-      console.log(`User ${order.userId} already enrolled in program ${order.programId}`);
-      return existing;
-    }
-
-    // Create enrollment
-    const enrollment = await client.enrollment.create({
-      data: {
-        classSessionId: order.classSessionId, // will be null for VIDEO_COURSE
+        userId_programId: {
+          userId: order.userId,
+          programId: order.programId,
+        }
+      },
+      update: {}, // already enrolled — no-op
+      create: {
+        classSessionId: order.classSessionId, // null for VIDEO_COURSE
         userId: order.userId,
         programId: order.programId,
         fullName: order.user ? order.user.fullName : 'Học viên ẩn danh',
@@ -52,7 +46,7 @@ exports.createEnrollmentForOrder = async (orderId, tx = null) => {
       }
     });
 
-    console.log(`Created Enrollment ${enrollment.id} for Order ${order.id}`);
+    console.log(`Upserted Enrollment ${enrollment.id} for Order ${order.id}`);
     return enrollment;
   } catch (err) {
     console.error('createEnrollmentForOrder error:', err);

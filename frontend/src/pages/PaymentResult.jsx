@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import PageTitle from '../components/Shared/PageTitle';
 import PageLoading from '../components/Shared/PageLoading';
-import { getOrderById } from '../services/api';
+import { getOrderById, cancelPayosOrder } from '../services/api';
 import { formatPrice } from '../utils/formatters';
 import { ROUTES } from '../constants/routes';
 import { useTranslation } from '../i18n/LanguageContext';
@@ -10,7 +10,9 @@ import { useTranslation } from '../i18n/LanguageContext';
 const PaymentResult = () => {
   const [searchParams] = useSearchParams();
   const orderId = searchParams.get('orderId');
-  const urlStatus = searchParams.get('status'); // from VNPay return redirect
+  // Normalize to lowercase — PayOS sends 'CANCELLED', frontend sends 'cancelled'
+  const urlStatus = (searchParams.get('status') || '').toLowerCase() || 
+    (searchParams.get('cancel') === 'true' ? 'cancelled' : '');
   const { t } = useTranslation();
 
   const [order, setOrder] = useState(null);
@@ -38,6 +40,14 @@ const PaymentResult = () => {
         // If payment looks successful but order not yet confirmed, start polling
         if (urlStatus === 'success' && data.status !== 'CONFIRMED') {
           setPolling(true);
+        }
+
+        // If user cancelled on PayOS page and order is still PENDING, cancel it server-side
+        if (urlStatus === 'cancelled' && data.status === 'PENDING') {
+          cancelPayosOrder(orderId)
+            .then(() => getOrderById(orderId))
+            .then(refreshed => setOrder(refreshed))
+            .catch(err => console.warn('Cancel order failed (non-critical):', err.message));
         }
       })
       .catch(err => {

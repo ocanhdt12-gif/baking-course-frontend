@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+const crypto = require('crypto');
 const prisma = new PrismaClient();
 const orderService = require('../services/orderService');
 
@@ -19,9 +20,21 @@ const orderService = require('../services/orderService');
  */
 exports.handlePaymentWebhook = async (req, res) => {
   try {
-    const { amount, content, transactionId, secret } = req.body;
+    const { amount, content, transactionId } = req.body;
 
-    // 1. Validate webhook secret
+    // 0. Optional IP allowlist (set WEBHOOK_ALLOWED_IPS=1.2.3.4,5.6.7.8 in env)
+    const allowedIPs = process.env.WEBHOOK_ALLOWED_IPS;
+    if (allowedIPs) {
+      const clientIP = req.headers['x-forwarded-for']?.split(',')[0].trim() || req.socket.remoteAddress || '';
+      const allowed = allowedIPs.split(',').map(s => s.trim());
+      if (!allowed.includes(clientIP)) {
+        console.warn(`Webhook: Rejected request from unlisted IP: ${clientIP}`);
+        return res.status(403).json({ error: 'Forbidden.' });
+      }
+    }
+
+    // 1. Validate webhook secret — read from header, NOT body
+    const secret = req.headers['x-webhook-secret'] || '';
     const config = await prisma.paymentConfig.findFirst({ where: { isActive: true } });
     
     if (!config || !config.webhookSecret) {
@@ -29,7 +42,10 @@ exports.handlePaymentWebhook = async (req, res) => {
       return res.status(500).json({ error: 'Webhook not configured.' });
     }
 
-    if (secret !== config.webhookSecret) {
+    // Constant-time comparison to prevent timing attacks
+    const secretBuffer = Buffer.from(secret, 'utf8');
+    const configBuffer = Buffer.from(config.webhookSecret, 'utf8');
+    if (secretBuffer.length !== configBuffer.length || !crypto.timingSafeEqual(secretBuffer, configBuffer)) {
       console.error('Webhook: Invalid secret');
       return res.status(401).json({ error: 'Invalid webhook secret.' });
     }
@@ -42,8 +58,7 @@ exports.handlePaymentWebhook = async (req, res) => {
       console.warn('Webhook: Could not extract order code from content:', content);
       return res.status(200).json({ 
         success: false, 
-        message: 'Could not match order code from transfer content. Requires manual review.',
-        received: { amount, content, transactionId }
+        message: 'Could not match order code from transfer content. Requires manual review.'
       });
     }
 
@@ -74,8 +89,8 @@ exports.handlePaymentWebhook = async (req, res) => {
       });
     }
 
-    // 5. Verify amount matches
-    if (amount && amount !== order.amount) {
+    // 5. Verify amount matches (reject if missing or mismatched)
+    if (amount == null || amount !== order.amount) {
       console.warn(`Webhook: Amount mismatch for ${orderCode}. Expected ${order.amount}, got ${amount}`);
       
       // Still mark as awaiting confirm for manual review

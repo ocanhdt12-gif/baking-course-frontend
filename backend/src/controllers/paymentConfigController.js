@@ -77,7 +77,9 @@ exports.updatePaymentConfig = async (req, res) => {
       });
     }
 
-    res.json({ message: 'Payment configuration updated successfully', config });
+    // Strip webhookSecret from response
+    const { webhookSecret: _secret, ...safeConfig } = config;
+    res.json({ message: 'Payment configuration updated successfully', config: safeConfig });
   } catch (error) {
     console.error('updatePaymentConfig error:', error);
     res.status(500).json({ error: 'Failed to update payment configuration' });

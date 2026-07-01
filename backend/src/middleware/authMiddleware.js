@@ -16,7 +16,7 @@ const auth = function (req, res, next) {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret_123');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded.user;
     next();
   } catch (err) {
@@ -58,7 +58,7 @@ const optionalAuth = function (req, res, next) {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret_123');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded.user;
   } catch (err) {
     // Silent fail if invalid or expired token is passed to a public route

@@ -11,6 +11,7 @@ router.use(auth);
 router.post('/preview', orderController.previewOrder);
 router.post('/', orderController.createOrder);
 router.get('/my', orderController.getMyOrders);
+router.get('/stats', requireRole('ADMIN'), orderController.getOrderStats); // must be before /:id
 router.get('/:id', orderController.getOrderById);
 router.patch('/:id/proof', orderController.submitProof);
 router.patch('/:id/cancel', orderController.cancelOrder);

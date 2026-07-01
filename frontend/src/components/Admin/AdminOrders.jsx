@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Pagination from '../Shared/Pagination';
 import { toast } from 'react-toastify';
-import { getAllOrders, confirmOrder, rejectOrder } from '../../services/api';
+import { getAllOrders, getOrderStats, confirmOrder, rejectOrder } from '../../services/api';
 import { formatPrice, getOrderStatusBadge } from '../../utils/formatters';
 import AdminLoadingBlock from './AdminLoadingBlock';
 import AdminButton from './Shared/AdminButton';
@@ -10,19 +10,34 @@ import AdminHeader from './Shared/AdminHeader';
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
+  const [stats, setStats] = useState({ ALL: 0, PENDING: 0, AWAITING_CONFIRM: 0, CONFIRMED: 0, REJECTED: 0, CANCELLED: 0 });
   const [loading, setLoading] = useState(true);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [adminNote, setAdminNote] = useState('');
   const [processing, setProcessing] = useState(false);
   const [filter, setFilter] = useState('ALL');
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [total, setTotal] = useState(0);
   const itemsPerPage = 10;
 
-  const fetchOrders = async () => {
+  const fetchStats = async () => {
     try {
-      const data = await getAllOrders();
-      const sortedData = (data || []).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-      setOrders(sortedData);
+      const data = await getOrderStats();
+      setStats(data);
+    } catch (err) {
+      console.error('Failed to fetch order stats:', err);
+    }
+  };
+
+  const fetchOrders = async (page = 1, status = filter) => {
+    setLoading(true);
+    try {
+      const res = await getAllOrders({ page, limit: itemsPerPage, status });
+      setOrders(res.data || []);
+      setTotal(res.total || 0);
+      setTotalPages(res.totalPages || 1);
+      setCurrentPage(page);
     } catch (err) {
       toast.error('Lỗi khi tải danh sách đơn hàng');
     } finally {
@@ -31,7 +46,8 @@ const AdminOrders = () => {
   };
 
   useEffect(() => {
-    fetchOrders();
+    fetchStats();
+    fetchOrders(1, 'ALL');
   }, []);
 
   const handleConfirm = async () => {
@@ -42,7 +58,8 @@ const AdminOrders = () => {
       toast.success(`Đã xác nhận đơn hàng ${selectedOrder.orderCode}!`);
       setSelectedOrder(null);
       setAdminNote('');
-      fetchOrders();
+      fetchStats();
+      fetchOrders(currentPage, filter);
     } catch (err) {
       toast.error(err.response?.data?.error || 'Lỗi khi xác nhận đơn');
     } finally {
@@ -62,7 +79,8 @@ const AdminOrders = () => {
       toast.info(`Đã từ chối đơn hàng ${selectedOrder.orderCode}.`);
       setSelectedOrder(null);
       setAdminNote('');
-      fetchOrders();
+      fetchStats();
+      fetchOrders(currentPage, filter);
     } catch (err) {
       toast.error(err.response?.data?.error || 'Lỗi khi từ chối đơn');
     } finally {
@@ -70,14 +88,6 @@ const AdminOrders = () => {
     }
   };
 
-  const filteredOrders = filter === 'ALL' 
-    ? orders 
-    : orders.filter(o => o.status === filter);
-
-  const totalPages = Math.ceil(filteredOrders.length / itemsPerPage) || 1;
-  const safePage = Math.min(currentPage, totalPages);
-  const startIndex = (safePage - 1) * itemsPerPage;
-  const paginatedOrders = filteredOrders.slice(startIndex, startIndex + itemsPerPage);
 
   const displayStatus = (status) => {
     switch(status) {
@@ -89,13 +99,6 @@ const AdminOrders = () => {
     }
   };
 
-  const statusCounts = {
-    ALL: orders.length,
-    PENDING: orders.filter(o => o.status === 'PENDING').length,
-    AWAITING_CONFIRM: orders.filter(o => o.status === 'AWAITING_CONFIRM').length,
-    CONFIRMED: orders.filter(o => o.status === 'CONFIRMED').length,
-    REJECTED: orders.filter(o => o.status === 'REJECTED').length,
-  };
 
   if (loading) return <AdminLoadingBlock rows={6} />;
 
@@ -108,13 +111,16 @@ const AdminOrders = () => {
 
       {/* Filter Tabs */}
       <div className="d-flex mb-4" style={{ gap: '8px', flexWrap: 'wrap' }}>
-        {Object.entries(statusCounts).map(([key, count]) => (
+        {Object.entries(stats).map(([key, count]) => (
           <AdminButton
             key={key}
             variant={filter === key ? 'dark' : 'secondary'}
             outline={filter !== key}
             size="sm"
-            onClick={() => { setFilter(key); setCurrentPage(1); }}
+            onClick={() => {
+              setFilter(key);
+              fetchOrders(1, key);
+            }}
             style={{ borderRadius: '20px', padding: '6px 16px' }}
             label={`${key === 'ALL' ? 'Tất cả' : displayStatus(key)} (${count})`}
           />
@@ -138,10 +144,10 @@ const AdminOrders = () => {
               </tr>
             </thead>
             <tbody>
-              {paginatedOrders.length === 0 ? (
+              {orders.length === 0 ? (
                 <tr><td colSpan="8" className="text-center py-4" style={{ color: '#88929e' }}>Không tìm thấy đơn hàng nào</td></tr>
               ) : (
-                paginatedOrders.map(order => {
+                orders.map(order => {
                   const badge = getOrderStatusBadge(order.status);
                   return (
                     <tr key={order.id}>
@@ -189,9 +195,9 @@ const AdminOrders = () => {
         {totalPages > 1 && (
           <div className="admin-pagination-wrapper pt-4 pb-2" style={{ borderTop: '1px solid var(--admin-border-subtle)' }}>
             <Pagination 
-              currentPage={safePage} 
+              currentPage={currentPage} 
               totalPages={totalPages} 
-              onPageChange={(p) => setCurrentPage(p)} 
+              onPageChange={(p) => fetchOrders(p, filter)} 
             />
           </div>
         )}

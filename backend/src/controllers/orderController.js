@@ -98,11 +98,18 @@ exports.previewOrder = async (req, res) => {
   }
 };
 
+// Sanitize string: strip HTML tags and trim
+const sanitizeText = (val) => (typeof val === 'string' ? val.replace(/<[^>]*>/g, '').trim().slice(0, 500) : null);
+
 // POST /api/orders — Create new order (User)
 exports.createOrder = async (req, res) => {
   try {
-    const { programId, classSessionId, requiresInvoice, taxCode, companyName, companyAddress, invoiceEmail,
-            appliedDiscounts, promoCode, pointsToUse } = req.body;
+    const { programId, classSessionId, requiresInvoice, appliedDiscounts, promoCode, pointsToUse } = req.body;
+    // Sanitize free-text invoice fields to prevent XSS/injection
+    const taxCode       = sanitizeText(req.body.taxCode);
+    const companyName   = sanitizeText(req.body.companyName);
+    const companyAddress = sanitizeText(req.body.companyAddress);
+    const invoiceEmail  = sanitizeText(req.body.invoiceEmail);
     const userId = req.user.id;
 
     if (!programId) {
@@ -160,6 +167,11 @@ exports.createOrder = async (req, res) => {
 
     // Re-check isFree based on final amount (could be 0 after discounts/points)
     const isFreeOrder = isFree || amount === 0;
+
+    // Reject negative amounts — should never happen, but guard against discount bugs
+    if (amount < 0) {
+      return res.status(400).json({ error: 'Số tiền thanh toán không hợp lệ.' });
+    }
 
     // Enter transaction for locking and creation
     const result = await prisma.$transaction(async (tx) => {
@@ -312,7 +324,7 @@ exports.createOrder = async (req, res) => {
     if (['Mã giảm giá', 'Không đủ điểm', 'Bạn đã sở hữu'].some(k => msg.includes(k))) {
       return res.status(400).json({ error: msg });
     }
-    res.status(500).json({ error: msg || 'Failed to create order.' });
+    res.status(500).json({ error: 'Lỗi hệ thống khi tạo đơn hàng. Vui lòng thử lại sau.' });
   }
 };
 
@@ -320,14 +332,23 @@ exports.createOrder = async (req, res) => {
 exports.getMyOrders = async (req, res) => {
   try {
     const userId = req.user.id;
-    const orders = await prisma.order.findMany({
-      where: { userId },
-      orderBy: { createdAt: 'desc' },
-      include: {
-        program: { select: { id: true, title: true, slug: true, thumbnail: true, price: true } }
-      }
-    });
-    res.json(orders);
+    const page  = Math.max(1, parseInt(req.query.page)  || 1);
+    const limit = Math.min(50, Math.max(1, parseInt(req.query.limit) || 20));
+    const skip  = (page - 1) * limit;
+
+    const [orders, total] = await Promise.all([
+      prisma.order.findMany({
+        where: { userId },
+        orderBy: { createdAt: 'desc' },
+        skip,
+        take: limit,
+        include: {
+          program: { select: { id: true, title: true, slug: true, thumbnail: true, price: true } }
+        }
+      }),
+      prisma.order.count({ where: { userId } })
+    ]);
+    res.json({ data: orders, total, page, limit, totalPages: Math.ceil(total / limit) });
   } catch (error) {
     console.error('getMyOrders error:', error);
     res.status(500).json({ error: 'Failed to fetch your orders.' });
@@ -384,6 +405,11 @@ exports.submitProof = async (req, res) => {
     // Allow re-upload if PENDING or REJECTED
     if (!['PENDING', 'REJECTED'].includes(order.status)) {
       return res.status(400).json({ error: `Cannot submit proof for an order with status: ${order.status}` });
+    }
+
+    // PayOS orders are confirmed automatically via webhook — manual proof is not applicable
+    if (order.paymentMethod === 'PAYOS') {
+      return res.status(400).json({ error: 'Đơn hàng PayOS được xác nhận tự động. Không cần tải lên minh chứng thủ công.' });
     }
 
     const updated = await prisma.order.update({
@@ -448,17 +474,49 @@ exports.cancelOrder = async (req, res) => {
   }
 };
 
-// GET /api/orders — List all orders (Admin)
+// GET /api/orders/stats — Status counts for admin tab badges (Admin)
+exports.getOrderStats = async (req, res) => {
+  try {
+    const groups = await prisma.order.groupBy({
+      by: ['status'],
+      _count: { status: true },
+    });
+    const counts = { ALL: 0, PENDING: 0, AWAITING_CONFIRM: 0, CONFIRMED: 0, REJECTED: 0, CANCELLED: 0 };
+    groups.forEach(g => {
+      counts[g.status] = g._count.status;
+      counts.ALL += g._count.status;
+    });
+    res.json(counts);
+  } catch (error) {
+    console.error('getOrderStats error:', error);
+    res.status(500).json({ error: 'Failed to fetch order stats.' });
+  }
+};
+
+// GET /api/orders — List all orders (Admin), server-side paginated
 exports.getAllOrders = async (req, res) => {
   try {
-    const orders = await prisma.order.findMany({
-      orderBy: { createdAt: 'desc' },
-      include: {
-        program: { select: { id: true, title: true, slug: true, price: true } },
-        user: { select: { id: true, fullName: true, email: true } }
-      }
-    });
-    res.json(orders);
+    const page   = Math.max(1, parseInt(req.query.page) || 1);
+    const limit  = Math.min(100, Math.max(1, parseInt(req.query.limit) || 10));
+    const skip   = (page - 1) * limit;
+    const status = req.query.status || undefined;
+
+    const where = status ? { status } : {};
+
+    const [orders, total] = await Promise.all([
+      prisma.order.findMany({
+        where,
+        orderBy: { createdAt: 'desc' },
+        skip,
+        take: limit,
+        include: {
+          program: { select: { id: true, title: true, slug: true, price: true } },
+          user:    { select: { id: true, fullName: true, email: true } }
+        }
+      }),
+      prisma.order.count({ where })
+    ]);
+    res.json({ data: orders, total, page, limit, totalPages: Math.ceil(total / limit) });
   } catch (error) {
     console.error('getAllOrders error:', error);
     res.status(500).json({ error: 'Failed to fetch orders.' });
@@ -477,6 +535,12 @@ exports.confirmOrder = async (req, res) => {
     }
     if (order.status === 'CONFIRMED') {
       return res.status(400).json({ error: 'Đơn hàng đã được duyệt trước đó.' });
+    }
+
+    // Security: PayOS orders should be confirmed via webhook only.
+    // Log a warning if admin is manually confirming — could indicate webhook failure.
+    if (order.paymentMethod === 'PAYOS' && !order.paidViaWebhook) {
+      console.warn(`[SECURITY] Admin manually confirming PayOS order ${order.orderCode} (id: ${orderId}) — webhook may not have fired. Admin: ${req.user?.email}`);
     }
 
     const updated = await orderService.completeOrder(orderId, {

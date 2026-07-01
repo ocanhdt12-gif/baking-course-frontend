@@ -142,6 +142,8 @@ model Enrollment {
   classSession   ClassSession?    @relation(fields: [classSessionId], references: [id])
   program        Program          @relation(fields: [programId], references: [id])
   user           User?            @relation(fields: [userId], references: [id])
+
+  @@unique([userId, programId])
 }
 
 model Contact {

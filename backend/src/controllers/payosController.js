@@ -45,6 +45,12 @@ exports.createPaymentUrl = async (req, res) => {
       });
     }
 
+    // If a PayOS link was already created for this order, reuse it.
+    // PayOS rejects duplicate orderCode — each orderCode can only be used once per session.
+    if (order.paymentUrl && order.paymentMethod === 'PAYOS') {
+      return res.json({ paymentUrl: order.paymentUrl });
+    }
+
     const frontendUrl = (process.env.FRONTEND_URL || 'http://localhost:5173').trim();
 
     // Create payment link using PayOS
@@ -65,7 +71,7 @@ exports.createPaymentUrl = async (req, res) => {
     res.json({ paymentUrl: checkoutUrl });
   } catch (error) {
     console.error('PayOS createPaymentUrl error:', error);
-    res.status(500).json({ error: error.message || 'Failed to create payment URL.' });
+    res.status(500).json({ error: 'Không thể tạo link thanh toán. Vui lòng thử lại sau.' });
   }
 };
 
@@ -111,10 +117,11 @@ exports.handleWebhook = async (req, res) => {
       return res.status(200).json({ message: 'Order not found, ignored' });
     }
 
-    // 4. Verify amount
+    // 4. Verify amount — must match DB to prevent tampering
     if (amount !== order.amount) {
-      console.warn(`PayOS Webhook: Amount mismatch for ${dbOrderCode}. Expected ${order.amount}, got ${amount}`);
-      return res.status(400).json({ error: 'Invalid Amount' });
+      console.error(`[SECURITY] PayOS Webhook amount mismatch for ${dbOrderCode}. Expected ${order.amount}, got ${amount}. Possible tampering.`);
+      // Return 200 so PayOS stops retrying — this is intentional fraud rejection, not a server error
+      return res.status(200).json({ success: true });
     }
 
     // 5. Check idempotency and terminal states
@@ -123,8 +130,8 @@ exports.handleWebhook = async (req, res) => {
     }
 
     if (order.status === 'CANCELLED' || order.status === 'REJECTED') {
-      console.warn(`PayOS Webhook: Order ${dbOrderCode} is in terminal state ${order.status}. Cannot process payment.`);
-      return res.status(400).json({ error: 'Order is in invalid state' });
+      console.warn(`PayOS Webhook: Order ${dbOrderCode} is in terminal state ${order.status}. Ignoring.`);
+      return res.status(200).json({ success: true });
     }
 
     // 6. Process based on status code
@@ -159,7 +166,66 @@ exports.handleWebhook = async (req, res) => {
   } catch (error) {
     console.error('PayOS Webhook error:', error.message);
     // Always return 200 — PayOS must get 200 or it rejects the webhook URL.
-    // Errors here are either test data (orderCode:123) or unexpected issues — safe to ack.
     res.status(200).json({ success: true });
+  }
+};
+
+/**
+ * POST /api/payos/cancel
+ * Called by frontend when user lands on the cancel redirect URL.
+ * Transitions PENDING order to CANCELLED and refunds points/promo.
+ */
+exports.handleCancelRedirect = async (req, res) => {
+  try {
+    const { orderId } = req.body;
+
+    if (!orderId) {
+      return res.status(400).json({ error: 'Order ID is required.' });
+    }
+
+    const order = await prisma.order.findUnique({ where: { id: orderId } });
+
+    if (!order) {
+      return res.status(404).json({ error: 'Order not found.' });
+    }
+
+    // Only the order owner can cancel
+    if (order.userId !== req.user.id) {
+      return res.status(403).json({ error: 'Access denied.' });
+    }
+
+    // Only cancel PENDING orders — do NOT touch CONFIRMED
+    if (order.status !== 'PENDING') {
+      return res.status(200).json({ message: 'No action needed.', status: order.status });
+    }
+
+    await prisma.$transaction(async (tx) => {
+      await tx.order.update({
+        where: { id: order.id },
+        data: { status: 'CANCELLED' }
+      });
+
+      // Refund points
+      if (order.pointsUsed > 0) {
+        await tx.user.update({
+          where: { id: order.userId },
+          data: { points: { increment: order.pointsUsed } }
+        });
+      }
+
+      // Refund promo usage
+      if (order.promoCodeId) {
+        await tx.promoCode.update({
+          where: { id: order.promoCodeId },
+          data: { usedCount: { decrement: 1 } }
+        });
+      }
+    });
+
+    console.log(`PayOS Cancel: Order ${order.orderCode} → CANCELLED by user ${req.user.id}`);
+    res.json({ success: true, message: 'Đơn hàng đã được hủy.' });
+  } catch (error) {
+    console.error('PayOS handleCancelRedirect error:', error);
+    res.status(500).json({ error: 'Không thể hủy đơn hàng.' });
   }
 };
