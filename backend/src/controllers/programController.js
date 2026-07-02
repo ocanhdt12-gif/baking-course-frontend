@@ -165,7 +165,7 @@ exports.getProgramByIdOrSlug = async (req, res) => {
     
     if (token) {
       try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret_123');
+        const decoded = jwt.verify(token, process.env.JWT_SECRET, { algorithms: ['HS256'] });
         const userId = decoded.user?.id;
         const userRole = decoded.user?.role;
         

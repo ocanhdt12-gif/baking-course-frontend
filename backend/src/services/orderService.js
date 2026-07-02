@@ -43,13 +43,22 @@ async function completeOrder(orderId, completionData = {}, tx = null) {
       return order;
     }
 
-    // A. Update Order Status
+    // A. Update Order Status — allowlist fields to prevent injection via completionData
+    const ALLOWED_COMPLETION_FIELDS = [
+      'paidAt', 'paidViaWebhook', 'paymentProvider', 'gatewayTransactionNo',
+      'gatewayResponseCode', 'gatewayTransactionStatus', 'rawGatewayPayload', 'adminNote',
+    ];
+    const safeData = {};
+    for (const key of ALLOWED_COMPLETION_FIELDS) {
+      if (key in completionData) safeData[key] = completionData[key];
+    }
+
     const updatedOrder = await innerTx.order.update({
       where: { id: orderId },
       data: {
         status: 'CONFIRMED',
         confirmedAt: new Date(),
-        ...completionData
+        ...safeData
       }
     });
 

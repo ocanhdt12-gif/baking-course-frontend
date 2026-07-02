@@ -4,6 +4,7 @@ const multer = require('multer');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const { cloudinary } = require('../utils/cloudinaryUtils');
 const auth = require('../middleware/authMiddleware');
+const { requireRole } = require('../middleware/authMiddleware');
 
 // Setup Cloudinary Storage
 const storage = new CloudinaryStorage({
@@ -19,7 +20,7 @@ const upload = multer({
   limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
 });
 
-router.post('/', auth, upload.single('image'), (req, res) => {
+router.post('/', auth, requireRole('ADMIN'), upload.single('image'), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: 'Please upload a file' });
   }

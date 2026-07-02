@@ -411,11 +411,15 @@ exports.submitProof = async (req, res) => {
     if (order.paymentMethod === 'PAYOS') {
       return res.status(400).json({ error: 'Đơn hàng PayOS được xác nhận tự động. Không cần tải lên minh chứng thủ công.' });
     }
+    // Validate proofImage URL — must be a safe URL pattern (https:// or /uploads/)
+    const safeProofImage = typeof proofImage === 'string' && (
+      proofImage.startsWith('https://') || proofImage.startsWith('/uploads/')
+    ) ? proofImage : null;
 
     const updated = await prisma.order.update({
       where: { id: orderId },
       data: {
-        proofImage: proofImage || order.proofImage,
+        proofImage: safeProofImage || order.proofImage,
         transactionRef: proofTxnId || order.transactionRef,
         status: 'AWAITING_CONFIRM',
         adminNote: null // Clear previous rejection note on re-upload
@@ -507,7 +511,8 @@ exports.getAllOrders = async (req, res) => {
     const page   = Math.max(1, parseInt(req.query.page) || 1);
     const limit  = Math.min(100, Math.max(1, parseInt(req.query.limit) || 10));
     const skip   = (page - 1) * limit;
-    const status = req.query.status || undefined;
+    const VALID_STATUSES = ['PENDING', 'AWAITING_CONFIRM', 'CONFIRMED', 'REJECTED', 'CANCELLED'];
+    const status = VALID_STATUSES.includes(req.query.status) ? req.query.status : undefined;
 
     const where = status ? { status } : {};
 

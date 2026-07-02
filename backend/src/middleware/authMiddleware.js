@@ -7,8 +7,6 @@ const auth = function (req, res, next) {
 
   if (authHeader && authHeader.startsWith('Bearer ')) {
     token = authHeader.split(' ')[1];
-  } else {
-    token = req.header('x-auth-token');
   }
 
   if (!token) {
@@ -16,7 +14,7 @@ const auth = function (req, res, next) {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET, { algorithms: ['HS256'] });
     req.user = decoded.user;
     next();
   } catch (err) {
@@ -49,8 +47,6 @@ const optionalAuth = function (req, res, next) {
 
   if (authHeader && authHeader.startsWith('Bearer ')) {
     token = authHeader.split(' ')[1];
-  } else {
-    token = req.header('x-auth-token');
   }
 
   if (!token) {
@@ -58,7 +54,7 @@ const optionalAuth = function (req, res, next) {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET, { algorithms: ['HS256'] });
     req.user = decoded.user;
   } catch (err) {
     // Silent fail if invalid or expired token is passed to a public route

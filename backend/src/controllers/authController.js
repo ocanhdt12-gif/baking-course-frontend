@@ -19,11 +19,11 @@ const generateTokens = async (user) => {
     },
   };
 
-  const accessToken = jwt.sign(payload, process.env.JWT_SECRET || 'fallback_secret_123', {
+  const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
     expiresIn: ACCESS_TOKEN_EXPIRY,
   });
 
-  const refreshTokenValue = jwt.sign({ userId: user.id }, process.env.JWT_REFRESH_SECRET || 'refresh_fallback_secret_456', {
+  const refreshTokenValue = jwt.sign({ userId: user.id }, process.env.JWT_REFRESH_SECRET, {
     expiresIn: `${REFRESH_TOKEN_EXPIRY_DAYS}d`,
   });
 
@@ -149,7 +149,7 @@ exports.refreshToken = async (req, res) => {
 
     // Verify JWT
     try {
-      jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET || 'refresh_fallback_secret_456');
+      jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
     } catch (err) {
       await prisma.refreshToken.delete({ where: { id: storedToken.id } });
       return res.status(401).json({ error: 'Invalid refresh token signature.' });
@@ -165,7 +165,7 @@ exports.refreshToken = async (req, res) => {
       },
     };
 
-    const accessToken = jwt.sign(payload, process.env.JWT_SECRET || 'fallback_secret_123', {
+    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: ACCESS_TOKEN_EXPIRY,
     });
 
@@ -324,7 +324,7 @@ exports.forgotPassword = async (req, res) => {
 
     resetCodes.set(email, { code, expires });
 
-    console.log(`[PASSWORD RESET] Email: ${email} | Code: ${code}`);
+    if (process.env.NODE_ENV !== 'production') console.log(`[PASSWORD RESET] Email: ${email} | Code: ${code}`);
 
     // Send email via emailService
     await emailService.sendEmail({
@@ -347,14 +347,7 @@ exports.forgotPassword = async (req, res) => {
       `
     });
 
-    // Determine if SMTP is configured
-    const smtpConfigured = process.env.SMTP_USER && process.env.SMTP_PASS;
-
-    res.json({ 
-      success: true, 
-      message: 'Mã OTP khôi phục mật khẩu đã được gửi đến email của bạn.',
-      ...(!smtpConfigured ? { code } : {})
-    });
+    res.json({ success: true, message: 'Mã OTP khôi phục mật khẩu đã được gửi đến email của bạn.' });
   } catch (err) {
     console.error('ForgotPassword error:', err);
     res.status(500).json({ error: 'Lỗi hệ thống khi yêu cầu khôi phục mật khẩu.' });

@@ -9,6 +9,10 @@ if (!process.env.JWT_SECRET) {
   console.error('FATAL: JWT_SECRET environment variable is not set. Server will not start.');
   process.exit(1);
 }
+if (!process.env.JWT_REFRESH_SECRET) {
+  console.error('FATAL: JWT_REFRESH_SECRET environment variable is not set. Server will not start.');
+  process.exit(1);
+}
 
 const app = express();
 
@@ -29,6 +33,12 @@ const paymentLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 30, // 30 requests per window
   message: { error: 'Quá nhiều yêu cầu thanh toán. Vui lòng thử lại sau.' },
+});
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 15, // 15 requests per window (login, register, forgot-password)
+  message: { error: 'Quá nhiều yêu cầu xác thực. Vui lòng thử lại sau.' },
 });
 
 app.use(express.json({ limit: '1mb' }));
@@ -72,7 +82,7 @@ app.use('/api/chiefs', chiefRoutes);
 app.use('/api/testimonials', testimonialRoutes);
 app.use('/api/timetables', timetableRoutes);
 app.use('/api/categories', categoryRoutes);
-app.use('/api/auth', authRoutes);
+app.use('/api/auth', authLimiter, authRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/contacts', contactRoutes);
 app.use('/api/enrollments', enrollmentRoutes);
