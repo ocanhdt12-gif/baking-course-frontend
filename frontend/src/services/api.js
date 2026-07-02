@@ -9,7 +9,7 @@ api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
     if (token) {
-      config.headers['x-auth-token'] = token;
+      config.headers['Authorization'] = `Bearer ${token}`;
     }
     return config;
   },
@@ -64,7 +64,7 @@ api.interceptors.response.use(
             
             // Retry original request
             originalRequest._retry = true;
-            originalRequest.headers['x-auth-token'] = newAccessToken;
+            originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
             return api(originalRequest);
           } catch (refreshError) {
             isRefreshing = false;
@@ -82,7 +82,7 @@ api.interceptors.response.use(
         const retryOriginalRequest = new Promise((resolve) => {
           subscribeTokenRefresh((token) => {
             originalRequest._retry = true;
-            originalRequest.headers['x-auth-token'] = token;
+            originalRequest.headers['Authorization'] = `Bearer ${token}`;
             resolve(api(originalRequest));
           });
         });

@@ -39,6 +39,7 @@ const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 15, // 15 requests per window (login, register, forgot-password)
   message: { error: 'Quá nhiều yêu cầu xác thực. Vui lòng thử lại sau.' },
+  skip: () => process.env.NODE_ENV !== 'production', // skip in dev/test
 });
 
 app.use(express.json({ limit: '1mb' }));
