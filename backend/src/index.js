@@ -36,9 +36,9 @@ const paymentLimiter = rateLimit({
 });
 
 const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 15, // 15 requests per window (login, register, forgot-password)
-  message: { error: 'Quá nhiều yêu cầu xác thực. Vui lòng thử lại sau.' },
+  windowMs: 5 * 60 * 1000, // 5 minutes
+  max: 30, // 30 requests per window
+  message: { error: 'Quá nhiều yêu cầu xác thực. Vui lòng thử lại sau 5 phút.' },
   skip: () => process.env.NODE_ENV !== 'production', // skip in dev/test
 });
 
