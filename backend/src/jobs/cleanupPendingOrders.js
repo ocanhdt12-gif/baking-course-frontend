@@ -56,8 +56,8 @@ async function cleanupExpiredPendingOrders() {
         }
 
         if (order.promoCodeId) {
-          await tx.promoCode.update({
-            where: { id: order.promoCodeId },
+          await tx.promoCode.updateMany({
+            where: { id: order.promoCodeId, usedCount: { gt: 0 } },
             data: { usedCount: { decrement: 1 } },
           });
         }

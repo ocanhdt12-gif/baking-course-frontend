@@ -445,10 +445,18 @@ exports.cancelOrder = async (req, res) => {
     }
 
     const updated = await prisma.$transaction(async (tx) => {
-      const updatedOrder = await tx.order.update({
-        where: { id: orderId },
+      // Optimistic lock: only cancel if still cancellable (prevents race with webhook)
+      const locked = await tx.order.updateMany({
+        where: { id: orderId, status: { in: ['PENDING', 'AWAITING_CONFIRM'] } },
         data: { status: 'CANCELLED' }
       });
+
+      if (locked.count === 0) {
+        throw Object.assign(new Error('Đơn hàng đã được xử lý bởi hệ thống.'), { status: 409 });
+      }
+
+      // Re-fetch for response
+      const updatedOrder = await tx.order.findUnique({ where: { id: orderId } });
       
       if (order.pointsUsed > 0) {
         await tx.user.update({
@@ -458,8 +466,8 @@ exports.cancelOrder = async (req, res) => {
       }
       
       if (order.promoCodeId) {
-        await tx.promoCode.update({
-          where: { id: order.promoCodeId },
+        await tx.promoCode.updateMany({
+          where: { id: order.promoCodeId, usedCount: { gt: 0 } },
           data: { usedCount: { decrement: 1 } }
         });
       }
@@ -587,8 +595,8 @@ exports.rejectOrder = async (req, res) => {
       }
       
       if (order.promoCodeId) {
-        await tx.promoCode.update({
-          where: { id: order.promoCodeId },
+        await tx.promoCode.updateMany({
+          where: { id: order.promoCodeId, usedCount: { gt: 0 } },
           data: { usedCount: { decrement: 1 } }
         });
       }

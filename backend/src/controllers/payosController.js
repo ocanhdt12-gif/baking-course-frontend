@@ -136,6 +136,18 @@ exports.handleWebhook = async (req, res) => {
 
     // 6. Process based on status code
     if (code === '00') {
+      // Optimistic lock: only proceed if order is still PENDING (prevents race with cancel)
+      const locked = await prisma.order.updateMany({
+        where: { id: order.id, status: 'PENDING' },
+        data: { status: 'PENDING' }, // no-op update, just to confirm we "own" it
+      });
+
+      if (locked.count === 0) {
+        // Another process (cancel/cleanup) already changed status — skip
+        console.warn(`PayOS Webhook: Order ${dbOrderCode} status changed before we could confirm (race avoided).`);
+        return res.status(200).json({ success: true });
+      }
+
       // Payment successful — confirm order
       await orderService.completeOrder(order.id, {
         paidAt: new Date(),
@@ -165,8 +177,9 @@ exports.handleWebhook = async (req, res) => {
     res.status(200).json({ success: true });
   } catch (error) {
     console.error('PayOS Webhook error:', error.message);
-    // Always return 200 — PayOS must get 200 or it rejects the webhook URL.
-    res.status(200).json({ success: true });
+    // Return 500 so PayOS retries — DB may have been temporarily down
+    // If we return 200 here, PayOS won't retry and payment is lost
+    res.status(500).json({ error: 'Internal error, please retry.' });
   }
 };
 
@@ -200,10 +213,17 @@ exports.handleCancelRedirect = async (req, res) => {
     }
 
     await prisma.$transaction(async (tx) => {
-      await tx.order.update({
-        where: { id: order.id },
+      // Optimistic lock: only cancel if still PENDING (prevents race with webhook confirm)
+      const locked = await tx.order.updateMany({
+        where: { id: order.id, status: 'PENDING' },
         data: { status: 'CANCELLED' }
       });
+
+      if (locked.count === 0) {
+        // Webhook confirmed the order between our read and write — don't cancel
+        console.warn(`PayOS Cancel: Race detected for ${order.orderCode} — order was confirmed by webhook.`);
+        return;
+      }
 
       // Refund points
       if (order.pointsUsed > 0) {
@@ -213,10 +233,10 @@ exports.handleCancelRedirect = async (req, res) => {
         });
       }
 
-      // Refund promo usage
+      // Refund promo usage (with floor guard to prevent negative usedCount)
       if (order.promoCodeId) {
-        await tx.promoCode.update({
-          where: { id: order.promoCodeId },
+        await tx.promoCode.updateMany({
+          where: { id: order.promoCodeId, usedCount: { gt: 0 } },
           data: { usedCount: { decrement: 1 } }
         });
       }
