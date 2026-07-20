@@ -11,38 +11,48 @@ const LessonCollapse = ({
   mode = 'client' 
 }) => {
   const bodyRef = useRef(null);
-  const [height, setHeight] = useState(0);
   const [shouldRender, setShouldRender] = useState(isOpen);
-  const [isFullyOpen, setIsFullyOpen] = useState(isOpen);
+  // closingHeight: chỉ dùng khi đang đóng để animate từ px → 0
+  const [closingHeight, setClosingHeight] = useState(null);
 
   useEffect(() => {
     if (isOpen) {
       setShouldRender(true);
+      setClosingHeight(null); // reset, mở thì không cần giới hạn max-height
+    } else {
+      // Bắt đầu đóng: đo chiều cao thực tế rồi animate về 0
+      if (bodyRef.current) {
+        const h = bodyRef.current.scrollHeight;
+        setClosingHeight(h);
+        // Frame tiếp theo mới set về 0 để CSS transition kịp kích hoạt
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => setClosingHeight(0));
+        });
+      }
+      const timer = setTimeout(() => {
+        setShouldRender(false);
+        setClosingHeight(null);
+      }, 300);
+      return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
-  useEffect(() => {
-    if (shouldRender && bodyRef.current) {
-      setHeight(bodyRef.current.scrollHeight);
-    }
-    if (!isOpen) {
-      // Capture current height before collapsing so animation works
-      if (bodyRef.current) {
-        setHeight(bodyRef.current.scrollHeight);
-      }
-      setIsFullyOpen(false);
-      // Next frame: set to 0 to trigger the CSS transition
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => setHeight(0));
-      });
-      const timer = setTimeout(() => setShouldRender(false), 250);
-      return () => clearTimeout(timer);
-    } else if (shouldRender) {
-      // After opening, switch to max-height: none so iframe/video can expand freely
-      const timer = setTimeout(() => setIsFullyOpen(true), 260);
-      return () => clearTimeout(timer);
-    }
-  }, [isOpen, shouldRender]);
+  // Khi mở: max-height rất lớn → nội dung hiện hết, kể cả video 16:9
+  // Khi đóng: animate từ closingHeight → 0
+  const isClosing = !isOpen && closingHeight !== null;
+  const maxHeight = isClosing
+    ? `${closingHeight}px`
+    : isOpen
+    ? '9999px'
+    : '0px';
+
+  // Transition chỉ cần khi đóng (từ px → 0) vì khi mở 9999px không visible
+  // Dùng ease-in-out với duration phù hợp
+  const transition = isClosing
+    ? 'max-height 0.3s ease-in-out, opacity 0.25s ease'
+    : isOpen
+    ? 'opacity 0.25s ease'
+    : 'max-height 0.3s ease-in-out, opacity 0.25s ease';
 
   return (
     <div 
@@ -50,8 +60,8 @@ const LessonCollapse = ({
       style={{ 
         background: mode === 'client' ? '#fff' : '#fafafa', 
         border: mode === 'client' ? '1px solid #f0f0f0' : '1px solid #eee', 
-        overflow: isFullyOpen ? 'visible' : 'hidden', 
-        borderRadius: '12px' 
+        borderRadius: '12px',
+        overflow: 'hidden',
       }}
     >
       {/* Collapse Header */}
@@ -72,7 +82,6 @@ const LessonCollapse = ({
             style={{ 
               width: '14px', fontSize: '12px', color: '#999',
               transition: 'transform 0.25s ease',
-              transform: isOpen ? 'rotate(0deg)' : 'rotate(0deg)'
             }}
           ></i>
           {isFree ? (
@@ -93,14 +102,14 @@ const LessonCollapse = ({
         )}
       </div>
 
-      {/* Collapse Body with Animation */}
+      {/* Collapse Body */}
       {shouldRender && (
         <div 
           style={{ 
-            maxHeight: isFullyOpen ? 'none' : (isOpen ? `${height}px` : '0px'),
-            transition: isFullyOpen ? 'none' : 'max-height 0.25s ease-out, opacity 0.2s ease',
+            maxHeight,
+            transition,
             opacity: isOpen ? 1 : 0,
-            overflow: 'hidden'
+            overflow: 'hidden',
           }}
         >
           <div ref={bodyRef} className="p-4" style={{ background: mode === 'client' ? '#fcfcfc' : 'transparent' }}>
