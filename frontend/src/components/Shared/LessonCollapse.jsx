@@ -13,6 +13,7 @@ const LessonCollapse = ({
   const bodyRef = useRef(null);
   const [height, setHeight] = useState(0);
   const [shouldRender, setShouldRender] = useState(isOpen);
+  const [isFullyOpen, setIsFullyOpen] = useState(isOpen);
 
   useEffect(() => {
     if (isOpen) {
@@ -25,9 +26,20 @@ const LessonCollapse = ({
       setHeight(bodyRef.current.scrollHeight);
     }
     if (!isOpen) {
-      // Start collapse, then unmount after animation
-      setHeight(0);
+      // Capture current height before collapsing so animation works
+      if (bodyRef.current) {
+        setHeight(bodyRef.current.scrollHeight);
+      }
+      setIsFullyOpen(false);
+      // Next frame: set to 0 to trigger the CSS transition
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => setHeight(0));
+      });
       const timer = setTimeout(() => setShouldRender(false), 250);
+      return () => clearTimeout(timer);
+    } else if (shouldRender) {
+      // After opening, switch to max-height: none so iframe/video can expand freely
+      const timer = setTimeout(() => setIsFullyOpen(true), 260);
       return () => clearTimeout(timer);
     }
   }, [isOpen, shouldRender]);
@@ -38,7 +50,7 @@ const LessonCollapse = ({
       style={{ 
         background: mode === 'client' ? '#fff' : '#fafafa', 
         border: mode === 'client' ? '1px solid #f0f0f0' : '1px solid #eee', 
-        overflow: 'hidden', 
+        overflow: isFullyOpen ? 'visible' : 'hidden', 
         borderRadius: '12px' 
       }}
     >
@@ -85,8 +97,8 @@ const LessonCollapse = ({
       {shouldRender && (
         <div 
           style={{ 
-            maxHeight: isOpen ? `${height}px` : '0px',
-            transition: 'max-height 0.25s ease-out, opacity 0.2s ease',
+            maxHeight: isFullyOpen ? 'none' : (isOpen ? `${height}px` : '0px'),
+            transition: isFullyOpen ? 'none' : 'max-height 0.25s ease-out, opacity 0.2s ease',
             opacity: isOpen ? 1 : 0,
             overflow: 'hidden'
           }}

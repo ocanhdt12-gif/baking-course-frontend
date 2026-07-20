@@ -140,7 +140,7 @@ const Checkout = ({ user }) => {
         if (prog.orderStatus === 'PENDING' || prog.orderStatus === 'AWAITING_CONFIRM' || prog.orderStatus === 'REJECTED') {
           try {
             const userOrders = await getMyOrders();
-            const existingOrder = userOrders.find(o => o.programId === prog.id && ['PENDING', 'AWAITING_CONFIRM', 'REJECTED'].includes(o.status));
+            const existingOrder = userOrders.data?.find(o => o.programId === prog.id && ['PENDING', 'AWAITING_CONFIRM', 'REJECTED'].includes(o.status));
             
             if (existingOrder) {
               setOrder(existingOrder);
