@@ -44,7 +44,7 @@ const LessonCollapse = ({
     >
       {/* Header */}
       <div
-        className={`d-flex justify-content-between align-items-center p-${mode === 'client' ? '4' : '3'}`}
+        className={`d-flex justify-content-between align-items-center ${mode === 'client' ? 'p-2 p-md-4' : 'p-3'}`}
         style={{
           background: mode === 'client' ? '#fff' : (isOpen ? '#f0f0f0' : '#fff'),
           cursor: 'pointer',
